@@ -9,12 +9,4 @@ Version:        5.0.8.1
 */
 
 
-
-/*
-Sample : remove the comment and start adding your own custom CSS rules.
-
-body {
-	background-color:#fff;
-}
-
-*/
+.page-title { font-size:38px; color:#cc0000; }
