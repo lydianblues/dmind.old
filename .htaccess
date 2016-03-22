@@ -1,4 +1,10 @@
+AuthType Basic  
+AuthName "restricted area"  
+AuthUserFile /opt/wordpress/dmind/.htpasswd  
+require valid-user
+
 php_value max_execution_time 300
+
 # BEGIN WordPress
 <IfModule mod_rewrite.c>
 RewriteEngine On
