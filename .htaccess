@@ -1,7 +1,7 @@
-# AuthType Basic  
-# AuthName "restricted area"  
-# AuthUserFile /opt/wordpress/dmind/.htpasswd  
-# require valid-user
+AuthType Basic  
+AuthName "restricted area"  
+AuthUserFile /opt/wordpress/dmind/.htpasswd  
+require valid-user
 
 php_value max_execution_time 300
 
