@@ -10,11 +10,13 @@ Version:        5.0.10
 
 .page-title { font-size:38px; color:#cc0000; }
 
-.wpb_content_element {
-	background: #ddd;
+/* .wpb_content_element {
+	background: red;
 	padding: 1em;
 	border-radius: 5px;
 }
+*/
+
 
 /* Small devices (tablets, 768px and up) */
 /* @media screen and (min-width: 768px) { */
