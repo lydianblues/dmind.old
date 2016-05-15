@@ -36,12 +36,15 @@ vc_map(array(
             "description" => __("How many pricing tables would you like your users to view?", "mk_framework")
         ),
         array(
-            "type" => "multiselect",
-            "heading" => __("Tables", "mk_framework"),
-            "param_name" => "tables",
-            "value" => '',
-            "options" => mk_get_post_enteries('pricing', 40),
-            "description" => __("", "mk_framework")
+            'type'        => 'autocomplete',
+            'heading'     => __( 'Select specific Tables', 'mk_framework' ),
+            'param_name'  => 'tables',
+            'settings' => array(
+                                'multiple' => true,
+                                'sortable' => true,
+                                'unique_values' => true,
+                            ),
+            'description' => __( 'Search for post ID or post title to get autocomplete suggestions', 'mk_framework' ),
         ),
         array(
             "heading" => __("Order", 'mk_framework'),

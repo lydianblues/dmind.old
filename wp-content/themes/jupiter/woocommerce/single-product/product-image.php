@@ -52,12 +52,13 @@ if( has_post_thumbnail() ) {
 					<?php
 					foreach ($attachment_ids as $attachment_id) {
 
-						$image_gallery_src  = wp_get_attachment_image_src($attachment_id, apply_filters( 'single_product_large_thumbnail_size', 'shop_single' ), false);
-						$image_gallery_link  = wp_get_attachment_image_src($attachment_id, 'full', false);
+						$featured_image_src = Mk_Image_Resize::resize_by_id_adaptive($attachment_id, apply_filters( 'single_product_large_thumbnail_size', 'shop_single' ), '', '', $crop = false, $dummy = true);
+
+						$image_gallery_link  = wp_get_attachment_image_src($attachment_id, 'full');
 						$image_title = esc_attr( get_the_title( $attachment_id ) );
 						?>
 							<div itemprop="image" data-fancybox-group="product-gallery" class="mk-woocommerce-main-image mk-slider-slide" title="<?php echo $image_title; ?>">
-								<img src="<?php echo mk_image_generator($image_gallery_src[0], false, false); ?>" alt="<?php echo $image_title; ?>" itemprop="image" />
+								<img src="<?php echo $featured_image_src['dummy']; ?>" <?php echo $featured_image_src['data-set']; ?> alt="<?php echo $image_title; ?>" itemprop="image" />
 								<a href="<?php echo $image_gallery_link[0]; ?>" data-fancybox-group="post-<?php echo $id; ?>" class="mk-lightbox swiper-zoom-icon"><i class="mk-moon-zoom-in"></i></a>
 							</div>
 						<?php 
@@ -104,14 +105,14 @@ if( has_post_thumbnail() ) {
 		 */
 		
 		$attachment_id = get_post_thumbnail_id();
-		$image_gallery_src  = wp_get_attachment_image_src($attachment_id, apply_filters( 'single_product_large_thumbnail_size', 'shop_single' ), false);
-		$image_gallery_link  = wp_get_attachment_image_src($attachment_id, 'full', false);
+		$image_gallery_src = Mk_Image_Resize::resize_by_id_adaptive($attachment_id, apply_filters( 'single_product_large_thumbnail_size', 'shop_single' ), '', '', $crop = false, $dummy = true);
+		$image_gallery_link  = wp_get_attachment_image_src($attachment_id, 'full');
 		$image_title = esc_attr( get_the_title( $attachment_id ) );
 		?>
 		<div class="mk-product-image images">
 			<div itemprop="image" data-fancybox-group="product-gallery" class="mk-woocommerce-main-image" title="<?php echo $image_title; ?>">
 				<a href="<?php echo $image_gallery_link[0]; ?>" class="mk-lightbox">
-					<img src="<?php echo mk_image_generator($image_gallery_src[0], false, false); ?>" alt="<?php echo $image_title; ?>" itemprop="image" />
+					<img src="<?php echo $image_gallery_src['dummy']; ?>" <?php echo $image_gallery_src['data-set']; ?> alt="<?php echo $image_title; ?>" itemprop="image" />
 				</a>
 			</div>
 		</div>

@@ -10,7 +10,7 @@ $mk_options = get_option(THEME_OPTIONS);
 
 /*-----------------------------------------------------------------------------------*/
 
-Mk_Register_custom_Post_Type('clients', $supports = array(
+Mk_Register_Custom_Post_Type('clients', $supports = array(
     'title',
     'thumbnail',
     'page-attributes',
@@ -52,7 +52,7 @@ add_action('manage_posts_custom_column', 'mk_manage_clients_columns', 10, 2);
 
 /*-----------------------------------------------------------------------------------*/
 
-Mk_Register_custom_Post_Type('animated-columns', $supports = array(
+Mk_Register_Custom_Post_Type('animated-columns', $supports = array(
     'title',
     'page-attributes',
     'revisions'
@@ -103,7 +103,7 @@ add_action('manage_posts_custom_column', 'mk_manage_animated_columns', 10, 2);
 
 /*-----------------------------------------------------------------------------------*/
 
-Mk_Register_custom_Post_Type('banner_builder', $supports = array(
+Mk_Register_Custom_Post_Type('banner_builder', $supports = array(
     'title',
     'editor',
     'thumbnail',
@@ -146,7 +146,7 @@ add_action('manage_posts_custom_column', 'mk_manage_banner_builder_columns', 10,
 
 /*-----------------------------------------------------------------------------------*/
 
-Mk_Register_custom_Post_Type('edge', $supports = array(
+Mk_Register_Custom_Post_Type('edge', $supports = array(
     'title',
     'page-attributes',
     'editor',
@@ -239,7 +239,7 @@ add_action('manage_posts_custom_column', 'mk_manage_edge_columns', 10, 2);
 
 /*-----------------------------------------------------------------------------------*/
 
-Mk_Register_custom_Post_Type('employees', $supports = array(
+Mk_Register_Custom_Post_Type('employees', $supports = array(
     'title',
     'editor',
     'thumbnail',
@@ -302,7 +302,7 @@ add_action('manage_posts_custom_column', 'mk_manage_employees_columns', 10, 2);
 
 /*-----------------------------------------------------------------------------------*/
 
-Mk_Register_custom_Post_Type('faq', $supports = array(
+Mk_Register_Custom_Post_Type('faq', $supports = array(
     'title',
     'editor',
     'page-attributes',
@@ -327,7 +327,7 @@ Mk_Register_custom_taxonomy('faq_category', 'faq');
 
 /*-----------------------------------------------------------------------------------*/
 $news_slug = isset($mk_options['news_slug']) ? $mk_options['news_slug'] : 'news-posts';
-Mk_Register_custom_Post_Type('news', $supports = array(
+Mk_Register_Custom_Post_Type('news', $supports = array(
     'title',
     'editor',
     'excerpt',
@@ -401,7 +401,7 @@ add_action('manage_posts_custom_column', 'mk_manage_news_columns', 10, 2);
 /*-----------------------------------------------------------------------------------*/
 
 $portfolio_slug = isset($mk_options['portfolio_slug']) ? $mk_options['portfolio_slug'] : 'portfolio-posts';
-Mk_Register_custom_Post_Type('portfolio', $supports = array(
+Mk_Register_Custom_Post_Type('portfolio', $supports = array(
     'title',
     'editor',
     'author',
@@ -479,7 +479,7 @@ add_action('manage_posts_custom_column', 'mk_manage_portfolio_columns', 10, 2);
 
 /*-----------------------------------------------------------------------------------*/
 
-Mk_Register_custom_Post_Type('pricing', $supports = array(
+Mk_Register_Custom_Post_Type('pricing', $supports = array(
     'title',
     'thumbnail',
     'page-attributes',
@@ -511,7 +511,7 @@ Mk_Register_custom_Post_Type('pricing', $supports = array(
 
 /*-----------------------------------------------------------------------------------*/
 
-Mk_Register_custom_Post_Type('slideshow', $supports = array(
+Mk_Register_Custom_Post_Type('slideshow', $supports = array(
     'title',
     'page-attributes',
     'thumbnail'
@@ -567,7 +567,7 @@ add_action('manage_posts_custom_column', 'mk_manage_slideshow_columns', 10, 2);
 
 /*-----------------------------------------------------------------------------------*/
 
-Mk_Register_custom_Post_Type('tab_slider', $supports = array(
+Mk_Register_Custom_Post_Type('tab_slider', $supports = array(
     'title',
     'thumbnail',
     'page-attributes',
@@ -584,7 +584,7 @@ Mk_Register_custom_Post_Type('tab_slider', $supports = array(
 
 /*-----------------------------------------------------------------------------------*/
 
-/*Mk_Register_custom_Post_Type('timeline', $supports = array(
+/*Mk_Register_Custom_Post_Type('timeline', $supports = array(
     'title',
     'thumbnail',
     'editor',
@@ -601,7 +601,7 @@ Mk_Register_custom_Post_Type('tab_slider', $supports = array(
 
 /*-----------------------------------------------------------------------------------*/
 
-Mk_Register_custom_Post_Type('testimonial', $supports = array(
+Mk_Register_Custom_Post_Type('testimonial', $supports = array(
     'title',
     'thumbnail',
     'page-attributes',
@@ -663,7 +663,7 @@ add_action('manage_posts_custom_column', 'mk_manage_testimonials_columns', 10, 2
 
 /*-----------------------------------------------------------------------------------*/
 
-Mk_Register_custom_Post_Type('photo_album', $supports = array(
+Mk_Register_Custom_Post_Type('photo_album', $supports = array(
     'title',
     'thumbnail',
     'page-attributes',

@@ -67,11 +67,11 @@ if ($view_params['comments_share'] != 'false') {
     
     if ($mk_options['single_blog_social'] == 'true'):
         $output.= '<ul class="newspaper-social-share">';
-        $output.= '<li><a class="facebook-share" data-title="' . get_the_title() . '" data-url="' . get_permalink() . '" href="#"><i class="mk-jupiter-icon-simple-facebook"></i></a></li>';
-        $output.= '<li><a class="twitter-share" data-title="' . get_the_title() . '" data-url="' . get_permalink() . '" href="#"><i class="mk-jupiter-icon-simple-twitter"></i></a></li>';
-        $output.= '<li><a class="googleplus-share" data-title="' . get_the_title() . '" data-url="' . get_permalink() . '" href="#"><i class="mk-jupiter-icon-simple-googleplus"></i></a></li>';
-        $output.= '<li><a class="pinterest-share" data-image="' . wp_get_attachment_image_src(get_post_thumbnail_id() , 'full', true) [0] . '" data-title="' . get_the_title() . '" data-url="' . get_permalink() . '" href="#"><i class="mk-jupiter-icon-simple-pinterest"></i></a></li>';
-        $output.= '<li><a class="linkedin-share" data-desc="' . strip_tags(get_the_excerpt()) . '" data-title="' . get_the_title() . '" data-url="' . get_permalink() . '" href="#"><i class="mk-jupiter-icon-simple-linkedin"></i></a></li>';
+        $output.= '<li><a class="facebook-share" data-title="' . the_title_attribute(array('echo' => false)) . '" data-url="' . get_permalink() . '" href="#"><i class="mk-jupiter-icon-simple-facebook"></i></a></li>';
+        $output.= '<li><a class="twitter-share" data-title="' . the_title_attribute(array('echo' => false)) . '" data-url="' . get_permalink() . '" href="#"><i class="mk-jupiter-icon-simple-twitter"></i></a></li>';
+        $output.= '<li><a class="googleplus-share" data-title="' . the_title_attribute(array('echo' => false)) . '" data-url="' . get_permalink() . '" href="#"><i class="mk-jupiter-icon-simple-googleplus"></i></a></li>';
+        $output.= '<li><a class="pinterest-share" data-image="' . wp_get_attachment_image_src(get_post_thumbnail_id() , 'full', true) [0] . '" data-title="' . the_title_attribute(array('echo' => false)) . '" data-url="' . get_permalink() . '" href="#"><i class="mk-jupiter-icon-simple-pinterest"></i></a></li>';
+        $output.= '<li><a class="linkedin-share" data-desc="' . esc_attr(get_the_excerpt()) . '" data-title="' . the_title_attribute(array('echo' => false)) . '" data-url="' . get_permalink() . '" href="#"><i class="mk-jupiter-icon-simple-linkedin"></i></a></li>';
         $output.= '</ul>';
     endif;
     $output.= '</div>';

@@ -1,5 +1,5 @@
 <?php 
-$image_src = wp_get_attachment_image_src(get_post_thumbnail_id(), 'blog-carousel', true)[0];
+$featured_image_src = Mk_Image_Resize::resize_by_id_adaptive( get_post_thumbnail_id(), 'blog-carousel', 245, 180, $crop = true, $dummy = true);
 ?>
 
-<img src="<?php echo mk_image_generator($image_src, 245, 180); ?>" width="245" height="180" alt="<?php the_title(); ?>" title="<?php the_title(); ?>" />
+<img src="<?php echo $featured_image_src['dummy']; ?>" <?php echo $featured_image_src['data-set']; ?> width="245" height="180" alt="<?php the_title_attribute(); ?>" title="<?php the_title_attribute(); ?>" />

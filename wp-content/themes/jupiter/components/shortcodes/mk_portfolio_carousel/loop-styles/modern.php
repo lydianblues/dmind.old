@@ -5,13 +5,11 @@ $hover_overlay = !empty($hover_overlay) ? (' style="background-color:' . $hover_
 
 ?>
 
-
-
 <li>
 	<div class="mk-portfolio-item <?php echo $view_params['hover_scenarios']; ?>-hover">
 
 		<?php if ($view_params['hover_scenarios'] == 'none') { ?>
-			<a class="full-cover-link" title="<?php the_title(); ?>" href="<?php echo get_permalink(); ?>">&nbsp</a>
+			<a class="full-cover-link" title="<?php the_title_attribute(); ?>" href="<?php echo get_permalink(); ?>">&nbsp</a>
 		<?php  } ?>
 
 
@@ -39,7 +37,7 @@ $hover_overlay = !empty($hover_overlay) ? (' style="background-color:' . $hover_
 			    		<i class="mk-jupiter-icon-arrow-circle"></i>
 			    	</a>
 
-			    	<a class="hover-icon mk-lightbox" href="<?php echo mk_get_portfolio_lightbox_url($view_params['post_type']); ?>" title="<?php the_title(); ?>" data-fancybox-group="carousel-<?php echo $view_params['id']; ?>" >
+			    	<a class="hover-icon mk-lightbox" href="<?php echo mk_get_portfolio_lightbox_url($view_params['post_type']); ?>" title="<?php the_title_attribute(); ?>" data-fancybox-group="carousel-<?php echo $view_params['id']; ?>" >
 			    		<i class="mk-jupiter-icon-plus-circle"></i>
 			    	</a>
 			    </div>

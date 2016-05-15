@@ -44,6 +44,9 @@
 .portfolio-carousel.style-classic .flex-direction-nav a .mk-jupiter-icon-arrow-right:before {
   color: #aaaaaa;
 }
+.portfolio-carousel.style-classic .flex-direction-nav .mk-svg-icon{
+  fill: #aaaaaa;
+}
 .portfolio-carousel.style-classic .flex-prev {
   right: 20px;
 }
@@ -185,6 +188,11 @@
 .portfolio-carousel.style-modern .flex-direction-nav a .mk-jupiter-icon-arrow-right:before {
   color: #ffffff;
   font-size: 16px;
+}
+.portfolio-carousel.style-modern .flex-direction-nav .mk-svg-icon{
+  fill: #ffffff;
+  height: 16px !important;
+  width: 16px !important;
 }
 .portfolio-carousel.style-modern .flex-direction-nav a.flex-prev {
   left: 0px;

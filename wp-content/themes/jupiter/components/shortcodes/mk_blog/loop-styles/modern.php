@@ -43,7 +43,7 @@ $post_type = !empty($post_type) ? $post_type : 'image';
         ?>
         
         <?php
-            echo do_shortcode( '[mk_button dimension="flat" corner_style="rounded" bg_color="'.$mk_options['skin_color'].'" btn_hover_bg="'.hexDarker($mk_options['skin_color'], 20).'" text_color="light" btn_hover_txt_color="'.hexDarker('#ffffff', 20).'" size="medium" target="_self" align="none" url="'.get_permalink().'"]'.__('READ MORE', 'mk_framework').'[/mk_button]' );
+            echo do_shortcode( '[mk_button dimension="flat" corner_style="rounded" bg_color="'.$mk_options['skin_color'].'" btn_hover_bg="'.hexDarker($mk_options['skin_color'], 30).'" text_color="light" btn_hover_txt_color="#ffffff" size="medium" target="_self" align="none" url="'.get_permalink().'"]'.__('READ MORE', 'mk_framework').'[/mk_button]' );
         ?>
         <!-- <a class="mk-button mk-button--dimension-flat mk-button--size-medium mk-button--corner-rounded accent-bg-color" href="<?php echo get_permalink(); ?>"><?php _e('READ MORE', 'mk_framework'); ?></a> -->
 

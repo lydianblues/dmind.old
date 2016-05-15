@@ -38,7 +38,7 @@ function mk_theme_is_masterkey() {
     return false;
 }
 function mk_is_control_panel() {
-    if (isset($_GET['page']) && in_array($_GET['page'], array('Jupiter', 'theme-templates','theme-image-size','theme-status','icon-library', 'theme-support'))) {
+    if (isset($_GET['page']) && in_array($_GET['page'], array('Jupiter', 'theme-templates','theme-image-size','theme-status','icon-library', 'theme-support', 'theme-updates', 'theme-announcements'))) {
         return true;
     }
     return false;

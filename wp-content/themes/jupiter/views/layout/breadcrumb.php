@@ -62,7 +62,7 @@ else {
     } 
     else if (is_single() && !is_attachment()) {
         
-        if (get_post_type() == 'product') {
+        if (function_exists('is_woocommerce') && is_woocommerce() && get_post_type() == 'product') {
             
             if ($terms = wc_get_product_terms($post->ID, 'product_cat', array(
                 'orderby' => 'parent',
@@ -146,6 +146,9 @@ else {
         /* end admin@innodron.com patch */
         echo '<a href="' . get_permalink($parent) . '" rel="v:url" property="v:title">' . $parent->post_title . '</a>' . $delimiter;
         echo get_the_title();
+    } 
+    elseif (is_archive()) {
+        post_type_archive_title(false);
     } 
     elseif (is_search()) {
         

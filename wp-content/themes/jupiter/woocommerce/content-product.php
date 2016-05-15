@@ -42,19 +42,51 @@ $woocommerce_loop['loop']++;
 $grid_width = $mk_options['grid_width'];
 $content_width = $mk_options['content_width'];
 $height = $mk_options['woo_loop_img_height'];
-$quality = $mk_options['woo_image_quality'];
 
 // Sets the shop loop columns from theme options.
 if(is_shop()) {
 	$layout = get_post_meta( global_get_post_id(), '_layout', true );
-	if($layout == 'full') {
-		$classes[] = 'item mk--col mk--col--3-12';
-		$width = round($grid_width/4) - 28;
-		$column_width = round($grid_width/4);
+	if (isset($_REQUEST['layout']) && !empty($_REQUEST['layout'])) {
+        $layout = esc_html($_REQUEST['layout']);
+    }
+	$columns = isset($mk_options['shop_archive_columns']) && $mk_options['shop_archive_columns'] != 'default' ? $mk_options['shop_archive_columns'] : false;
+
+	if($columns) {
+
+		switch ($columns) {
+			case 1:
+				$grid = 'mk--col--12-12';
+				break;
+			case 2:
+				$grid = 'mk--col--1-2';
+				break;
+			case 3:
+				$grid = 'mk--col--4-12';
+				break;
+			case 4:
+				$grid = 'mk--col--3-12';
+				break;			
+			default:
+				$grid = 'mk--col--3-12';
+				break;
+		}
+
+		// Custom columns taken from theme options > woocommerce > Shop Loop columns option.
+		$classes[] = 'item mk--col '.$grid;
+		$width = round($grid_width/$columns) - 28;
+		$column_width = round($grid_width/$columns);
+
 	} else {
-		$classes[] = 'item mk--col mk--col--4-12';
-		$width = round((($content_width / 100) * $grid_width)/3) - 31;
-		$column_width = round($grid_width/3);
+		//Default columns
+		if($layout == 'full') {
+			$classes[] = 'item mk--col mk--col--3-12';
+			$width = round($grid_width/4) - 28;
+			$column_width = round($grid_width/4);
+		} else {
+			$classes[] = 'item mk--col mk--col--4-12';
+			$width = round((($content_width / 100) * $grid_width)/3) - 31;
+			$column_width = round($grid_width/3);
+		}
 	}
 } else {
 	switch ($woocommerce_loop['columns']) {
@@ -105,22 +137,18 @@ if ($product->is_on_sale()) :
 endif;
 
 
-$loop_image_size = isset($mk_options['woo_loop_image_size']) ? $mk_options['woo_loop_image_size'] : 'crop';
+$image_size = isset($mk_options['woo_loop_image_size']) ? $mk_options['woo_loop_image_size'] : 'crop';
 
 if ( has_post_thumbnail() ) {
-	require_once (THEME_INCLUDES . "/bfi_thumb.php");	
+	
 
 	echo '<a href="'. get_permalink().'" class="product-link">';
 
-	if($loop_image_size == 'crop') {
-		$image_src_array = wp_get_attachment_image_src(get_post_thumbnail_id(), 'full', true);
-        $image_output_src = mk_image_generator($image_src_array[0], $width*$quality, $height*$quality, 'true');
-	} else {
-		$image_src_array = wp_get_attachment_image_src(get_post_thumbnail_id(), $loop_image_size, true);
-        $image_output_src = $image_src_array[0];
-	}
 
-	echo '<img src="'.$image_output_src.'" class="product-loop-image" alt="'.get_the_title().'" title="'.get_the_title().'" itemprop="image" />';	
+
+	$featured_image_src = Mk_Image_Resize::resize_by_id_adaptive( get_post_thumbnail_id(), $image_size, $width, $height, $crop = false, $dummy = true);
+
+	echo '<img src="'.$featured_image_src['dummy'].'" '.$featured_image_src['data-set'].' class="product-loop-image" alt="'.the_title_attribute(array('echo' => false)).'" title="'.the_title_attribute(array('echo' => false)).'" itemprop="image" />';	
 	
 	echo '<span class="product-loading-icon added-cart"></span>';
 
@@ -130,16 +158,9 @@ if ( has_post_thumbnail() ) {
 		$gallery = explode( ',', $product_gallery );
 		$hover_image_id  = $gallery[0];
 
-    if($loop_image_size == 'crop') {
-		$image_src_hover_array = wp_get_attachment_image_src($hover_image_id, 'full', true);
-        $image_hover_src = mk_image_generator($image_src_hover_array[0], $width*$quality, $height*$quality, 'true');
-
-	} else {
-		$image_src_hover_array = wp_get_attachment_image_src($hover_image_id, $loop_image_size, true);
-        $image_hover_src = $image_src_hover_array[0];
-	}
+		$hover_image_src = Mk_Image_Resize::resize_by_id_adaptive( $hover_image_id, $image_size, $width, $height, $crop = false, $dummy = true);
 		
-		echo '<img src="'.$image_hover_src.'" alt="'.get_the_title().'" class="product-hover-image" title="'.get_the_title().'">';
+		echo '<img src="'.$hover_image_src['dummy'].'" '.$hover_image_src['data-set'].' alt="'.the_title_attribute(array('echo' => false)).'" class="product-hover-image" title="'.the_title_attribute(array('echo' => false)).'">';
 
 
 	}
@@ -147,7 +168,7 @@ if ( has_post_thumbnail() ) {
 
 } else {
 
-	echo '<img src="'. woocommerce_placeholder_img_src() .'" alt="Placeholder" width="'.$width*$quality.'" height="'.$height*$quality.'" />';
+	echo '<img src="'.Mk_Image_Resize::generate_dummy_image($width, $height).'" alt="Placeholder" width="'.$width.'" height="'.$height.'" />';
 
 }
 ?>

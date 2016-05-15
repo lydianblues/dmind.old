@@ -30,5 +30,19 @@ $ecommerce_section[] = array(
             "default" => 'true',
             "type" => "toggle"
         ) ,
+        array(
+            "name" => __("Previous & Next Arrows", "mk_framework") ,
+            "desc" => __("Using this option you can turn on/off the navigation arrows when viewing the WooCommerce single page.", "mk_framework") ,
+            "id" => "woo_single_prev_next",
+            "default" => 'true',
+            "type" => "toggle"
+        ) ,    
+        array(
+            "name" => __("Show Previous & Next for Same Categories?", "mk_framework") ,
+            "desc" => __("If enabled, the same categories in adjacent posts will be shown.", "mk_framework") ,
+            "id" => "woo_prev_next_same_category",
+            "default" => 'true',
+            "type" => "toggle"
+        ) ,
     ) ,
 );

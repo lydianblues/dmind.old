@@ -47,10 +47,10 @@ if (!function_exists('mk_app_modules_header')) {
 }
 
 /**
- * output header meta tags
+ * output header meta tags 
  */
-if (!function_exists('mk_apple_touch_icons')) {
-    function mk_head_meta_tags() {
+if (!function_exists('mk_head_meta_tags')) {
+    function mk_head_meta_tags() { 
         echo "\n";
         echo '<meta charset="' . get_bloginfo('charset') . '" />' . "\n";
         echo '<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0" />' . "\n";
@@ -68,15 +68,30 @@ if (!function_exists('mk_open_graph_meta')) {
     function mk_open_graph_meta() {
         
         if (!is_single()) return false;
+
+        global $post;
+
+        $post_type = get_post_meta($post->ID, '_single_post_type', true);
+        $post_thumb_id = get_post_thumbnail_id();
+
+        if($post_type == 'portfolio' && empty($post_thumb_id)) {
+            $slideshow_posts = get_post_meta($post->ID, '_gallery_images', true);    
+            $slideshow_posts = explode(',', $slideshow_posts);
+            $image_src_array = wp_get_attachment_image_src($slideshow_posts[0], 'full');
+        } else {
+            $image_src_array = wp_get_attachment_image_src(get_post_thumbnail_id() , 'full');    
+        }
         
-        $image_src_array = wp_get_attachment_image_src(get_post_thumbnail_id() , 'full', true);
+
         $output = '<meta property="og:site_name" content="' . get_bloginfo('name') . '"/>' . "\n";
-        if(has_post_thumbnail()) {
+        
+        if(!Mk_Image_Resize::is_default_thumb($image_src_array[0]) && !empty($image_src_array[0])) {
             $output.= '<meta property="og:image" content="' . $image_src_array[0] . '"/>' . "\n";
         }
+
         $output.= '<meta property="og:url" content="' . get_permalink() . '"/>' . "\n";
-        $output.= '<meta property="og:title" content="' . esc_attr(strip_tags(get_the_title())) . '"/>' . "\n";
-        $output.= '<meta property="og:description" content="' . esc_attr(strip_tags(get_the_excerpt())) . '"/>' . "\n";
+        $output.= '<meta property="og:title" content="' . the_title_attribute(array('echo' => false)) . '"/>' . "\n";
+        $output.= '<meta property="og:description" content="' . esc_attr(get_the_excerpt()) . '"/>' . "\n";
         $output.= '<meta property="og:type" content="article"/>' . "\n";
         echo $output;
     }
@@ -117,24 +132,6 @@ if (!function_exists('mk_apple_touch_icons')) {
     add_action('wp_head', 'mk_apple_touch_icons', 2);
 }
 
-/**
- * outputs custom fav icons and apple touch icons into head tag
- */
-if (!function_exists('mk_ie_compatibility_media')) {
-    function mk_ie_compatibility_media() {
-        global $mk_options;
-        
-        echo "\n";
-        echo '<!--[if lt IE 9]>';
-        echo '<script src="' . THEME_JS . '/html5shiv.js" type="text/javascript"></script>' . "\n";
-        echo '<link rel="stylesheet" href="' . THEME_STYLES . '/ie.css" />' . "\n";
-        echo '<![endif]-->' . "\n";
-        echo '<!--[if IE 9]>' . "\n";
-        echo '<script src="' . THEME_JS . '/ie/placeholder.js" type="text/javascript"></script>' . "\n";
-        echo '<![endif]-->' . "\n";
-    }
-    add_action('wp_head', 'mk_ie_compatibility_media', 3);
-}
 
 /**
  * outputs custom fav icons and apple touch icons into head tag
@@ -144,12 +141,14 @@ if (!function_exists('mk_dynamic_js_vars')) {
         global $mk_options;
         
         $post_id = global_get_post_id();
+        $wp_p_id = $post_id ? $post_id : '';
         
         echo '<script type="text/javascript">' . "\n";
         echo 'window.abb = {};' . "\n";
         echo 'php = {};' . "\n"; // it gets overwritten somewhere. do not attach anything more. remove ASAP and reattach to PHP
         echo 'window.PHP = {};' . "\n";
         echo 'PHP.ajax = "'.admin_url('admin-ajax.php').'";';
+        echo 'PHP.wp_p_id = "'.$wp_p_id.'";';
         // What is really needed assign to php namespace (as it ships from php). Do not expose globals.
         // Remove rest.
         echo 'var mk_header_parallax, mk_banner_parallax, mk_page_parallax, mk_footer_parallax, mk_body_parallax;' . "\n";
@@ -569,6 +568,8 @@ if (!function_exists('mk_get_header_class')) {
         $toolbar_toggle = !empty($mk_options['theme_toolbar_toggle']) ? $mk_options['theme_toolbar_toggle'] : 'true';
         $sticky_style = !empty($mk_options['header_sticky_style']) ? $mk_options['header_sticky_style'] : 'false';
         $sticky_style_class = ($sticky_style == 'lazy') ? 'sticky-style-fixed' :  'sticky-style-' . $sticky_style;
+        $responsive_burger_align = !empty($mk_options['responsive_burger_align']) ? ('mobile-align-' . $mk_options['responsive_burger_align']) :  'mobile-align-right';
+        
         $sticky_style_class = $is_shortcode ? false : $sticky_style_class;
         
 
@@ -611,6 +612,7 @@ if (!function_exists('mk_get_header_class')) {
         $class[] = $sticky_style_class;
         $class[] = mk_get_bg_cover_class($mk_options['banner_size']);
         $class[] = $header_layout;
+        $class[] = $responsive_burger_align;
         $class[] = isset($el_class) ? $el_class : '';
         
         if ($is_transparent) {

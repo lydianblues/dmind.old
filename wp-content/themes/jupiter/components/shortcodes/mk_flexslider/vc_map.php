@@ -25,12 +25,16 @@ vc_map(array(
             "description" => __("How many slides you would like to show? (-1 means unlimited)", "mk_framework")
         ),
         array(
-            "type" => "multiselect",
-            "heading" => __("Select specific slides", "mk_framework"),
-            "param_name" => "slides",
-            "value" => '',
-            "options" => mk_get_post_enteries('slideshow', 40),
-            "description" => __("", "mk_framework")
+            'type'        => 'autocomplete',
+            'heading'     => __( 'Select specific slides', 'mk_framework' ),
+            'param_name'  => 'slides',
+            'settings' => array(
+                                'multiple' => true,
+                                'sortable' => true,
+                                'unique_values' => true,
+                                // In UI show results except selected. NB! You should manually check values in backend
+                            ),
+            'description' => __( 'Search for post ID or post title to get autocomplete suggestions', 'mk_framework' ),
         ),
         array(
             "heading" => __("Order", 'mk_framework'),

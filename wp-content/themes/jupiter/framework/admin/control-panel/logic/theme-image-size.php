@@ -12,7 +12,7 @@ class Mk_Image_Sizes
                     'size_w' => 500,
                     'size_h' => 500,
                     'size_n' => 'Image Size 500x500',
-                    'size_c' => 'on'
+                    'size_c' => 'on',
                 )
             );
         }

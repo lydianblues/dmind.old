@@ -86,13 +86,17 @@ vc_map(array(
             "description" => __("How many Clients you would like to show? (-1 means unlimited)", "mk_framework")
         ) ,
         array(
-            "type" => "multiselect",
-            "heading" => __("Select specific Clients", "mk_framework") ,
-            "param_name" => "clients",
-            "value" => '',
-            "options" => mk_get_post_enteries('clients', 40),
-            "description" => __("", "mk_framework")
-        ) ,
+            'type'        => 'autocomplete',
+            'heading'     => __( 'Select specific Clients', 'mk_framework' ),
+            'param_name'  => 'clients',
+            'settings' => array(
+                                'multiple' => true,
+                                'sortable' => true,
+                                'unique_values' => true,
+                                // In UI show results except selected. NB! You should manually check values in backend
+                            ),
+            'description' => __( 'Search for post ID or post title to get autocomplete suggestions', 'mk_framework' ),
+        ),
         array(
             "heading" => __("Order", 'mk_framework') ,
             "description" => __("Designates the ascending or descending order of the 'orderby' parameter.", 'mk_framework') ,

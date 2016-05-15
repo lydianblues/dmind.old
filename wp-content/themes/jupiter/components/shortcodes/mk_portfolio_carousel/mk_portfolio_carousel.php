@@ -6,8 +6,6 @@ include( $path . '/config.php' );
 
 $id = uniqid();
 
-require_once (THEME_INCLUDES . "/bfi_thumb.php");
-
 $cat = !empty($categories) ? $categories : $cat;
 $query = mk_wp_query(array(
             'post_type' => 'portfolio',
@@ -31,7 +29,7 @@ $loop = $query['wp_query'];
         
         <h3 class="mk-fancy-title pattern-style"><span><?php echo $title; ?></span>
         <a href="<?php echo get_permalink( $view_all ); ?>" class="view-all page-bg-color"><?php _e( 'VIEW ALL', 'mk_framework' ); ?></a></h3>
-
+        <div class="clearfix"></div>
         <?php 
         $direction_vav = 'true';
     }
@@ -101,19 +99,18 @@ $loop = $query['wp_query'];
                     selector: ".mk-flex-slides > li",
                     slideshow: true,
                     animation: "slide",
-                    smoothHeight: true,
                     slideshowSpeed: 6000,
                     animationSpeed: 400,
                     pauseOnHover: true,
                     controlNav: false,
                     smoothHeight: false,
                     useCSS: false,
-                    directionNav:<?php echo $direction_vav; ?>,
+                    directionNav: <?php echo $direction_vav; ?>,
                     prevText: "",
                     nextText: "",
                     itemWidth: item_width,
                     itemMargin: 0,
-                    maxItems:4,
+                    maxItems: <?php echo ($style === 'modern') ? $show_items : 4; ?>,
                     minItems: 1,
                     move: 1
                 });

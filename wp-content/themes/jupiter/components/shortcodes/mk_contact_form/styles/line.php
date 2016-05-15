@@ -1,5 +1,5 @@
 
-<div class="mk-form-row clear">
+<div class="mk-form-row clearfix">
 
     <div class="mk-form-half s_form-all">
         <input type="text" required="required" name="contact_name" id="contact_name" class="text-input s_txt-input" value="" tabindex="<?php echo $view_params['id']++; ?>" />
@@ -20,7 +20,7 @@
 </div>
 
 
-<div class="mk-form-row clear">
+<div class="mk-form-row clearfix">
 
     <div class="<?php echo (($view_params['phone'] == 'true')? 'mk-form-third s_form-all' : 'mk-form-half s_form-all'); ?>">
         <input type="email" required="required" name="contact_email" id="contact_email" class="text-input s_txt-input" tabindex="<?php echo $view_params['id']++; ?>" />
@@ -48,7 +48,7 @@
 </div>
 
 
-<div class="mk-form-row">
+<div class="mk-form-row clearfix">
 
     <div class="mk-form-full s_form-all">
         <textarea required="required" name="contact_content" class="mk-textarea s_txt-input" tabindex="<?php echo $view_params['id']++; ?>"></textarea>
@@ -64,7 +64,7 @@ if($view_params['captcha'] == 'true') { ?>
     <div class="mk-form-row">
         <div class="mk-form-full s_form-all">
 
-            <input type="text" name="captcha" class="captcha-form text-input s_txt-input full" required="required" autocomplete="off" tabindex="<?php echo $view_params['id']++; ?>" />
+            <input type="text" name="captcha" class="captcha-form text-input s_txt-input full" data-placeholder=" " required="required" autocomplete="off" tabindex="<?php echo $view_params['id']++; ?>" />
             <label class="ls-text-label"><span class="ls-text-label--content"><?php _e( 'Enter Captcha', 'mk_framework' ); ?></span></label>
                 <span class="captcha-image-holder"></span>
                 <span class="captcha-change-image-box"><a href="#" class="captcha-change-image"><?php _e( 'Not readable? Change text.', 'mk_framework' ); ?></a></span>

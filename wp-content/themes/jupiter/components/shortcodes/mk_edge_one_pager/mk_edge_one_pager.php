@@ -32,10 +32,11 @@ while ($r->have_posts()):
     $mp4             = get_post_meta($post->ID, '_video_mp4', true);
     $webm            = get_post_meta($post->ID, '_video_webm', true);
     $video_preview   = get_post_meta($post->ID, '_video_preview', true);
-    $video_pattern         = get_post_meta($post->ID, '_pattern', true);
-    $video_overlay =  get_post_meta( $post->ID, '_video_color_overlay', true );
-    $overlay_opacity =  get_post_meta( $post->ID, '_overlay_opacity', true ) ? get_post_meta( $post->ID, '_overlay_opacity', true ) : 0.3;
+    $video_pattern   = get_post_meta($post->ID, '_pattern', true);
+    $video_overlay   = get_post_meta( $post->ID, '_video_color_overlay', true );
+    $overlay_opacity = get_post_meta( $post->ID, '_overlay_opacity', true ) ? get_post_meta( $post->ID, '_overlay_opacity', true ) : 0.3;
     $slide_image     = get_post_meta($post->ID, '_slide_image', true);
+    $slide_image_portrait = get_post_meta($post->ID, '_slide_image_portrait', true);
     $slide_bg_color  = get_post_meta($post->ID, '_bg_color', true);
     $cover_bg        = get_post_meta($post->ID, '_cover', true);
 
@@ -45,13 +46,15 @@ while ($r->have_posts()):
 
     $title_size           = get_post_meta($post->ID, '_title_size', true) ? ('font-size : '.get_post_meta($post->ID, '_title_size', true).'px;') : '';
     $title_weight         = get_post_meta($post->ID, '_caption_title_weight', true) ? ('font-weight:'.get_post_meta($post->ID, '_caption_title_weight', true).';') : '';
-    $title_letter_spacing         = get_post_meta($post->ID, '_title_letter_spacing', true) ? ('letter-spacing:'.get_post_meta($post->ID, '_title_letter_spacing', true).'px;') : '';
+    $title_letter_spacing = get_post_meta($post->ID, '_title_letter_spacing', true) ? ('letter-spacing:'.get_post_meta($post->ID, '_title_letter_spacing', true).'px;') : '';
     $caption_custom_color = get_post_meta($post->ID, '_custom_caption_color', true) ? ('color:'.get_post_meta($post->ID, '_custom_caption_color', true).';') : '';
 
     $btn_1_txt = get_post_meta($post->ID, '_btn_1_txt', true);
     $btn_1_url = get_post_meta($post->ID, '_btn_1_url', true);
+    $btn_1_target =  get_post_meta( $post->ID, '_btn_1_target', true );
     $btn_2_txt = get_post_meta($post->ID, '_btn_2_txt', true);
     $btn_2_url = get_post_meta($post->ID, '_btn_2_url', true);
+    $btn_2_target =  get_post_meta( $post->ID, '_btn_2_target', true );
 
     $caption_skin = get_post_meta($post->ID, '_caption_skin', true);
 
@@ -116,10 +119,12 @@ if ( $btn_2_style == 'outline' ) {
 
 
 
-    $bg_image_css = ($type == 'image') ? ' style="background-image:url(' . $slide_image . '); background-color:' . $slide_bg_color . '" ' : '';
+    $bg_image_css = ($type == 'image') ? ' style="background-color:' . $slide_bg_color . '" ' : '';
+    $bg_image_set = ($type == 'image' && (!empty($slide_image) || !empty($slide_image_portrait))) ? Mk_Image_Resize::get_bg_res_set($slide_image, $slide_image_portrait) : '';
 
+    $sanitised_attr_title = str_replace(' ', '-', the_title_attribute(array('echo' => false)));
 
-    $output .= '<section id="edge-entry-'.get_the_id().'" class="section one-pager-slide ' . $caption_align . ' ' . mk_get_bg_cover_class($cover_bg) . '"' . $bg_image_css . ' data-title="'.str_replace(' ', '-', get_the_title()).'" data-header-skin="' . $header_skin . '">';
+    $output .= '<section id="edge-entry-'.get_the_id().'" class="section one-pager-slide ' . $caption_align . ' ' . mk_get_bg_cover_class($cover_bg) . '"' . $bg_image_css .' '.$bg_image_set.' data-title="'.$sanitised_attr_title.'" data-header-skin="' . $header_skin . '">';
 
 
 
@@ -173,7 +178,7 @@ if ( $btn_2_style == 'outline' ) {
         $btn1_atts[] = 'corner_style="'.$btn_1_corner_style.'"';
         $btn1_atts[] = 'size="large"';
         $btn1_atts[] = 'url="'.$btn_1_url.'"';
-        $btn1_atts[] = 'target="_self"';
+        $btn1_atts[] = 'target="'.$btn_1_target.'"';
         $btn1_atts[] = 'align="none"';
         $btn1_atts[] = 'margin_top="0"';
         $btn1_atts[] = 'margin_bottom="0"';
@@ -202,7 +207,7 @@ if ( $btn_2_style == 'outline' ) {
         $btn2_atts[] = 'corner_style="'.$btn_2_corner_style.'"';
         $btn2_atts[] = 'size="large"';
         $btn2_atts[] = 'url="'.$btn_2_url.'"';
-        $btn2_atts[] = 'target="_self"';
+        $btn2_atts[] = 'target="'.$btn_2_target.'"';
         $btn2_atts[] = 'align="none"';
         $btn2_atts[] = 'margin_top="0"';
         $btn2_atts[] = 'margin_bottom="0"';

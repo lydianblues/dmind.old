@@ -7,6 +7,31 @@
         'description' => __( 'Blog teaser style loops are here.', 'mk_framework' ),
         "params" => array(
             array(
+                'type'        => 'autocomplete',
+                'heading'     => __( 'Select specific Categories to Appear in slideshow', 'mk_framework' ),
+                'param_name'  => 'slideshow_cat',
+                'settings' => array(
+                                    'multiple' => true,
+                                    'sortable' => true,
+                                    'unique_values' => true,
+                                    // In UI show results except selected. NB! You should manually check values in backend
+                                ),
+                'description' => __( 'Search for category name to get autocomplete suggestions', 'mk_framework' ),
+            ),
+            
+            array(
+                'type'        => 'autocomplete',
+                'heading'     => __( 'Select specific Categories to appear as Side Thumbnails', 'mk_framework' ),
+                'param_name'  => 'side_thumb_cat',
+                'settings' => array(
+                                    'multiple' => true,
+                                    'sortable' => true,
+                                    'unique_values' => true,
+                                    // In UI show results except selected. NB! You should manually check values in backend
+                                ),
+                'description' => __( 'Search for category name to get autocomplete suggestions', 'mk_framework' ),
+            ), 
+            array(
                 "type" => "range",
                 "heading" => __("Images Height", "mk_framework"),
                 "param_name" => "image_height",
@@ -16,25 +41,6 @@
                 "step" => "1",
                 "unit" => 'px'
             ),
-
-            array(
-                "type" => "multiselect",
-                "heading" => __("Select specific Categories to Appear in slideshow", "mk_framework"),
-                "param_name" => "slideshow_cat",
-                "options" => mk_get_category_enteries('category', 50),
-                "value" => '',
-                "description" => __("", "mk_framework"),
-            ),
-
-             array(
-                "type" => "multiselect",
-                "heading" => __("Select specific Categories to appear as Side Thumbnails", "mk_framework"),
-                "param_name" => "side_thumb_cat",
-                "options" => mk_get_category_enteries('category', 50),
-                "value" => '',
-                "description" => __("", "mk_framework"),
-            ),
-
             array(
                 "heading" => __("Order", 'mk_framework'),
                 "description" => __("Designates the ascending or descending order of the 'orderby' parameter.", 'mk_framework'),

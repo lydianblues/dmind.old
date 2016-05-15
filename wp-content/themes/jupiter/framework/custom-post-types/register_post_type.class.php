@@ -73,7 +73,7 @@ class Mk_Register_Post_Type
     function register_post_type() {
         
         $options = get_option(THEME_OPTIONS);
-        $toggle = $options[$this->name . '-post-type'];
+        $toggle = isset($options[$this->name . '-post-type']) ? $options[$this->name . '-post-type'] : false;
         $post_type_toggle = isset($toggle) ? $toggle : 'true';
         
         if ($post_type_toggle == 'false') return false;
@@ -198,7 +198,7 @@ class Mk_Register_Post_Type
  *
  */
 
-function mk_register_custom_Post_Type($name, $supports = array(), $args = array(), $singular = false, $labels = array()) {
+function Mk_Register_Custom_Post_Type($name, $supports = array(), $args = array(), $singular = false, $labels = array()) {
     $post_type = new Mk_Register_Post_Type($name, $supports, $args, $singular = false, $labels);
     
     return $post_type;

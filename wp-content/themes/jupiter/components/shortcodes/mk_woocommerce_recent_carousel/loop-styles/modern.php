@@ -45,13 +45,19 @@ if ($view_params['featured'] == 'true') {
             if ($r->have_posts()) {
                 while ($r->have_posts()):
                     $r->the_post();
-                    $image_src_array = wp_get_attachment_image_src(get_post_thumbnail_id() , $view_params['image_size'], true);
+
+                    $featured_image_src = Mk_Image_Resize::resize_by_id( get_post_thumbnail_id(), $view_params['image_size'], false, false, $crop = false, $dummy = true);
+
+                    global $_wp_additional_image_sizes;
+                    $image_width = $_wp_additional_image_sizes[$view_params['image_size']]['width'];
+                    $image_height = $_wp_additional_image_sizes[$view_params['image_size']]['height'];
+
                 ?>
                     <div class="swiper-slide">
                         <div class="item-holder">
 
                                 <a class="mk-lightbox" data-fancybox-group="<?php echo $id; ?>" href="<?php echo get_permalink(); ?>">
-                                    <img alt="<?php the_title(); ?>" title="<?php the_title(); ?>" width="<?php echo $image_src_array[1]; ?>" height="<?php echo $image_src_array[2]; ?>" src="<?php echo $image_src_array[0]; ?>" itemprop="image" />
+                                    <img alt="<?php the_title_attribute(); ?>" title="<?php the_title_attribute(); ?>" width="<?php echo $image_width; ?>" height="<?php echo $image_height; ?>" src="<?php echo $featured_image_src; ?>" itemprop="image" />
 
                                     <i class="mk-jupiter-icon-plus-circle"><span>&nbsp;</span></i>
                                         <span class="image-hover-overlay"></span>

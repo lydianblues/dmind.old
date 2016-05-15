@@ -260,6 +260,8 @@ class ContentImporter
                         }
                         $this->mk_process_theme_options_import();
                         $this->mk_process_widget_import();
+
+                        update_option('jupiter_template_installed', $this->template);
                         
                         $imported_message.= '</ul>';
                         echo $imported_message;

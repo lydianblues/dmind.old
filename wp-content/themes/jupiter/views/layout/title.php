@@ -50,7 +50,8 @@ if ($post_id) {
 if (is_archive()) {
     $title = $mk_options['archive_page_title'];
     if (is_category()) {
-        $subtitle = sprintf(__('Category Archive for: "%s"', 'mk_framework'), single_cat_title('', false));
+        $title = single_cat_title('', false);
+        $subtitle = strip_tags(category_description());
     } elseif (is_tag()) {
         $subtitle = sprintf(__('Tag Archives for: "%s"', 'mk_framework'), single_tag_title('', false));
     } elseif (is_day()) {
@@ -67,11 +68,17 @@ if (is_archive()) {
         }
         $subtitle = sprintf(__('Author Archive for: "%s"'), $curauth->nickname);
     } elseif (is_tax()) {
-        $term     = get_term_by('slug', get_query_var('term'), get_query_var('taxonomy'));
-        $subtitle = sprintf(__('Archives for: "%s"', 'mk_framework'), $term->name);
+        $term  = get_term_by('slug', get_query_var('term'), get_query_var('taxonomy'));
+        $title = $term->name;
+        $subtitle = strip_tags($term->description);
     }
     if ($mk_options['archive_disable_subtitle'] == 'false') {
         $subtitle = '';
+    }
+
+    // Will add the custom post type archive title in archive loop.
+    if(get_post_type() != 'post') {
+        $title = post_type_archive_title('', false);
     }
 }
 
@@ -113,7 +120,7 @@ if (function_exists('is_woocommerce') && is_woocommerce()) {
 /* Loads Search Page Headings */
 if (is_search()) {
     $title     = $mk_options['search_page_title'];
-    $allsearch = new WP_Query("s=" . get_search_query() . "&showposts=-1");
+    $allsearch = new WP_Query("s=" . get_search_query() . "&posts_per_page=1");
     $count     = $allsearch->post_count;
     wp_reset_query();
     $subtitle = $count . ' ' . sprintf(__('Search Results for: "%s"', 'mk_framework'), stripslashes(strip_tags(get_search_query())));

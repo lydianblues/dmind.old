@@ -22,7 +22,7 @@ if (!get_post_meta(get_the_ID() , '_blog_instagram_feed')) {
 }
 
 $feed =  get_post_meta(get_the_ID() , '_blog_instagram_feed', true);
-$title = isset($feed['title']) ? $feed['title'] : get_the_title();
+$title = isset($feed['title']) ? esc_attr($feed['title']) : the_title_attribute(array('echo' => false));
 ?>
 <div class="mk-blog--instagram-wrapper">
     <div class="mk-blog--instagram-container">

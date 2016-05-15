@@ -109,6 +109,19 @@ vc_map(array(
             )
         ) ,
         array(
+            "type" => "upload",
+            "heading" => __("Background Image (Portrait)", "mk_framework") ,
+            "param_name" => "bg_image_portrait",
+            "value" => "",
+            "description" => __("Alternatively, this image could be shown in mobile devices with portrait orientation. It is recommended to use images with portrait ratio such as 2:3.", "mk_framework") ,
+            "dependency" => array(
+                'element' => "bg_type",
+                'value' => array(
+                    'image'
+                )
+            )
+        ) ,
+        array(
             "type" => "colorpicker",
             "heading" => __("Background color", "mk_framework") ,
             "param_name" => "bg_color",

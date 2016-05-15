@@ -29,10 +29,9 @@ class Artbees_Widget_Slideshow extends WP_Widget {
 		if ( $count > 0 ) {
 			for ( $i=1; $i<=$count; $i++ ) {
 				$src =  isset( $instance["src_".$i] ) ? $instance["src_".$i] : '';
-				require_once (THEME_INCLUDES . "/bfi_thumb.php");
-				$image_src = bfi_thumb( $src, array('width' => $width, 'height' => $height)); 
+				$image_src = Mk_Image_Resize::resize_by_url_adaptive($src, $width, $height, $crop = true, $dummy = true);
 				$output .= '<li>';
-				$output .= '<img alt="Slide" src="'.$image_src.'" />';
+				$output .= '<img alt="Slide" src="'.$image_src['dummy'].'" '.$image_src['data-set'].' width="'.$width.'" height="'.$height.'" />';
 				$output .= '</li>';
 			}
 		}

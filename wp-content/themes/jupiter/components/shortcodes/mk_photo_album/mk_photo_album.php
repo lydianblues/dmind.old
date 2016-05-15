@@ -5,9 +5,6 @@ include ($path . '/config.php');
 
 global $mk_options, $wp_query;
 
-require_once (THEME_INCLUDES . "/bfi_thumb.php");
-
-
 $id = Mk_Static_Files::shortcode_id();
 
 $query_options = array(
@@ -76,7 +73,7 @@ $data_config[] = 'data-style="'.$style.'"';
 
 ?>
 
-<section id="photo-album-<?php echo $id; ?>" <?php echo implode(' ', $data_config); ?> class="mk-photo-album js-loop js-el img-hover-anim-<?php echo $cover_image_hover_animation; ?> mk-<?php echo $style; ?>-wrapper mk--row <?php echo $without_hover_string; ?> <?php echo $el_class.' '.$cover_image_animation[1].' '.$cover_image_animation[2]; ?> clear" <?php echo $cover_image_animation[0];?> >
+<section id="photo-album-<?php echo $id; ?>" <?php echo implode(' ', $data_config); ?> class="mk-photo-album js-loop js-el img-hover-anim-<?php echo $cover_image_hover_animation; ?> mk-<?php echo $style; ?>-wrapper mk--row <?php echo $without_hover_string; ?> <?php echo $el_class.' '.$cover_image_animation[1].' '.$cover_image_animation[2]; ?> clearfix" <?php echo $cover_image_animation[0];?> >
     <?php
     if (is_archive()):
         $r = $wp_query;
@@ -97,11 +94,12 @@ $data_config[] = 'data-style="'.$style.'"';
         endif;
     endif;
     ?>
+    <div class="clearboth"></div>
 </section>
 
 <?php
 
-    if( $pagination === 'true' ) {
+    if( $pagination == 'true' ) {
         echo mk_get_view('global', 'loop-pagination', true, ['pagination_style' => $pagination_style, 'r' => $r]); 
     }
 

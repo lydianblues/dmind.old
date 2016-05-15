@@ -29,8 +29,9 @@ $r = new WP_Query($query);
 		<?php if ( $r->have_posts() ) : ?>
 		    <?php while ( $r->have_posts() ) :
 		        $r->the_post();
-		            $image_src_array = wp_get_attachment_image_src(get_the_ID(), 'full', true); ?>
-		    		<div class="mk-slideshow-box-item" style="background-image:url(<?php echo mk_image_generator($image_src_array[0], false, false); ?>);"></div>
+		            $image_src_array = wp_get_attachment_image_src(get_the_ID(), 'full');
+		             ?>
+		    		<div class="mk-slideshow-box-item" style="background-image:url(<?php echo $image_src_array[0]; ?>);"></div>
 			    <?php endwhile;
 			    wp_reset_query();
 			endif;

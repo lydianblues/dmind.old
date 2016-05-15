@@ -76,25 +76,19 @@ if($view_params['style'] == 'grid') {
 
 }
 
-if ($view_params['image_size'] == 'crop') {
-    $image_width = $width;
-    $image_height = $height;
+$featured_image_src = Mk_Image_Resize::resize_by_id_adaptive(get_post_thumbnail_id(), $view_params['image_size'], $width, $height, $crop = true, $dummy = true);
 
-    $image_src_array = wp_get_attachment_image_src(get_post_thumbnail_id() , 'full', true);
-    $image_output_src = mk_image_generator($image_src_array[0], $image_width, $image_height, 'true');
-    
-} 
-else {
-    $image_src_array = wp_get_attachment_image_src(get_post_thumbnail_id() , $view_params['image_size'], true);
-    $image_output_src = $image_src_array[0];
-    $image_width = $image_src_array[1];
-    $image_height = $image_src_array[2];
-}
+$image_size_atts = Mk_Image_Resize::get_image_dimension_attr(get_post_thumbnail_id(), $view_params['image_size'], $width, $height);
 
 ?>
 
  <span class="gallery-inner">
-    <img alt="<?php echo get_post_meta($post->ID, '_wp_attachment_image_alt', true); ?>" height="<?php echo $height; ?>" width="<?php echo $image_width; ?>" title="<?php echo get_the_title(); ?>" data-image-size="<?php echo $view_params['image_size']; ?>" src="<?php echo $image_output_src; ?>" />
+    <img src="<?php echo $featured_image_src['dummy']; ?>" 
+        <?php echo $featured_image_src['data-set']; ?>
+        height="<?php echo $image_size_atts['height']; ?>" 
+        width="<?php echo $image_size_atts['width']; ?>" 
+        title="<?php echo the_title_attribute(); ?>"
+        alt="<?php echo esc_attr(get_post_meta($post->ID, '_wp_attachment_image_alt', true)); ?>"  />
  </span>
 
 

@@ -36,19 +36,19 @@ if (!function_exists('mk_employees_meta_information')) {
         $output .= '<span class="team-member team-member-position s_meta a_align-center a_display-block a_margin-top-15 a_font-weight-normal a_color-777 a_font-14">'.get_post_meta( get_the_ID(), '_position', true ).'</span>';
         $output .= '<ul class="mk-employeee-networks s_meta">';
         if (!empty($email)) {
-            $output.= '<li><a target="_blank" href="mailto:' . antispambot($email) . '" title="' . __('Get In Touch With', 'mk_framework') . ' ' . get_the_title() . '"><i class="mk-icon-envelope"></i></a></li>';
+            $output.= '<li><a target="_blank" href="mailto:' . antispambot($email) . '" title="' . __('Get In Touch With', 'mk_framework') . ' ' . the_title_attribute(array('echo' => false)) . '"><i class="mk-icon-envelope"></i></a></li>';
         }
         if (!empty($facebook)) {
-            $output.= '<li><a target="_blank" href="' . $facebook . '" title="' . get_the_title() . ' ' . __('On', 'mk_framework') . ' Facebook"><i class="mk-moon-facebook"></i></a></li>';
+            $output.= '<li><a target="_blank" href="' . $facebook . '" title="' . the_title_attribute(array('echo' => false)) . ' ' . __('On', 'mk_framework') . ' Facebook"><i class="mk-moon-facebook"></i></a></li>';
         }
         if (!empty($twitter)) {
-            $output.= '<li><a target="_blank" href="' . $twitter . '" title="' . get_the_title() . ' ' . __('On', 'mk_framework') . ' Twitter"><i class="mk-moon-twitter"></i></a></li>';
+            $output.= '<li><a target="_blank" href="' . $twitter . '" title="' . the_title_attribute(array('echo' => false)) . ' ' . __('On', 'mk_framework') . ' Twitter"><i class="mk-moon-twitter"></i></a></li>';
         }
         if (!empty($googleplus)) {
-            $output.= '<li><a target="_blank" href="' . $googleplus . '" title="' . get_the_title() . ' ' . __('On', 'mk_framework') . ' Google Plus"><i class="mk-moon-google-plus"></i></a></li>';
+            $output.= '<li><a target="_blank" href="' . $googleplus . '" title="' . the_title_attribute(array('echo' => false)) . ' ' . __('On', 'mk_framework') . ' Google Plus"><i class="mk-moon-google-plus"></i></a></li>';
         }
         if (!empty($linkedin)) {
-            $output.= '<li><a target="_blank" href="' . $linkedin . '" title="' . get_the_title() . ' ' . __('On', 'mk_framework') . ' Linked In"><i class="mk-jupiter-icon-simple-linkedin"></i></a></li>';
+            $output.= '<li><a target="_blank" href="' . $linkedin . '" title="' . the_title_attribute(array('echo' => false)) . ' ' . __('On', 'mk_framework') . ' Linked In"><i class="mk-jupiter-icon-simple-linkedin"></i></a></li>';
         }
         $output.= '</ul></span>';
 

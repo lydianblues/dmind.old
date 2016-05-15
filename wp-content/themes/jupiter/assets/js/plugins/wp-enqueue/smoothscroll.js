@@ -1,7 +1,9 @@
 // NOTICE by MAKI: lookout when updating to add custom resize listener
         // window.addResizeListener( document.getElementById( 'mk-theme-container' ), refreshSize );
-
-// SmoothScroll for websites v1.4.0 (Balazs Galambosi)
+        // disable touch support on mac
+        // exclude safari
+        
+// SmoothScroll for websites v1.4.4 (Balazs Galambosi)
 // http://www.smoothscroll.net/
 //
 // Licensed under the terms of the MIT license.
@@ -20,9 +22,9 @@
 var defaultOptions = {
 
     // Scrolling Core
-    frameRate        : 150, // [Hz] // 150
-    animationTime    : 400, // [ms] // 400
-    stepSize         : 100, // [px] // 100
+    frameRate        : 150, // [Hz]
+    animationTime    : 400, // [ms]
+    stepSize         : 100, // [px]
 
     // Pulse (less tweakable)
     // ratio of "tail" to "acceleration"
@@ -321,7 +323,7 @@ function wheel(event) {
     var deltaY = -event.wheelDeltaY || event.deltaY || 0;
     
     if (isMac) {
-        
+
         options.touchpadSupport = false;
 
         if (event.wheelDeltaX && isDivisible(event.wheelDeltaX, 120)) {
@@ -374,7 +376,7 @@ function keydown(event) {
                   (event.shiftKey && event.keyCode !== key.spacebar);
     
     // our own tracked active element could've been removed from the DOM
-    if (!document.contains(activeElement)) {
+    if (!document.body.contains(activeElement)) {
         activeElement = document.activeElement;
     }
 
@@ -568,7 +570,7 @@ function isTouchpad(deltaY) {
     if (!deltaBuffer.length) {
         deltaBuffer = [deltaY, deltaY, deltaY];
     }
-    deltaY = Math.abs(deltaY)
+    deltaY = Math.abs(deltaY);
     deltaBuffer.push(deltaY);
     deltaBuffer.shift();
     clearTimeout(deltaBufferTimer);
@@ -683,10 +685,12 @@ function pulse(x) {
 var userAgent = window.navigator.userAgent;
 var isIE      = /Trident/.test(userAgent);
 var isEdge    = /Edge/.test(userAgent); // thank you MS
+var isIE      = /Trident/.test(userAgent);
 var isChrome  = /chrome/i.test(userAgent) && !isEdge; 
 var isSafari  = /safari/i.test(userAgent) && !isEdge; 
 var isMobile  = /mobile/i.test(userAgent);
-var isEnabledForBrowser = (isChrome || isSafari || isIE || isEdge) && !isMobile;
+var isIEWin7  = /Windows NT 6.1/i.test(userAgent) && /rv:11/i.test(userAgent);
+var isEnabledForBrowser = (isChrome || isIEWin7 || isIE || isEdge) && !isMobile;
 
 var wheelEvent;
 if ('onwheel' in document.createElement('div'))

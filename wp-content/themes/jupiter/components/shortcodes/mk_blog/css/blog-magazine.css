@@ -111,12 +111,6 @@
   margin: 5px 0;
 }
 
-.mk-blog-magazine-item.blockquote-post-type,
-.mk-blog-magazine-item.instagram-post-type,
-.mk-blog-magazine-item.twitter-post-type{
-  display: none;
-}
-
 @media handheld, only screen and (max-width: 767px) {
   .mk-blog-magazine-item.magazine-featured-post {
     width: 100% !important;

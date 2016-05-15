@@ -436,12 +436,7 @@ tinymce.PluginManager.add('mk_shortcodes', function(editor, url) {
               onclick: function() {
                 editor.insertContent('[mk_social_networks size="small" style="rounded" margin="4" icon_color="#cccccc" align="left" facebook="#" twitter="#" rss="#" dribbble="#" digg="#" pinterest="#" flickr="#" google_plus="#" linkedin="#" blogger="#" youtube="#" last_fm="#" stumble_upon="#" tumblr="#" vimeo="#" wordpress="#" yelp="#" reddit="#" xing="#"]');
               }
-            }, {
-              text: 'Skype Number',
-              onclick: function() {
-                editor.insertContent('[mk_skype display_number="Your Skype Number (Display)" number="Your Skype Number (exact number)"]');
-              }
-            }, {
+            },{
               text: 'Contact Form',
               onclick: function() {
                 editor.insertContent('[mk_contact_form style="modern" skin="dark" email="#"]');

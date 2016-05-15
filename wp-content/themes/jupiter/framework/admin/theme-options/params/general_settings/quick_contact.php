@@ -1,4 +1,8 @@
 <?php
+$captcha_plugin_status = '';
+if(!Mk_Theme_Captcha::is_plugin_active()) {
+    $captcha_plugin_status = '<span style="color:red">Artbees Themes Captcha plugin is not activated! <a href="'.admin_url('themes.php?page=tgmpa-install-plugins').'">Click here</a> to begin installing.</span>';
+}
 
 $general_section[] = array(
     "type" => "sub_group",
@@ -43,7 +47,7 @@ $general_section[] = array(
         ) ,
         array(
             "name" => __("Enable Captcha?", "mk_framework") ,
-            "desc" => __("Keep away spam bots.", "mk_framework") ,
+            "desc" => __("Keep away spam bots. " . $captcha_plugin_status, "mk_framework") ,
             "id" => "captcha_quick_contact",
             "default" => 'true',
             "type" => "toggle",

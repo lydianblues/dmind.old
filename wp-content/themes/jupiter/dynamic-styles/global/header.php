@@ -102,8 +102,8 @@ Mk_Static_Files::addGlobalStyle("
 }
 
 .mk-search-trigger,
-.mk-shoping-cart-link i,
-.mk-header-cart-count,
+.mk-header .mk-shoping-cart-link i,
+.mk-header .mk-header-cart-count,
 .mk-toolbar-resposnive-icon i
 {
 	color: {$mk_options['main_nav_top_text_color']};

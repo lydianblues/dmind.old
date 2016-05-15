@@ -15,7 +15,7 @@ $button_container = pq( '.mk-gradient-button' );
 
 $button_container->attr('id', 'mk-gradient-button-'.$id);
 $button_container->addClass('fullwidth-'.$fullwidth);
-$button_container->addClass('align-'.$align);
+$button_container->addClass('btn-align-'.$align);
 
 if ($button_custom_width > 0 ) {
 	$button_container->addClass('custom-width-true');
@@ -94,12 +94,12 @@ if ($button_custom_width > 0 ) {
 
 Mk_Static_Files::addCSS('
 	#mk-gradient-button-'.$id.' {
-		'.$custom_width.'
 		margin-top:'.$margin_top.'px;
 		margin-bottom:'.$margin_bottom.'px;
 		margin-right:'.$margin_right.'px;
     }
 	#mk-gradient-button-'.$id.' a {
+    	'.$custom_width.'
     	background: '.$grandient_color_fallback.';
 		background: -webkit-'.$gradients['type'].'-gradient('.$gradients['angle_1'].''.$grandient_color_from.' 0%, '.$grandient_color_to.' 100%);
 		background: '.$gradients['type'].'-gradient('.$gradients['angle_2'].''.$grandient_color_from.' 0%, '.$grandient_color_to.' 100%);

@@ -23,10 +23,10 @@
 	        ) ,
 	        array(
 	            "type" => "textfield",
-	            "heading" => __("Add Icon Character Code", "mk_framework") ,
+	            "heading" => __("Add Icon Class Name  or Character Code", "mk_framework") ,
 	            "param_name" => "style",
-	            "value" => "",
-	            "description" => __("<a target='_blank' href='" . admin_url('admin.php?page=icon-library') . "'>Click here</a> to get the icon Character code.", "mk_framework")
+	            "value" => "f00c",
+	            "description" => __("<a target='_blank' href='" . admin_url('admin.php?page=icon-library') . "'>Click here</a> to get the class name or icon Character code.", "mk_framework")
 	        ) ,
 	        array(
 	            "type" => "colorpicker",

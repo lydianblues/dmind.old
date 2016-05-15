@@ -33,39 +33,44 @@ class Artbees_Widget_Google_Map extends WP_Widget {
 ?>
 
 		<div id="gmap_widget_<?php echo $id;?>" class="google_map" style="height:<?php echo $height;?>px; width:100%;"></div>
-			<script type="text/javascript" src="http<?php echo (is_ssl())? 's' : ''; ?>://maps.google.com/maps/api/js?sensor=false"></script>
+			
+			<?php wp_enqueue_script('gmaps', '//maps.googleapis.com/maps/api/js?ver=1', false, false, false); ?>
+			
 			<script type="text/javascript">
-			jQuery(document).ready(function($) {
-  var map;
-var gmap_marker = true;
+				jQuery(document).ready(function($) {
+	  				var map;
+					var gmap_marker = true;
 
 
-  var myLatlng = new google.maps.LatLng(<?php echo $latitude;?>, <?php echo $longitude;?>)
-      function initialize() {
-        var mapOptions = {
-          zoom: <?php echo $zoom;?>,
-          center: myLatlng,
-	      panControl: <?php echo $panControl ? 'true' : 'false';?>,
-	      scrollwheel: <?php echo $scrollwheel ? 'true' : 'false';?>,
-		  zoomControl: <?php echo $zoomControl ? 'true' : 'false';?>,
-		  mapTypeControl: <?php echo $mapTypeControl ? 'true' : 'false';?>,
-		  scaleControl: <?php echo $scaleControl ? 'true' : 'false';?>,
-		  draggable: <?php echo $draggable ? 'true' : 'false';?>,
-	      mapTypeId: google.maps.MapTypeId.ROADMAP,
-        };
-        map = new google.maps.Map(document.getElementById('gmap_widget_<?php echo $id;?>'), mapOptions);
+	  				var myLatlng = new google.maps.LatLng(<?php echo $latitude;?>, <?php echo $longitude;?>);
 
+	        		function initialize() {
+				        var mapOptions = {
+				          zoom: <?php echo $zoom;?>,
+				          center: myLatlng,
+					      panControl: <?php echo $panControl ? 'true' : 'false';?>,
+					      scrollwheel: <?php echo $scrollwheel ? 'true' : 'false';?>,
+						  zoomControl: <?php echo $zoomControl ? 'true' : 'false';?>,
+						  mapTypeControl: <?php echo $mapTypeControl ? 'true' : 'false';?>,
+						  scaleControl: <?php echo $scaleControl ? 'true' : 'false';?>,
+						  draggable: <?php echo $draggable ? 'true' : 'false';?>,
+					      mapTypeId: google.maps.MapTypeId.ROADMAP,
+				        };
 
-if(gmap_marker == true) {
-        var marker = new google.maps.Marker({
-            position: myLatlng,
-            map: map
-        });
-}
+	        			map = new google.maps.Map(document.getElementById('gmap_widget_<?php echo $id;?>'), mapOptions);
 
-      }
- 		google.maps.event.addDomListener(window, 'load', initialize);
-			});
+						if(gmap_marker == true) {
+						    var marker = new google.maps.Marker({
+						        position: myLatlng,
+						        map: map
+						    });
+						}
+
+	      			}
+
+	 				google.maps.event.addDomListener(window, 'load', initialize);
+	 				
+				});
 			</script>
 
 			<div class="clearboth"></div>

@@ -1805,8 +1805,8 @@
   border-left: 1.1em solid #ffffff;
   -webkit-transform: translateZ(0);
           transform: translateZ(0);
-  -webkit-animation: transparent-circle 1.1s infinite linear;
-          animation: transparent-circle 1.1s infinite linear;
+  -webkit-animation: transparent circle 1.1s infinite linear;
+          animation: transparent circle 1.1s infinite linear;
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -2139,6 +2139,7 @@
   font-weight: bold;
   margin-bottom: 10px;
   font-size: 14px;
+  text-transform: capitalize;
 }
 .mk-single-option .option-desc {
   display: block;
@@ -2232,6 +2233,17 @@
 .outline-button:hover {
   background-color: #6d808f;
   color: #fff;
+}
+.green-button {
+  color: #fff !important;
+  background: #43b77a;
+  border-radius: 6px;
+  background-clip: padding-box;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+}
+.green-button:hover {
+  background: #3ea971;
 }
 #save_theme_options_top {
   position: absolute;
@@ -2756,7 +2768,7 @@ you can use the generic selector below, but it's slower:
   background-position: -384px -96px !important;
 }
 .vc_navbar .vc_page_section_icon {
-  background-position: -60px -210px !important;
+  background-position: -60px -337px !important;
 }
 .vc_row_section_mark {
   line-height: 16px;
@@ -2764,4 +2776,8 @@ you can use the generic selector below, but it's slower:
   text-transform: uppercase;
   color: #878787;
   font-size: 11px;
+}
+.vc_element_label,
+.wpb_element_label {
+  text-transform: capitalize;
 }

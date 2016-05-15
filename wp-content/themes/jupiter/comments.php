@@ -26,7 +26,7 @@ function theme_comments( $comment, $args, $depth ) {
 		       
 		</div>		
 <?php
-}
+ }
 
 function list_pings( $comment, $args, $depth ) {
 	$GLOBALS['comment'] = $comment;

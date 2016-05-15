@@ -54,6 +54,7 @@
 			this.$album.on( 'click', this.albumClick.bind( this ) );
 			$( document ).on( 'click', this.dom.closeBtn, this.closeClick.bind( this ) );
 			$( window ).on( 'resize', this.thumbsVisibility.bind( this ) );
+			$( window ).on( 'resize', this.makeArrows.bind( this ) );
 		},
 
 		albumClick: function( e ) {
@@ -118,14 +119,34 @@
 
 			this.slider.onResize();
 
+			this.makeArrows();
+
 			this.$thumbList = $( this.dom.thumbList );
 			this.$thumbs = $( this.dom.thumbs ); 
 			this.thumbsWidth = (this.$thumbs.length) * 95;
 
 			this.thumbsVisibility();
 			setTimeout(function() {
-				MK.ui.loader.remove(self.album)
+				MK.ui.loader.remove(self.album);
 			}, 100);
+
+			MK.utils.eventManager.publish('photoAlbum-open');
+		},
+
+		makeArrows: function() {
+			var $prev = $('.slick-prev').find('svg');
+			var $next = $('.slick-next').find('svg');
+
+			$prev.wrap('<div class="slick-nav-holder"></div>');
+			$next.wrap('<div class="slick-nav-holder"></div>');
+
+			if(matchMedia("(max-width: 1024px)").matches) {
+				$prev.attr({width: 12, height: 22}).find('polyline').attr('points', '12,0 0,11 12,22');
+				$next.attr({width: 12, height: 22}).find('polyline').attr('points', '0,0 12,11 0,22');
+			} else {
+				$prev.attr({width: 33, height: 65}).find('polyline').attr('points', '0.5,0.5 32.5,32.5 0.5,64.5');
+				$next.attr({width: 33, height: 65}).find('polyline').attr('points', '0.5,0.5 32.5,32.5 0.5,64.5');
+			}
 		},
 
 		loadImages: function() {
@@ -210,6 +231,8 @@
 		}
 	};
 
+
+	// Barts note; Rifat duplication and coupling here. Remove it when have time
 	MK.component.PhotoAlbumBlur = function( el ) {
          var init = function(){
 			core.loadDependencies([ path.plugins + 'pixastic.js' ], function() {

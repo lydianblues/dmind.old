@@ -46,7 +46,6 @@
 .news-full-with-image .news-categories span,
 .news-half-with-image .news-categories span,
 .news-fourth-with-image .news-categories span {
-  box-shadow: 10px 0 0 #00c8d7, -10px 0 0 #00c8d7;
   padding: 12px 5px;
   font-size: 11px;
   margin-left: -8px;

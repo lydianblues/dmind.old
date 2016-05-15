@@ -12,7 +12,7 @@ echo mk_get_view('global', 'shortcode-heading', true, ['title' => $title]);
 ?>
 
 <div class="mk-contact-form-wrapper s_contact <?php echo $style; ?>-style s_<?php echo $style; ?> <?php echo $form_skin; ?> <?php echo $el_class; ?>">
-    <form id="mk-contact-form-<?php echo $id; ?>" class="mk-contact-form clear" method="post" novalidate="novalidate" enctype="multipart/form-data">
+    <form id="mk-contact-form-<?php echo $id; ?>" class="mk-contact-form clearfix" method="post" novalidate="novalidate" enctype="multipart/form-data">
 
         <?php
         $atts =  array(
@@ -27,7 +27,7 @@ echo mk_get_view('global', 'shortcode-heading', true, ['title' => $title]);
 
         echo mk_get_shortcode_view('mk_contact_form', 'styles/' . $style, true, $atts);
         ?>
-
+    <div class="contact-form-message clearfix"></div>   
     </form>
 </div>
 

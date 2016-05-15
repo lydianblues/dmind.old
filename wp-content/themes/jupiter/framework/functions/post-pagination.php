@@ -12,7 +12,7 @@ if (!defined('THEME_FRAMEWORK')) exit('No direct script access allowed');
  */
 
 if (!function_exists('mk_theme_blog_pagenavi')) {
-    function mk_post_pagination($blog_query, $paged) {
+    function mk_post_pagination($blog_query) {
         global $wpdb, $wp_query, $paged;
         
         $pagenavi_options = array(
@@ -24,7 +24,7 @@ if (!function_exists('mk_theme_blog_pagenavi')) {
             'num_pages' => 8,
             'always_show' => 0,
             'num_larger_page_numbers' => 3,
-            'larger_page_numbers_multiple' => 10,
+            'larger_page_numbers_multiple' => 8,
             'use_pagenavi_css' => 0
         );
         
@@ -75,9 +75,12 @@ if (!function_exists('mk_theme_blog_pagenavi')) {
             $pages_text = str_replace("%TOTAL_PAGES%", number_format_i18n($max_page) , $pages_text);
             
             echo '<div class="mk-pagination mk-grid">' . "\n";
-            echo '<div class="mk-pagination-previous">';
-            previous_posts_link('');
-            echo '</div>';
+            $previous_page_link = get_previous_posts_link('');  
+            if($previous_page_link) {
+                echo '<div class="mk-pagination-previous pagination-arrows ">';
+                echo $previous_page_link;
+                echo '</div>';
+            }
             echo '<div class="mk-pagination-inner">';
             if (!empty($pages_text)) {
                 echo '<span class="pages">' . $pages_text . '</span>';
@@ -113,9 +116,12 @@ if (!function_exists('mk_theme_blog_pagenavi')) {
             }
             
             echo '</div>';
-            echo '<div class="mk-pagination-next">';
-            next_posts_link('', $max_page);
-            echo '</div>';
+            $next_page_link = get_next_posts_link('', $max_page);    
+            if($next_page_link) {
+                echo '<div class="mk-pagination-next pagination-arrows">';
+                echo $next_page_link;
+                echo '</div>';
+            }
             echo '<div class="mk-total-pages">' . __('page', 'mk_framework') . '&nbsp;&nbsp;' . $current_page_text . '&nbsp;&nbsp;' . __('of', 'mk_framework') . '&nbsp;&nbsp;' . $max_page . '</div>';
             echo '</div>';
         }

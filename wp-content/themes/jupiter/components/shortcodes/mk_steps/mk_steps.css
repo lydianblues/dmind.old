@@ -61,14 +61,15 @@
   display: inline-block;
   color: #bbbbbb;
   color: rgba(0, 0, 0, 0.24);
+  transform: translateY(5%);
 }
 @-webkit-keyframes toRightFromLeft {
   49% {
-    -webkit-transform: translate(100%);
+    -webkit-transform: translateX(100%) translateY(5%);
   }
   50% {
     opacity: 0;
-    -webkit-transform: translate(-100%);
+    -webkit-transform: translateX(-100%) translateY(5%);
   }
   51% {
     opacity: 1;
@@ -76,13 +77,13 @@
 }
 @keyframes toRightFromLeft {
   49% {
-    -webkit-transform: translate(100%);
-            transform: translate(100%);
+    -webkit-transform: translateX(100%) translateY(5%);
+            transform: translateX(100%) translateY(5%);
   }
   50% {
     opacity: 0;
-    -webkit-transform: translate(-100%);
-            transform: translate(-100%);
+    -webkit-transform: translateX(-100%) translateY(5%);
+            transform: translateX(-100%) translateY(5%);
   }
   51% {
     opacity: 1;

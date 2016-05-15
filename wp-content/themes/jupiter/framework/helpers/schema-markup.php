@@ -2,15 +2,6 @@
 
 if (!defined('THEME_FRAMEWORK')) exit('No direct script access allowed');
 
-/**
- * Extending pagination feature for post loops.
- *
- * @author      Bob Ulusoy
- * @copyright   Artbees LTD (c)
- * @link        http://artbees.net
- * @since       Version 4.2
- * @package     artbees
- */
 
 /**
  * Schema.org addtions for better SEO

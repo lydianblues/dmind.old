@@ -22,21 +22,20 @@ $is_svg = (pathinfo($src, PATHINFO_EXTENSION) == 'svg');
 
 
 if ($image_size == 'crop') {
-    $image_output_src = mk_image_generator($src, $image_width, $image_height);
+    $image_output_src = Mk_Image_Resize::resize_by_url($src, $image_width, $image_height, $crop = true, $dummy = true);
 } 
 else {
 
     if (!empty($image_id)) {
 
-        if (!mk_is_default_thumbnail(wp_get_attachment_image_src($image_id, 'full', true) [0])) {
+        if (!Mk_Image_Resize::is_default_thumb(wp_get_attachment_image_src($image_id, 'full') [0])) {
             $image_src_array = wp_get_attachment_image_src($image_id, $image_size, true);
             $image_output_src = $image_src_array[0];
             $image_width = $image_src_array[1];
             $image_height = $image_src_array[2];
         } 
         else {
-
-            $image_output_src = mk_image_generator($src, $image_width, $image_height);
+            $image_output_src = Mk_Image_Resize::resize_by_url($src, $image_width, $image_height, $crop = true, $dummy = true);
         }
     } else {
         

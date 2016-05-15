@@ -129,12 +129,23 @@
 .mk-tabs.default-style .mk-tabs-panes .mk-tabs-pane {
   padding: 0;
 }
+
 .mk-tabs.default-style .mk-tabs-panes .mk-tabs-pane.is-active {
   padding: 25px 25px 20px;
 }
 @media handheld, only screen and (max-width: 767px) {
   .mk-tabs.default-style .mk-tabs-panes .mk-tabs-pane {
     padding: 0 !important;
+  }
+  .mk-tabs.mobile-true .mk-tabs-pane {
+    display: block;
+  }
+  .mk-tabs-pane-content {
+    padding:0 20px;
+  }
+  .mk-tabs .vc_column_container>.vc_column-inner {
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 .mk-tabs.default-style.vertical-style .mk-tabs-tabs {

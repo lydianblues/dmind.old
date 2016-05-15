@@ -9,6 +9,7 @@
 }
 .mk-edge-one-pager .section .edge-slide-content {
   margin-top: 100px;
+  transform: translateZ(0);
 }
 .mk-edge-one-pager .section.left_top .edge-slide-content,
 .mk-edge-one-pager .section.center_top .edge-slide-content,
@@ -432,6 +433,9 @@ Pagination Styles
 .fullPage-slidesNav ul {
   margin: 0;
   padding: 0;
+}
+#fullPage-nav ul {
+  transform: translateY(-50%);
 }
 .fullPage-tooltip {
   display: none !important;

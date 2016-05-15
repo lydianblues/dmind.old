@@ -22,41 +22,27 @@ require_once dirname( __FILE__ ) . '/class-tgm-plugin-activation.php';
 
 add_action( 'tgmpa_register', 'mk_jupiter_register_required_plugins' );
 
-/**
- * Register the required plugins for this theme.
- *
- * In this example, we register two plugins - one included with the TGMPA library
- * and one from the .org repo.
- *
- * The variable passed to tgmpa_register_plugins() should be an array of plugin
- * arrays.
- *
- * This function is hooked into tgmpa_init, which is fired within the
- * TGM_Plugin_Activation class constructor.
- */
+
 function mk_jupiter_register_required_plugins() {
-    /*
-     * Array of plugin arrays. Required keys are name and slug.
-     * If the source is NOT from the .org repo, then source is also required.
-     */
+
     $plugins = array(
-
-
+        
         array(
             'name' => 'Visual Composer',
             'slug' => 'js_composer_theme',
-            'source' => THEME_DIR . '/plugins/js_composer_theme.zip',
+            'source' => 'http://static.artbees.net/plugins/js_composer_theme.zip',
             'required' => true,
-            'version' => '4.9.2',
+            'version' => '4.11.3',
             'force_activation' => false,
             'force_deactivation' => false
         ),
+
         array(
-            'name'               => 'Envato WordPress Toolkit', // The plugin name.
-            'slug'               => 'envato-wordpress-toolkit-master', // The plugin slug (typically the folder name).
-            'source' => 'https://github.com/envato/envato-wordpress-toolkit/archive/master.zip',
-            'required'           => false, // If false, the plugin is only 'recommended' instead of required.
-            'version' => '1.7.3',
+            'name' => 'Artbees Themes Captcha',
+            'slug' => 'artbees-captcha',
+            'source' => 'http://static.artbees.net/plugins/artbees-captcha.zip',
+            'required' => true,
+            'version' => '1.0',
             'force_activation' => false,
             'force_deactivation' => false
         ),

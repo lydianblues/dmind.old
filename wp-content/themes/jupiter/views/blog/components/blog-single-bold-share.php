@@ -23,8 +23,8 @@ if($mk_options['single_blog_social'] == 'true' ) : ?>
 		<li><a href="<?php echo get_permalink(); ?>#comments" class="blog-bold-comment"><img src="<?php echo THEME_IMAGES; ?>/social-icons/comment.svg" alt="comments" /></a></li>
 		<?php } endif; ?>
 
-		<li><a class="facebook-share" data-title="<?php the_title(); ?>" data-url="<?php echo get_permalink(); ?>" href="#"><img src="<?php echo THEME_IMAGES; ?>/social-icons/facebook.svg" alt="facebook icon" /></a></li>
-		<li><a class="twitter-share" data-title="<?php the_title(); ?>" data-url="<?php echo get_permalink(); ?>" href="#"><img src="<?php echo THEME_IMAGES; ?>/social-icons/twitter.svg" alt="twitter icon" /></a></li>
+		<li><a class="facebook-share" data-title="<?php the_title_attribute(); ?>" data-url="<?php echo get_permalink(); ?>" href="#"><img src="<?php echo THEME_IMAGES; ?>/social-icons/facebook.svg" alt="facebook icon" /></a></li>
+		<li><a class="twitter-share" data-title="<?php the_title_attribute(); ?>" data-url="<?php echo get_permalink(); ?>" href="#"><img src="<?php echo THEME_IMAGES; ?>/social-icons/twitter.svg" alt="twitter icon" /></a></li>
 	</ul>
 	<div class="clearboth"></div>
 </div>

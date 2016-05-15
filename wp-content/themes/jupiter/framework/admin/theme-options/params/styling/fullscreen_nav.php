@@ -40,5 +40,15 @@ $styling_section[] = array(
             "default" => "#fff",
             "type" => "color"
         ) ,
+        array(
+            "name" => __('Close Button Skin', "mk_framework") ,
+            "id" => "fullscreen_close_btn_skin",
+            "default" => 'light',
+            "options" => array(
+                "light" => 'Light',
+                "dark" => 'Dark',
+            ) ,
+            "type" => "dropdown"
+        ) ,
     ) ,
 );

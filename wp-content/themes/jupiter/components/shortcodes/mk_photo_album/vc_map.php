@@ -77,25 +77,6 @@ vc_map(array(
                 )
             )*/
         ),
-
-        /*array(
-            "type" => "dropdown",
-            "heading" => __("Increase Quality of Image", "mk_framework"),
-            "param_name" => "image_quality",
-            "value" => array(
-                __("Normal Quality", 'mk_framework') => "1",
-                __("Images 2 times bigger (Retina compatible)", 'mk_framework') => "2",
-                __("Images 3 times bigger (Fullwidth row compatible)", 'mk_framework') => "3"
-            ),
-            "dependency" => array(
-                'element' => "image_size",
-                'value' => array(
-                    'crop'
-                )
-            ),
-            "description" => __("If you would like your portfolio images to be retina compatible or just want to use it in fullwidth row, you may consider increasing the image size. This option will help you define the image quality manually. Please note that this option will not work for Masonry portfolio style.", "mk_framework")
-        ),*/
-
         array(
             "heading" => __("Show Description?", 'mk_framework'),
             "description" => __("", 'mk_framework'),
@@ -156,28 +137,39 @@ vc_map(array(
             "description" => __("How many Posts would you like to show? (-1 means unlimited)", "mk_framework")
         ),
 
-        array(
-            "type" => "multiselect",
-            "heading" => __("Select specific Posts", "mk_framework"),
-            "param_name" => "posts",
-            "options" => mk_get_post_enteries('photo_album', 40),
-            "value" => '',
-            "description" => __("", "mk_framework")
+         array(
+            'type'        => 'autocomplete',
+            'heading'     => __( 'Select specific Categories', 'mk_framework' ),
+            'param_name'  => 'categories',
+            'settings' => array(
+                                'multiple' => true,
+                                'sortable' => true,
+                                'unique_values' => true,
+                            ),
+            'description' => __( 'Search for category name to get autocomplete suggestions', 'mk_framework' ),
         ),
         array(
-            "type" => "multiselect",
-            "heading" => __("Select specific Authors", "mk_framework"),
-            "param_name" => "author",
-            "options" => mk_get_authors(50),
-            "value" => '',
-            "description" => __("", "mk_framework")
+            'type'        => 'autocomplete',
+            'heading'     => __( 'Select specific Posts', 'mk_framework' ),
+            'param_name'  => 'posts',
+            'settings' => array(
+                                'multiple' => true,
+                                'sortable' => true,
+                                'unique_values' => true,
+                            ),
+            'description' => __( 'Search for post ID or post title to get autocomplete suggestions', 'mk_framework' ),
         ),
+
         array(
-            "type" => "textfield",
-            "heading" => __("Select Specific Categories.", "mk_framework"),
-            "param_name" => "categories",
-            "value" => '',
-            "description" => __("You will need to go to Wordpress Dashboard => Photo Albums => Photo Album Categories. In the right hand find Slug column. you will need to add Photo Album category slugs in this option. add comma to separate them.", "mk_framework")
+            'type'        => 'autocomplete',
+            'heading'     => __( 'Select specific Authors', 'mk_framework' ),
+            'param_name'  => 'author',
+            'settings' => array(
+                                'multiple' => true,
+                                'sortable' => true,
+                                'unique_values' => true,
+                            ),
+            'description' => __( 'Search for user ID, Username, Email Address to get autocomplete suggestions', 'mk_framework' ),
         ),
 
         array(

@@ -14,7 +14,7 @@
 }
 .mk-accordion.fancy-style .mk-accordion-tab {
   position: relative;
-  padding: 9px 30px 12px 15px;
+  padding: 12px 30px 12px 15px;
   color: #222222;
   font-size: 13px;
   font-weight: 600;
@@ -32,7 +32,7 @@
   margin-right: 10px;
   color: #b9b9b9;
   font-size: 16px;
-  line-height: 26px;
+  line-height: 16px;
 }
 .mk-accordion.fancy-style .mk-accordion-tab:hover {
   background-color: #f8f8f8;
@@ -40,7 +40,11 @@
 .mk-accordion.fancy-style .mk-accordion-tab:hover i {
   color: #868686;
 }
-.mk-accordion.fancy-style .mk-accordion-tab:before {
+.mk-accordion.fancy-style .mk-accordion-tab:hover i .mk-svg-icon {
+  fill: #868686;
+}
+.mk-accordion.fancy-style .mk-accordion-tab:before,
+.mk-accordion.fancy-style .mk-accordion-tab > .mk-svg-icon {
   position: absolute;
   top: 50%;
   right: 14px;
@@ -55,7 +59,8 @@
 .mk-accordion.fancy-style .mk-accordion-single.current .mk-accordion-pane {
   border-top: 1px solid #ececec;
 }
-.mk-accordion.fancy-style .mk-accordion-single.current .mk-accordion-tab:before {
+.mk-accordion.fancy-style .mk-accordion-single.current .mk-accordion-tab:before,
+.mk-accordion.fancy-style .mk-accordion-single.current .mk-accordion-tab > .mk-svg-icon {
   -webkit-transform: rotate(90deg);
       -ms-transform: rotate(90deg);
           transform: rotate(90deg);
@@ -90,7 +95,22 @@
   color: #b9b9b9;
   font-size: 16px;
 }
+.mk-accordion.simple-style .mk-accordion-tab i .mk-svg-icon {
+  fill: #b9b9b9;
+}
 .mk-accordion.simple-style .mk-accordion-tab:before {
+  position: absolute;
+  top: 16px;
+  right: 10px;
+  display: block;
+  padding: 3px 6px 2px;
+  color: #dddddd;
+  content: "\f054";
+  font-size: 12px;
+  line-height: 12px;
+}
+
+.mk-accordion.simple-style .mk-accordion-tab > .mk-svg-icon {
   position: absolute;
   top: 16px;
   right: 10px;
@@ -109,6 +129,12 @@
       -ms-transform: rotate(90deg);
           transform: rotate(90deg);
   color: #252525;
+}
+.mk-accordion.simple-style .mk-accordion-single.current .mk-accordion-tab > .mk-svg-icon {
+  -webkit-transform: rotate(90deg);
+      -ms-transform: rotate(90deg);
+          transform: rotate(90deg);
+  fill: #252525;
 }
 .mk-accordion.simple-style .mk-accordion-pane {
   display: none;
@@ -181,10 +207,19 @@
   line-height: 16px;
   color: #adadad;
 }
+.mk-toggle.fancy-style .mk-toggle-title > .mk-svg-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: block;
+  padding: 3px 6px 2px;
+  fill: #adadad;
+}
 .mk-toggle.fancy-style .mk-toggle-title.active-toggle {
   border-bottom: 1px solid #ececec;
 }
-.mk-toggle.fancy-style .mk-toggle-title.active-toggle:before {
+.mk-toggle.fancy-style .mk-toggle-title.active-toggle:before,
+.mk-toggle.fancy-style .mk-toggle-title.active-toggle > .mk-svg-icon {
   -webkit-transform: rotate(90deg);
       -ms-transform: rotate(90deg);
           transform: rotate(90deg);
@@ -214,7 +249,17 @@
   font-size: 12px;
   line-height: 12px;
 }
-.mk-toggle.simple-style .mk-toggle-title.active-toggle:before {
+
+.mk-toggle.simple-style .mk-toggle-title > .mk-svg-icon {
+  position: absolute;
+  top: 11px;
+  left: -4px;
+  display: block;
+  padding: 3px 6px 2px;
+  fill: #adadad;
+}
+.mk-toggle.simple-style .mk-toggle-title.active-toggle:before,
+.mk-toggle.simple-style .mk-toggle-title.active-toggle > .mk-svg-icon {
   left: -6px;
   -webkit-transform: rotate(90deg);
       -ms-transform: rotate(90deg);

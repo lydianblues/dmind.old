@@ -7,12 +7,13 @@ $html = file_get_contents( $path . '/template.php' );
 $html = phpQuery::newDocument( $html );
 $id = Mk_Static_Files::shortcode_id();
 
-require_once (THEME_INCLUDES . "/bfi_thumb.php");
 
 $first_image_id = mk_get_attachment_id_from_url($src_first);
+$second_image_id = mk_get_attachment_id_from_url($src_second);
+
 $first_image_alt = get_post_meta($first_image_id, '_wp_attachment_image_alt', true);
-$second_image_id = mk_get_attachment_id_from_url($src_first);
-$second_image_alt = get_post_meta($first_image_id, '_wp_attachment_image_alt', true);
+$second_image_alt = get_post_meta($second_image_id, '_wp_attachment_image_alt', true);
+
 $svg = ($svg == 'true') ? ('style="max-width:'.$image_width.'px" ') : '';
 
 // Main logic here
@@ -30,10 +31,13 @@ if ( $animation != '' ) {
 
 
 if ( $crop == 'true' ) {
-	$first_image_src = bfi_thumb( $src_first, array('width' => $image_width, 'height' => $image_height));
-	$secon_image_src = bfi_thumb( $src_second, array('width' => $image_width, 'height' => $image_height));
-	$image_container->append('<img alt="'.$first_image_alt.'" src="'.mk_image_generator($first_image_src, $image_width, $image_height).'" class="first__image" />');
-	$image_container->append('<img alt="'.$second_image_alt.'" src="'.mk_image_generator($secon_image_src, $image_width, $image_height).'" class="second__image" />');
+
+	$cropped_first_src = Mk_Image_Resize::resize_by_url($src_first, $image_width, $image_height, $crop = true, $dummy = true);
+	$cropped_second_src = Mk_Image_Resize::resize_by_url($src_second, $image_width, $image_height, $crop = true, $dummy = true);
+
+	$image_container->append('<img alt="'.$first_image_alt.'" src="'.$cropped_first_src.'" class="first__image" />');
+	$image_container->append('<img alt="'.$second_image_alt.'" src="'.$cropped_second_src.'" class="second__image" />');
+
 }else {
 	$image_container->append('<img alt="'.$first_image_alt.'" src="'.$src_first.'" class="first__image" />');
 	$image_container->append('<img alt="'.$second_image_alt.'" src="'.$src_second.'" class="second__image" />');

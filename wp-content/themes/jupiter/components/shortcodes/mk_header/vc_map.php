@@ -28,14 +28,6 @@ vc_map(array(
             "description" => __("", "mk_framework")
         ) ,
 
-        /*array(
-            "type" => "toggle",
-            "heading" => __("Show Logo", "mk_framework") ,
-            "param_name" => "show_logo",
-            "value" => "true",
-            "description" => __("", "mk_framework")
-        ) ,*/
-
         array(
             "heading" => __("Hover Style", 'mk_framework') ,
             "description" => __("", 'mk_framework') ,
@@ -73,6 +65,46 @@ vc_map(array(
             ) ,
             "description" => __("", "mk_framework")
         ) ,
+
+        array(
+            "type" => "toggle",
+            "heading" => __("Show Logo?", "mk_framework") ,
+            "param_name" => "logo",
+            "value" => "true",
+            "description" => __("Using this option you can toggle on/off logo from header.", "mk_framework") ,
+        ) ,
+
+        array(
+            "type" => "toggle",
+            "heading" => __("Burger Icon", "mk_framework") ,
+            "param_name" => "burger_icon",
+            "value" => "true",
+            "description" => __("Enable this option if you would like to have secondary menu. This menu will pop up once the burger icon is clicked. To change secondary menu settings go to: Theme Options > General > Header > Secondary Menu Settings", "mk_framework") ,
+        ) ,
+
+        array(
+            "type" => "toggle",
+            "heading" => __("Show Search Icon?", "mk_framework") ,
+            "param_name" => "search_icon",
+            "value" => "true",
+            "description" => __("Using this option you can toggle on/off the search icon that triggers header search form.", "mk_framework") ,
+            "dependency" => array(
+                'element' => "style",
+                'value' => array(
+                    '1'
+                )
+            )
+        ) ,
+
+        array(
+            "type" => "toggle",
+            "heading" => __("Show WooCommerce Cart?", "mk_framework") ,
+            "param_name" => "woo_cart",
+            "value" => "true",
+            "description" => __("Using this option you can toggle on/off the WooCommerce cart icon that shows the list of added products into shopping cart.", "mk_framework") ,
+        ) ,
+
+        
         
         array(
             "type" => "colorpicker",

@@ -7,7 +7,7 @@
   transition: color .2s linear;
   margin-top: -2px;
 }
-.mk-iconBox-gradient .icon svg {
+.mk-iconBox-gradient .icon svg:not(.mk-svg-icon) {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -21,31 +21,32 @@
 .Firefox .mk-iconBox-gradient .icon {
   background: initial !important;
 }
-.Firefox .mk-iconBox-gradient .icon i {
+.Firefox .mk-iconBox-gradient .icon i,
+.Firefox .mk-iconBox-gradient .icon .mk-svg-icon {
   position: relative;
   z-index: 2;
 }
-.Firefox .mk-iconBox-gradient .icon svg {
+.Firefox .mk-iconBox-gradient .icon svg:not(.mk-svg-icon) {
   display: block;
 }
-.Firefox .mk-iconBox-gradient .icon svg path {
+.Firefox .mk-iconBox-gradient .icon svg:not(.mk-svg-icon) path {
   transition: fill 0.2s linear;
   display: none;
 }
-.Firefox .icon.linear-gradient svg radialGradient {
+.Firefox .icon.linear-gradient svg:not(.mk-svg-icon) radialGradient {
   display: none;
 }
-.Firefox .icon.radial-gradient svg linearGradient {
+.Firefox .icon.radial-gradient svg:not(.mk-svg-icon) linearGradient {
   display: none;
 }
 
-.Firefox .icon.circle svg path#circle,
-.Firefox .icon.hexagon svg path#hexagon,
-.Firefox .icon.hexagon2 svg path#hexagon2,
-.Firefox .icon.pentagon svg path#pentagon,
-.Firefox .icon.square svg path#square,
-.Firefox .icon.square2 svg path#square2,
-.Firefox .icon.starz svg path#starz {
+.Firefox .icon.circle svg:not(.mk-svg-icon) path#circle,
+.Firefox .icon.hexagon svg:not(.mk-svg-icon) path#hexagon,
+.Firefox .icon.hexagon2 svg:not(.mk-svg-icon) path#hexagon2,
+.Firefox .icon.pentagon svg:not(.mk-svg-icon) path#pentagon,
+.Firefox .icon.square svg:not(.mk-svg-icon) path#square,
+.Firefox .icon.square2 svg:not(.mk-svg-icon) path#square2,
+.Firefox .icon.starz svg:not(.mk-svg-icon) path#starz {
   display: block;
 }
 

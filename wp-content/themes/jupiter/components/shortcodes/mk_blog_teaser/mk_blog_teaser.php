@@ -26,41 +26,51 @@
 
     $output .= '<section class="mk-blog-teaser '.$el_class.'">';
 
-    $output .= '<div class="mk-swipe-slideshow mk-swiper-container blog-slider-item js-el" style="overflow: hidden"
-                data-mk-component="SwipeSlideshow"
-                data-swipeSlideshow-config=\'{
-                    "effect" : "slide",
-                    "displayTime" : "6000",
-                    "transitionTime" : "700",
-                    "nav" : ".mk-swipe-slideshow-nav-'.$id .'",
-                    "hasNav" : "true" }\' >';
 
-    $output .= '<div class="mk-swiper-wrapper mk-slider-holder">';
     $r = new WP_Query($slider_query);
         if ($r->have_posts()):
-            while ($r->have_posts()):
-                $r->the_post();
 
-                        
+                    // If only one post returned, eliminate the slideshow 
+                    if($r->found_posts > 1) {    
+                         $output .= '<div class="mk-swipe-slideshow mk-swiper-container blog-slider-item js-el" style="overflow: hidden"
+                                data-mk-component="SwipeSlideshow"
+                                data-swipeSlideshow-config=\'{
+                                    "effect" : "slide",
+                                    "displayTime" : "6000",
+                                    "transitionTime" : "700",
+                                    "nav" : ".mk-swipe-slideshow-nav-'.$id .'",
+                                    "hasNav" : "true" }\' >';
 
-                        $post_type = (get_post_format(get_the_id()) == '0' || get_post_format(get_the_id()) == '') ? 'image' : get_post_format(get_the_id());
+                        $output .= '<div class="mk-swiper-wrapper mk-slider-holder">';
+                         
+                    } else {
+                        $output .= '<div class="blog-slider-item">';
+                    }
+                
 
-                        $output .= '<div class="mk-slider-slide">';
+                    while ($r->have_posts()):
+
+                        $r->the_post();
+
+                        if($r->found_posts > 1) {  
+                            $output .= '<div class="mk-slider-slide">';  
+                        }
                         $output .= '<article id="teaser-entry-' . get_the_ID() . '" class="blog-slideshow-entry swiper-slide">';
 
 
-                        $image_src_array = wp_get_attachment_image_src(get_post_thumbnail_id(), 'full', true);
-                        $image_src       = bfi_thumb($image_src_array[0], array(
-                            'width' => $image_width,
-                            'height' => $image_height,
-                            'crop' => true
-                        ));
-                        //if (has_post_thumbnail()) {
-                            $output .= '<div class="thumb-featured-image"><a title="' . get_the_title() . '" href="' . get_permalink() . '">';
-                            $output .= '<img alt="' . get_the_title() . '" class="item-featured-image"  title="' . get_the_title() . '" src="' . mk_image_generator($image_src, $image_width, $image_height) . '" itemprop="image" />';
+                            $featured_image_src = Mk_Image_Resize::resize_by_id_adaptive(get_post_thumbnail_id(), 'crop', $image_width, $image_height, $crop = true, $dummy = true);
+
+
+                            $output .= '<div class="thumb-featured-image"><a title="' .  the_title_attribute(array('echo' => false)) . '" href="' . get_permalink() . '">';
+                            $output .= '<img 
+                                                alt="' . the_title_attribute(array('echo' => false)) . '" 
+                                                class="item-featured-image"  
+                                                title="' . the_title_attribute(array('echo' => false)) . '" 
+                                                src="'.$featured_image_src['dummy'].'" 
+                                                '.$featured_image_src['data-set'].' 
+                                                itemprop="image" />';
                             $output .= '<div class="image-hover-overlay"></div>';
                             $output .= '</a></div>';
-                        //}
 
                             $output .= '<div class="blog-meta">';
                             $output .= '<h2 class="blog-title"><a href="' . get_permalink() . '">' . get_the_title() . '</a></h2>';
@@ -86,21 +96,31 @@
 
 
                         $output .= '</article>';
-                        $output .= '</div>';
+
+                        if($r->found_posts > 1) {  
+                            $output .= '</div>';
+                        }
+                        
             endwhile;
-        endif;
+
+     if($r->found_posts > 1) {            
+        
+        $output .= '</div>';
+
+        $output .= '<div class="mk-swipe-slideshow-nav-'.$id .'">';
+            $output .= '<a class="mk-swiper-prev swiper-arrows" data-direction="prev"><i class="mk-jupiter-icon-arrow-left"></i></a>';
+            $output .= '<a class="mk-swiper-next swiper-arrows" data-direction="next"><i class="mk-jupiter-icon-arrow-right"></i></a>';
+        $output .= '</div>';
+
+
+        $output .= '<img src="'. Mk_Image_Resize::generate_dummy_image($image_width, $image_height, true) .'" style="visibility: hidden;" />';
+
+    }
+
     $output .= '</div>';
 
-    $output .= '<div class="mk-swipe-slideshow-nav-'.$id .'">';
-        $output .= '<a class="mk-swiper-prev swiper-arrows" data-direction="prev"><i class="mk-jupiter-icon-arrow-left"></i></a>';
-        $output .= '<a class="mk-swiper-next swiper-arrows" data-direction="next"><i class="mk-jupiter-icon-arrow-right"></i></a>';
-    $output .= '</div>';
 
-
-            $output .= '<img src="'. mk_image_generator('', $image_width, $image_height) .'" style="visibility: hidden;" />';
-
-
-    $output .= '</div>';
+    endif;
 
 
 
@@ -143,18 +163,20 @@
                         $output .= '<article id="entry-' . get_the_ID() . '" class="blog-teaser-side-item '.$item_class.'"><div class="item-holder">';
 
 
-                        $image_src_array = wp_get_attachment_image_src(get_post_thumbnail_id(), 'full', true);
-                        $image_src       = bfi_thumb($image_src_array[0], array(
-                            'width' => $image_width,
-                            'height' => $image_height,
-                            'crop' => true
-                        ));
-                        //if (has_post_thumbnail()) {
-                            $output .= '<div class="thumb-featured-image"><a title="' . get_the_title() . '" href="' . get_permalink() . '">';
-                            $output .= '<img alt="' . get_the_title() . '" width="' . $image_width . '" class="item-featured-image" height="' . $image_height . '" title="' . get_the_title() . '" src="' . mk_image_generator($image_src, $image_width, $image_height) . '" itemprop="image" />';
+                            $featured_image_src       = Mk_Image_Resize::resize_by_id_adaptive(get_post_thumbnail_id(), 'crop', $image_width, $image_height, $crop = true, $dummy = true);
+                            
+                            $output .= '<div class="thumb-featured-image"><a title="' . the_title_attribute(array('echo' => false)) . '" href="' . get_permalink() . '">';
+                            $output .= '<img 
+                                            alt="' . the_title_attribute(array('echo' => false)) . '" 
+                                            width="' . $image_width . '" 
+                                            class="item-featured-image" 
+                                            height="' . $image_height . '" 
+                                            title="' . the_title_attribute(array('echo' => false)) . '" 
+                                            src="'.$featured_image_src['dummy'].'" 
+                                            '.$featured_image_src['data-set'].' 
+                                            itemprop="image" />';
                             $output .= '<div class="image-hover-overlay"></div>';
                             $output .= '</a></div>';
-                        //}
 
                             $output .= '<div class="blog-meta">';
                             $output .= '<h2 class="blog-title"><a href="' . get_permalink() . '">' . get_the_title() . '</a></h2>';

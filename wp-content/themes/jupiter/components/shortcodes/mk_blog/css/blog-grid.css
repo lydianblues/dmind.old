@@ -182,14 +182,17 @@
   padding: 40px 25px 25px 80px;
 }
 .mk-blog-grid-item.blockquote-post-type .blog-grid-holder .blog-blockquote-content:before {
+  content: "\f10d";
+}
+.mk-blog-grid-item.blockquote-post-type .blog-grid-holder .blog-blockquote-content .mk-svg-icon {
   position: absolute;
   top: 50px;
   left: 25px;
   display: block;
-  color: #ddd;
-  color: rgba(0, 0, 0, 0.1);
-  content: "\f10d";
-  font-size: 48px;
+  fill: #ddd;
+  fill: rgba(0, 0, 0, 0.1);
+  width: 48px!important;
+  height: 48px!important;
 }
 .mk-blog-grid-item.blockquote-post-type .blog-grid-holder .blog-blockquote-content footer {
   text-align: right;
@@ -228,6 +231,7 @@
   line-height: 36px;
   padding-bottom: 30px;
   padding: 25px 40px 90px;
+  word-wrap: break-word;
 }
 .mk-blog-grid-item.twitter-post-type .blog-grid-holder .blog-twitter-content:before {
   content: '';

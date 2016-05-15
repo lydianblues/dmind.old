@@ -18,6 +18,7 @@ if ($mk_options['single_disable_featured_image'] == 'true' && get_post_meta($pos
     $post_type = !empty($post_type) ? $post_type : 'image';
 
     $media_atts = array(
+        'single_post'   => true,
         'image_size'    => ($mk_options['blog_single_img_crop'] == 'true') ? 'crop' : 'full',
         'image_width'   => mk_count_content_width($post->ID),
         'image_height'  => $mk_options['single_featured_image_height'],

@@ -74,8 +74,8 @@
   right: 20px !important;
 }
 .mk-testimonial.simple-style {
-  padding: 10px 50px 0;
-  margin-top: 37px;
+  padding:50px 50px 0;
+  margin-top: 30px;
   text-align: center;
 }
 .mk-testimonial.simple-style.testimonial-column .mk-moon-quotes-left,
@@ -84,7 +84,8 @@
 }
 @media handheld, only screen and (max-width: 767px) {
   .mk-testimonial.simple-style.simple-style {
-    padding: 0;
+    padding-left: 0;
+    padding-right: 0;
   }
   .mk-testimonial.simple-style .mk-moon-quotes-left,
   .mk-testimonial.simple-style .mk-moon-quotes-right {
@@ -138,8 +139,9 @@
   width: 45px;
   height: 45px;
   border: 2px solid #cccccc;
-  position: absolute;
   line-height: 45px;
+  position: absolute;
+  top: 0;
 }
 .mk-testimonial.simple-style .flex-direction-nav .flex-next i,
 .mk-testimonial.simple-style .flex-direction-nav .flex-prev i {
@@ -149,14 +151,12 @@
   left: -15px;
 }
 .mk-testimonial.simple-style .flex-direction-nav .flex-next {
-  top: -30px;
   left: 50% !important;
-  margin: 0 0 0 28px;
+  transform: translateX(50%);
 }
 .mk-testimonial.simple-style .flex-direction-nav .flex-prev {
-  top: -30px;
   left: 50% !important;
-  margin: 0 0 0 -40px;
+  transform: translateX(-150%);
 }
 .mk-testimonial.simple-style.light-version .mk-testimonial-content,
 .mk-testimonial.simple-style.light-version .mk-testimonial-content p,

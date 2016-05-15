@@ -18,7 +18,7 @@
   position: relative;
 
 }
-.mk-custom-box .box-holder.clear {
+.mk-custom-box .box-holder.clearfix {
   /*overflow: auto;*/
 }
 .mk-custom-box .box-holder > .wpb_row:before,

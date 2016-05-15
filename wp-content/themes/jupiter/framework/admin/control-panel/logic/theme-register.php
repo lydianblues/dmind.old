@@ -79,7 +79,7 @@ if(isset($_POST['apikey'])){
 		<p>Any problem? <a href="https://artbees.net/themes/docs/how-to-register-theme/"><strong>View the tutorial here</strong></a></p>
 		<div class="how-to-video-list">
 			<div class="video-item">
-				<a target="_blank" href="https://www.youtube.com/watch?v=NXOiSp6HMOs">
+				<a target="_blank" href="https://www.youtube.com/watch?v=I9FERyjuq4A">
 					<img src="<?php echo THEME_CONTROL_PANEL_ASSETS; ?>/images/register-product-tuts-video.jpg" alt="">
 					<i class="ic-play"></i>
 				</a>

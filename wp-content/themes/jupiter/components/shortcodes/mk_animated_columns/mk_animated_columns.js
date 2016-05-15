@@ -150,7 +150,7 @@
                             ease: Back.easeOut
                         }, 0.2);
                     });
-                };
+                }
 
                 if($columns.length === index + 1) {
                     prepareCols($this);
@@ -158,6 +158,10 @@
                             setTimeout(prepareCols($this), 1000);
                     });
                 }
+
+                MK.utils.eventManager.subscribe('iconsInsert', function() {
+                    prepareCols($this);
+                });
             });
 
         });

@@ -5,7 +5,7 @@
  *
  * @author      Artbees
  * @package     jupiter/views
- * @version     5.0.0
+ * @version     5.1
  */
 
 if(mk_get_blog_single_style() == 'bold') return false;
@@ -13,8 +13,6 @@ if(mk_get_blog_single_style() == 'bold') return false;
 global $post, $mk_options;
 
 if ($mk_options['enable_single_related_posts'] == 'true' && get_post_meta($post->ID, '_disable_related_posts', true) != 'false') :
-
-require_once (THEME_INCLUDES . "/bfi_thumb.php");
 
 $backup = $post;
 $tags = wp_get_post_tags($post->ID);
@@ -46,21 +44,11 @@ if (!function_exists('mk_similar_posts_html')) {
         while ($query->have_posts()) {
             $query->the_post();
             $output.= '<li><div class="similar-post-holder">';
-            $output.= '<a class="mk-similiar-thumbnail" href="' . get_permalink() . '" title="' . get_the_title() . '">';
-            if (has_post_thumbnail()) {
-                $image_src_array = wp_get_attachment_image_src(get_post_thumbnail_id() , 'full', true);
-                $image_src = bfi_thumb($image_src_array[0], array(
-                    'width' => $width,
-                    'height' => $height
-                ));
-            } 
-            else {
-                $image_src = bfi_thumb(THEME_IMAGES . '/empty-thumb.png', array(
-                    'width' => $width,
-                    'height' => $height
-                ));
-            }
-            $output.= '<img src="' . mk_image_generator($image_src, $width, $height) . '" alt="' . get_the_title() . '" />';
+            $output.= '<a class="mk-similiar-thumbnail" href="' . get_permalink() . '" title="' . the_title_attribute(array('echo' => false)) . '">';
+
+            $image_src = Mk_Image_Resize::resize_by_id_adaptive( get_post_thumbnail_id(), 'crop', $width, $height, $crop = true, $dummy = true);
+            
+            $output.= '<img src="' . $image_src['dummy'] . '" '.$image_src['data-set'].' alt="' . the_title_attribute(array('echo' => false)) . '" />';
             $output.= '<div class="image-hover-overlay"></div></a>';
             $output.= '<a href="' . get_permalink() . '" class="mk-similiar-title">' . get_the_title() . '</a>';
             $output.= '</div></li>';

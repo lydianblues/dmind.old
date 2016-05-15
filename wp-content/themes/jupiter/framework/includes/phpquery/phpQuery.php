@@ -12,6 +12,12 @@
  * @package phpQuery
  */
 
+
+
+
+// Check if Php query already loaded 
+//if (class_exists('phpQuery')) return false;
+
 // class names for instanceof
 // TODO move them as class constants into phpQuery
 define('DOMDOCUMENT', 'DOMDocument');
@@ -5698,5 +5704,5 @@ function pq($arg1, $context = null) {
 // XXX __callStatic will be available in PHP 5.3
 phpQuery::$plugins = new phpQueryPlugins();
 // include bootstrap file (personal library config)
-if (file_exists(dirname(__FILE__).'/phpQuery/bootstrap.php'))
-	require_once dirname(__FILE__).'/phpQuery/bootstrap.php';
+/*if (file_exists(dirname(__FILE__).'/phpQuery/bootstrap.php'))
+	require_once dirname(__FILE__).'/phpQuery/bootstrap.php';*/

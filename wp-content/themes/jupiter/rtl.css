@@ -44,10 +44,42 @@ abbr, acronym textarea, input[type=text], input[type=tel], input[type=email], in
     letter-spacing: 0 !important;
 }
 
+input.text-input.s_txt-input:not(.captcha-form) {
+    text-align: right !important;
+}
+
+.s_contact.s_line .s_txt-input, .s_contact.s_line .mk-form-row,
+.s_contact.s_classic .captcha-form {
+    text-align: right !important;
+}
+
+.s_outline.s_contact .captcha-change-image {
+    right:auto;
+    left:10px;
+}
+
+.s_contact.s_classic .s_txt-input {
+        padding: 10px 45px 10px 10px;
+}
+.s_contact.s_classic .s_txt-input {
+    background: url('assets/images/contact-inputs-bg-rtl.png') right top repeat-y #ffffff;
+}
+.s_contact.s_classic i {
+    right: 10px;
+    left:auto;
+}
+
 .main-navigation-ul > li.no-mega-menu ul.sub-menu li.menu-item a.menu-item-link,
 .mk-responsive-nav li a,
 .mk-responsive-nav li ul li a {
     text-align: right;
+}
+.main-navigation-ul>li.menu-item {
+    float: right !important;
+}
+
+.main-navigation-ul>li.menu-item {
+    float: right !important;
 }
 
 .mk-responsive-nav .mk-nav-arrow {
@@ -463,6 +495,7 @@ abbr, acronym textarea, input[type=text], input[type=tel], input[type=email], in
 
 .widget_contact_info ul li i {
     right: 0;
+    left:auto!important;
 }
 
 .widget_contact_info ul li {
@@ -527,5 +560,17 @@ abbr, acronym textarea, input[type=text], input[type=tel], input[type=email], in
 .header-style-1.header-align-center .header-logo img,
 .header-style-1.header-align-right .header-logo img {
 	   left: 0 !important;
+}
+
+/* Photo album heading section */
+.slick-slider-wrapper .slick-header .slick-title {
+    margin:0 45px 0 0;
+}
+.slick-slider-wrapper .slick-header .slick-close-icon {
+    left: 35px;
+    right:auto;
+}
+.mk-photo-album .mk-album-item {
+    float: right;
 }
 

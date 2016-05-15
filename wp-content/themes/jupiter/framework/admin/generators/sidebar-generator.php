@@ -25,6 +25,9 @@ class mkSidebarGenerator
             __('Fifth Footer Widget Area', 'mk_framework') ,
             __('Sixth Footer Widget Area', 'mk_framework') ,
         );
+
+        $theme_options = get_option(THEME_OPTIONS);
+        $this->custom_sidebar_name = isset($theme_options['custom_sidebars']) ? $theme_options['custom_sidebars'] : '';
     }
     
     function register_sidebar() {
@@ -98,6 +101,26 @@ class mkSidebarGenerator
                 $i++;
             }
         }
+
+
+        if (!empty($this->custom_sidebar_name)) {
+            foreach ($this->custom_sidebar_name as $name) {
+                $name = str_replace('_', ' ', $name);
+                $name = str_replace('-', ' ', $name);
+                register_sidebar(array(
+                    'name' => __('Custom Post Type - ' , 'mk_framework') . $name,
+                    'id' => 'sidebar-' . $i,
+                    'description' => $name,
+                    'before_widget' => '<section id="%1$s" class="widget %2$s">',
+                    'after_widget' => '</section>',
+                    'before_title' => '<div class="widgettitle">',
+                    'after_title' => '</div>',
+                ));
+                
+                $i++;
+            }
+        }
+
     }
     
     function get_sidebar($post_id) {
@@ -142,9 +165,23 @@ class mkSidebarGenerator
                 $sidebar = $custom;
             }
         }
+
+        if(is_array($this->custom_sidebar_name) && !empty($this->custom_sidebar_name)) {
+            foreach ($this->custom_sidebar_name as $name) {
+                if (is_singular($name)) {
+                    $name = str_replace('_', ' ', $name);
+                    $name = str_replace('-', ' ', $name);
+                    $sidebar = __('Custom Post Type - ' , 'mk_framework') . $name;
+                }    
+            }
+        }
+
         if (isset($sidebar)) {
             dynamic_sidebar($sidebar);
         }
+
+        
+        
     }
     function get_footer_sidebar() {
         global $post;
@@ -226,4 +263,3 @@ function mk_sidebar_generator($function) {
         $function
     ) , $args);
 }
-

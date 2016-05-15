@@ -176,8 +176,16 @@ class Artbees_Widget_Social extends WP_Widget {
 					if ( !empty($icon_bg_color) && ($style == 'square-pointed' || $style == 'square-rounded' || $style == 'simple-circle')) { 
 						$output .= 'background-color: '.$icon_bg_color.' !important;';
 					}
-					$output .= '}
-					</style>';
+					$output .= '}';
+
+					$output .= '
+						#'.$uniqueID.' a:hover .mk-svg-icon { ';
+					if ( !empty($icon_hover_color) ) { 
+						$output .= 'fill: '.$icon_hover_color.' !important;';
+					}
+					$output .= '}';
+
+					$output .='</style>';
 				}
 			} 
 		}

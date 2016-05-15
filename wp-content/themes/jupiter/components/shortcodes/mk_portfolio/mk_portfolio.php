@@ -7,8 +7,6 @@ include ($path . '/config.php');
 
 global $mk_options, $wp_query;
 
-require_once (THEME_INCLUDES . "/bfi_thumb.php");
-
 $item_id = (!empty($item_id)) ? $item_id : 1409305847;
 
 $id = Mk_Static_Files::shortcode_id();
@@ -87,7 +85,8 @@ if ($sortable == 'true' && !is_archive()) {
         'uniqid' => $id,
         'custom_class' => false,
         'container' => '#loop-'.$id,
-        'item' => '> .mk-portfolio-item'
+        'item' => '> .mk-portfolio-item',
+        'sortable_mode' => $sortable_mode
     );
 
     echo mk_get_view('global', 'loop-sortable', true, $sortable_atts);
@@ -140,7 +139,7 @@ if($style == 'classic') {
 <?php if($style == 'grid' || $style == 'masonry'): ?>
     <div id="loop-main-wrapper-<?php echo $id;?>">
 <?php endif;?>
-    <section id="loop-<?php echo $id; ?>" <?php echo implode(' ', $data_config); ?> class="<?php echo implode(' ', $container_class); ?> clear">
+    <section id="loop-<?php echo $id; ?>" <?php echo implode(' ', $data_config); ?> class="<?php echo implode(' ', $container_class); ?> clearfix">
     <div class="portfolio-loader"><div><div class="mk-preloader"></div></div></div>
     <?php 
     $atts['i'] = 0;

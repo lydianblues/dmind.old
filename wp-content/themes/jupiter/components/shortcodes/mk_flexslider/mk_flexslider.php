@@ -5,8 +5,6 @@ include( $path . '/config.php' );
 
 $id = Mk_Static_Files::shortcode_id();
 
-require_once (THEME_INCLUDES . "/bfi_thumb.php");
-
 global $mk_options;
 
 
@@ -44,7 +42,7 @@ mk_get_view('global', 'shortcode-heading', false, ['title' => $title]); ?>
 
 			$url = mk_get_super_link(get_post_meta( get_the_ID(), '_link_to', true ), false);
 			$caption = get_post_meta( get_the_ID(), '_title', true );
-			$image_src_array = wp_get_attachment_image_src( get_post_thumbnail_id(), 'full', true );
+			$image_src_array = wp_get_attachment_image_src( get_post_thumbnail_id(), 'full');
 		?>
 
 		<li>

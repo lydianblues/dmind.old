@@ -24,14 +24,17 @@
   background-color: rgba(0, 0, 0, 0.05);
 }
 .mk-blockquote.quote-style:before {
+  content: "\f10d";
+}
+.mk-blockquote.quote-style .mk-svg-icon {
   position: absolute;
   top: 20px;
   left: 20px;
   display: block;
-  color: #dddddd;
-  color: rgba(0, 0, 0, 0.1);
-  content: "\f10d";
-  font-size: 32px;
+  fill: #dddddd;
+  fill: rgba(0, 0, 0, 0.1);
+  height: 32px!important;
+  width: 32px!important;
 }
 .mk-blockquote.line-style {
   padding: 10px 10px 10px 40px;

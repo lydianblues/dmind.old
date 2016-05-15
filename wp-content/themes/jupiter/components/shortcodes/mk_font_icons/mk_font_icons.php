@@ -18,6 +18,7 @@ $color = !empty( $color ) ? ( 'color:' . $color .';' ) : '';
 
 if ( $circle == 'true' ) {
 	$font_icon->addClass('circle-enabled');
+	$font_icon->addClass('center-icon');
 	$circle_style = '
 		background-color:'.$circle_color.';
 		border-width: '.$circle_border_width.'px;

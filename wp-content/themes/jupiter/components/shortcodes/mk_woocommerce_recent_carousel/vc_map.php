@@ -52,7 +52,7 @@ if (class_exists('woocommerce')) {
                 "type" => "range",
                 "heading" => __("Products Per View", "mk_framework") ,
                 "param_name" => "per_view",
-                "value" => "4",
+                "value" => "3",
                 "min" => "1",
                 "max" => "8",
                 "step" => "1",

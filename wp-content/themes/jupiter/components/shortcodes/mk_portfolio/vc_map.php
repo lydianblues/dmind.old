@@ -90,25 +90,6 @@ vc_map(array(
                 )
             )
         ),
-        /*
-        Removed Since v5.0.8 Retina images will be added in v5.1
-        array(
-            "type" => "dropdown",
-            "heading" => __("Increase Quality of Image", "mk_framework"),
-            "param_name" => "image_quality",
-            "value" => array(
-                __("Normal Quality", 'mk_framework') => "1",
-                __("Images 2 times bigger (Retina compatible)", 'mk_framework') => "2",
-                __("Images 3 times bigger (Fullwidth row compatible)", 'mk_framework') => "3"
-            ),
-            "dependency" => array(
-                'element' => "image_size",
-                'value' => array(
-                    'crop'
-                )
-            ),
-            "description" => __("If you would like your portfolio images to be retina compatible or just want to use it in fullwidth row, you may consider increasing the image size. This option will help you define the image quality manually. Please note that this option will not work for Masonry portfolio style.", "mk_framework")
-        ),*/
         array(
             "type" => "toggle",
             "heading" => __("Shows Posts Using Ajax?", "mk_framework"),
@@ -235,6 +216,22 @@ vc_map(array(
             )
         ),
         array(
+            "heading" => __("Sortable Mode", 'mk_framework'),
+            "description" => __("Ajax Mode retrieves the result by searching through the whole portfolio posts. On the other hand, Static Mode searches to find results only in the same page.", 'mk_framework'),
+            "param_name" => "sortable_mode",
+            "value" => array(
+                __("Ajax", 'mk_framework') => "ajax",
+                __("Static", 'mk_framework') => "static"
+            ),
+            "type" => "dropdown",
+            "dependency" => array(
+                'element' => "sortable",
+                'value' => array(
+                    'true',
+                )
+            )
+        ),
+        array(
             "type" => "colorpicker",
             "heading" => __("Sortable Background Custom Color (Outline Style)", "mk_framework"),
             "param_name" => "sortable_bg_color",
@@ -272,27 +269,37 @@ vc_map(array(
             "description" => __("Number of post to displace or pass over, it means based on your order of the loop, this number will define how many posts to pass over and start from the nth number of the offset.", "mk_framework")
         ),
         array(
-            "type" => "multiselect",
-            "heading" => __("Select specific Posts", "mk_framework"),
-            "param_name" => "posts",
-            "options" => mk_get_post_enteries('portfolio', 40),
-            "value" => '',
-            "description" => __("", "mk_framework")
+            'type'        => 'autocomplete',
+            'heading'     => __( 'Select specific Categories', 'mk_framework' ),
+            'param_name'  => 'categories',
+            'settings' => array(
+                                'multiple' => true,
+                                'sortable' => true,
+                                'unique_values' => true,
+                            ),
+            'description' => __( 'Search for category name to get autocomplete suggestions', 'mk_framework' ),
+        ),
+         array(
+            'type'        => 'autocomplete',
+            'heading'     => __( 'Select specific Posts', 'mk_framework' ),
+            'param_name'  => 'posts',
+            'settings' => array(
+                                'multiple' => true,
+                                'sortable' => true,
+                                'unique_values' => true,
+                            ),
+            'description' => __( 'Search for post ID or post title to get autocomplete suggestions', 'mk_framework' ),
         ),
         array(
-            "type" => "multiselect",
-            "heading" => __("Select specific Authors", "mk_framework"),
-            "param_name" => "author",
-            "options" => mk_get_authors(50),
-            "value" => '',
-            "description" => __("", "mk_framework")
-        ),
-        array(
-            "type" => "textfield",
-            "heading" => __("Select Specific Categories.", "mk_framework"),
-            "param_name" => "categories",
-            "value" => '',
-            "description" => __("You will need to go to Wordpress Dashboard => Portfolios => Portfolio Categories. In the right hand find Slug column. you will need to add portfolio category slugs in this option. add comma to separate them.", "mk_framework")
+            'type'        => 'autocomplete',
+            'heading'     => __( 'Select specific Authors', 'mk_framework' ),
+            'param_name'  => 'author',
+            'settings' => array(
+                                'multiple' => true,
+                                'sortable' => true,
+                                'unique_values' => true,
+                            ),
+            'description' => __( 'Search for user ID, Username, Email Address to get autocomplete suggestions', 'mk_framework' ),
         ),
 
         array(
@@ -340,7 +347,6 @@ vc_map(array(
             "type" => "dropdown",
             "heading" => __("Target", "mk_framework"),
             "param_name" => "target",
-            "width" => 200,
             "value" => $target_arr,
             "description" => __("Target for title permalink and image hover permalink icon.", "mk_framework")
         ),

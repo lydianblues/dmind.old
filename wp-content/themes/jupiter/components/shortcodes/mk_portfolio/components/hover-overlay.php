@@ -8,7 +8,7 @@ $item_bg_color       = !empty($item_bg_color_value) ? (' background-color:' . $i
 $href = mk_get_super_link(get_post_meta(get_the_ID(), '_portfolio_permalink', true));
 
 if ($view_params['hover_scenarios'] == 'none') { ?>
-	<a class="full-cover-link" href="<?php echo $href; ?>">&nbsp</a>
+	<a class="full-cover-link project-load" href="<?php echo $href; ?>" data-post-id="<?php the_ID(); ?>">&nbsp</a>
 <?php } else if ($view_params['hover_scenarios'] == 'fadebox') { ?>
     <div class="hover-overlay add-gradient"<?php echo $hover_overlay; ?>></div>
 <?php } else {

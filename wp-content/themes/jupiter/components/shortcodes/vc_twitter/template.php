@@ -2,6 +2,7 @@
 <div class="mk-twitter-shortcode">
     <ul class="mk-tweet-list mk-tweet-shortcode">
         <li>
+        	<i class="mk-icon-twitter"></i>
             <span class="tweet-text"></span>
             <a class="tweet-time"></a>
         </li>

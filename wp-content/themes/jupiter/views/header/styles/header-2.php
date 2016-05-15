@@ -35,7 +35,7 @@ $is_transparent = (isset($view_params['is_transparent'])) ? ($view_params['is_tr
                     <?php } ?>
                         <div class="add-header-height">
                             <?php
-                                mk_get_header_view('global', 'secondary-menu-burger-icon', ['is_shortcode' => false]);
+                                mk_get_header_view('global', 'secondary-menu-burger-icon', ['is_shortcode' => false, 'header_style' => 2]);
                                 mk_get_header_view('global', 'main-menu-burger-icon', ['header_style' => 2]);                            
                                 mk_get_header_view('master', 'logo');
                             ?>

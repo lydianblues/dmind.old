@@ -8,6 +8,7 @@ extract(shortcode_atts(array(
     'bg_color'              => '',
     'border_color'          => '',
     'bg_image'              => '',
+    'bg_image_portrait'     => '',
     'blend_mode'            => 'none',
     'bg_repeat'             => 'repeat',
     'bg_gradient'           => 'false',
@@ -37,6 +38,7 @@ extract(shortcode_atts(array(
     'poster_image'          => '',
     'stream_host_website'   => 'youtube',
     'stream_video_id'       => '',
+    'stream_sound'          => 'false',
     'full_width'            => 'false',
     'video_mask'            => 'false',
     'video_loop'            => 'true',
@@ -158,6 +160,7 @@ $layer_atts = array(
     'attachment' => $attachment,
     'blend_mode' => $blend_mode,
     'bg_image' => $bg_image,
+    'bg_image_portrait' => $bg_image_portrait,
     'bg_color' => $bg_color,
     'bg_stretch' => $bg_stretch,
     'top_shadow' => $top_shadow
@@ -182,6 +185,7 @@ Page Section Layout Structure : Half container attributes passed to components/l
 $layout_structure_half_atts = array(
     'layout_structure'      => $layout_structure,
     'content'               => $content,
+    'video_source'          => $video_source,
     'bg_video'              => $bg_video,
     'poster_image'          => $poster_image,
     'video_loop'            => $video_loop,
@@ -190,6 +194,10 @@ $layout_structure_half_atts = array(
     'ogv'                   => $ogv,
     'stream_host_website'   => $stream_host_website,
     'stream_video_id'       => $stream_video_id,
+    'parallax'              => $parallax,
+    'speed_factor'          => $speed_factor,
+    'bg_image' => $bg_image,
+    'bg_image_portrait' => $bg_image_portrait,
 );
 
 Mk_Static_Files::addAssets('mk_page_section');

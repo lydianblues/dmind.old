@@ -40,7 +40,7 @@
 if($view_params['captcha'] == 'true') { ?>
     <div class="mk-form-row">
         <div class="mk-form-full s_form-all">
-            <input placeholder="<?php _e( 'Enter Captcha', 'mk_framework' ); ?>" type="text" name="captcha" class="captcha-form text-input s_txt-input full" required="required" autocomplete="off" tabindex="<?php echo $view_params['id']++; ?>" />
+            <input placeholder="<?php _e( 'Enter Captcha', 'mk_framework' ); ?>" data-placeholder="<?php _e( 'Enter Captcha', 'mk_framework' ); ?>" type="text" name="captcha" class="captcha-form text-input s_txt-input full" required="required" autocomplete="off" tabindex="<?php echo $view_params['id']++; ?>" />
                 <span class="captcha-image-holder"></span> <br/>
                 <a href="#" class="captcha-change-image"><?php _e( 'Not readable? Change text.', 'mk_framework' ); ?></a>
         </div>

@@ -3,9 +3,19 @@ vc_map(array(
     "name" => __("Advanced Google Maps", "mk_framework"),
     "base" => "mk_advanced_gmaps",
     'icon' => 'icon-mk-advanced-google-maps vc_mk_element-icon',
+    "admin_enqueue_js" => THEME_COMPONENTS . "/shortcodes/mk_advanced_gmaps/vc_admin.js",
+    "admin_enqueue_css" => THEME_COMPONENTS . "/shortcodes/mk_advanced_gmaps/vc_admin.css",
     'description' => __( 'Powerful Google Maps element.', 'mk_framework' ),
     "category" => __('Social', 'mk_framework'),
     "params" => array(
+
+        array(
+            "type" => "toggle",
+            "heading" => __("Custom markers?", "mk_framework"),
+            "param_name" => "custom_markers",
+            "value" => "false",
+            "description" => __("Add custom markers per address.", "mk_framework")
+        ),
 
         array(
             "type" => "textfield",
@@ -28,6 +38,19 @@ vc_map(array(
             "value" => "",
             "description" => __('', "mk_framework")
         ),
+        array(
+            "type" => "upload",
+            "heading" => __("Upload Marker Icon for address 1", "mk_framework"),
+            "param_name" => "custom_marker_1",
+            "value" => "",
+            "description" => __("If left blank it will fall back to a default shared marker that you can set below.", "mk_framework"),
+            "dependency" => array(
+                'element' => "custom_markers",
+                'value' => array(
+                    'true'
+                )
+            )
+        ),
 
         array(
             "type" => "textfield",
@@ -49,6 +72,19 @@ vc_map(array(
             "param_name" => "address_2",
             "value" => "",
             "description" => __('', "mk_framework")
+        ),
+        array(
+            "type" => "upload",
+            "heading" => __("Upload Marker Icon for address 2", "mk_framework"),
+            "param_name" => "custom_marker_2",
+            "value" => "",
+            "description" => __("If left blank it will fall back to a default shared marker that you can set below.", "mk_framework"),
+            "dependency" => array(
+                'element' => "custom_markers",
+                'value' => array(
+                    'true'
+                )
+            )
         ),
 
 
@@ -74,15 +110,37 @@ vc_map(array(
             "value" => "",
             "description" => __('', "mk_framework")
         ),
+        array(
+            "type" => "upload",
+            "heading" => __("Upload Marker Icon for address 3", "mk_framework"),
+            "param_name" => "custom_marker_3",
+            "value" => "",
+            "description" => __("If left blank it will fall back to a default shared marker that you can set below.", "mk_framework"),
+            "dependency" => array(
+                'element' => "custom_markers",
+                'value' => array(
+                    'true'
+                )
+            )
+        ),
 
 
 
         array(
             "type" => "upload",
-            "heading" => __("Upload Marker Icon", "mk_framework"),
+            "heading" => __("Upload Default Marker Icon", "mk_framework"),
             "param_name" => "pin_icon",
             "value" => "",
             "description" => __("If left blank Google Default marker will be used.", "mk_framework")
+        ),
+
+
+        array(
+            "type" => "gmap_marker",
+            "heading" => __("Need More Address?", "mk_framework"),
+            "param_name" => "additional_markers",
+            "value" => "false",
+            "description" => __("", "mk_framework")
         ),
 
         array(
@@ -120,7 +178,7 @@ vc_map(array(
             "step" => "1",
             "unit" => 'px',
             "description" => __('Enter map height in pixels. Example: 200).', "mk_framework"),
-             "dependency" => array(
+            "dependency" => array(
                 'element' => "map_height",
                 'value' => array(
                     'custom'
@@ -130,7 +188,7 @@ vc_map(array(
         array(
             "type" => "range",
             "heading" => __("Zoom", "mk_framework"),
-            "param_name" => "zoom",
+            "param_name" => "map_zoom",
             "value" => "14",
             "min" => "1",
             "max" => "19",

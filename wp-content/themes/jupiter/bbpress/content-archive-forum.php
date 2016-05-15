@@ -10,7 +10,8 @@
 ?>
 
 <div id="bbpress-forums">
-
+	<?php do_action('bbp_template_before_forums_index'); ?>
+	
 	<?php bbp_breadcrumb(); ?>
 
 	<?php do_action( 'bbp_template_before_forums_index' ); ?>

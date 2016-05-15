@@ -34,6 +34,14 @@ vc_map(array(
         ) ,
 
         array(
+            "type" => "upload",
+            "heading" => __("Background Image (Portrait)", "mk_framework") ,
+            "param_name" => "bg_image_portrait",
+            "value" => "",
+            "description" => __("Alternatively, this image could be shown in mobile devices with portrait orientation. It is recommended to use images with portrait ratio such as 2:3. ", "mk_framework")
+        ) ,
+
+        array(
             "type" => "colorpicker",
             "heading" => __("Background Color", "mk_framework") ,
             "param_name" => "bg_color",
@@ -268,6 +276,22 @@ vc_map(array(
                 )
             )
         ) ,
+
+        array(
+            "type" => "toggle",
+            "heading" => __("Video Sound", "mk_framework") ,
+            "param_name" => "stream_sound",
+            "value" => "false",
+            "description" => __("You can turn on/off the sound of the video for streaming videos", "mk_framework") ,
+            "dependency" => array(
+                'element' => "video_source",
+                'value' => array(
+                    'social'
+                )
+            )
+        ) ,
+
+        
         array(
             "type" => "toggle",
             "heading" => __("Video Loop?", "mk_framework"),

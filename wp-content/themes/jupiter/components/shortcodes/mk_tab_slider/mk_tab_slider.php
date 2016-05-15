@@ -43,8 +43,7 @@ $page_permalink = get_permalink();
         <?php
         while ( $r->have_posts() ) : $r->the_post();
        
-        $image_src_array = wp_get_attachment_image_src( get_post_thumbnail_id(), 'full', true );
-        $image_src_array = wp_get_attachment_image_src( get_post_thumbnail_id(), 'full', true );
+        $image_src_array = wp_get_attachment_image_src( get_post_thumbnail_id(), 'full');
         $skin_color = (get_post_meta( $post->ID, '_skin_color', true ) != '') ? get_post_meta( $post->ID, '_skin_color', true ) : 'light' ;
         $content_background = get_post_meta( $post->ID, '_bg_color', true );
         $title = get_post_meta( $post->ID, '_title', true );
@@ -56,7 +55,7 @@ $page_permalink = get_permalink();
         ?>
         <div class="mk-tab-slider-item float-<?php echo $image_align; ?> skin-<?php echo $skin_color; ?>" style="background-color:<?php echo $content_background; ?>;">
             <div class="mk-slider-image">
-                <img src="<?php echo mk_image_generator($image_src_array[0], false, false); ?>" alt="<?php echo $title; ?>" />
+                <img src="<?php echo $image_src_array[0]; ?>" alt="<?php echo $title; ?>" />
             </div>
 
             <div class="mk-slider-content" style="float:<?php if($image_align == 'left') { echo 'right';} else echo 'left'; ?>;">
@@ -68,9 +67,9 @@ $page_permalink = get_permalink();
 
                     <?php if ($share_button == "true") { ?>
                     <ul class="mk-tab-slider-share">
-                        <li><a class="facebook-share" data-title="<?php echo $title; ?>" data-url="<?php echo $page_permalink; ?>" href="#"><i class="mk-icon-facebook"></i></a></li>
-                        <li><a class="twitter-share" data-title="<?php echo $title; ?>" data-url="<?php echo $page_permalink; ?>" href="#"><i class="mk-moon-twitter"></i></a></li>
-                        <li><a class="googleplus-share" data-title="<?php echo $title; ?>" data-url="<?php echo $page_permalink; ?>" href="#"><i class="mk-icon-google-plus"></i></a></li>
+                        <li><a class="facebook-share" data-title="<?php echo esc_attr($title); ?>" data-url="<?php echo $page_permalink; ?>" href="#"><i class="mk-icon-facebook"></i></a></li>
+                        <li><a class="twitter-share" data-title="<?php echo esc_attr($title); ?>" data-url="<?php echo $page_permalink; ?>" href="#"><i class="mk-moon-twitter"></i></a></li>
+                        <li><a class="googleplus-share" data-title="<?php echo esc_attr($title); ?>" data-url="<?php echo $page_permalink; ?>" href="#"><i class="mk-icon-google-plus"></i></a></li>
                     </ul>
                     <?php } ?>
 

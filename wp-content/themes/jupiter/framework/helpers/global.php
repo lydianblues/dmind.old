@@ -11,149 +11,6 @@ if (!defined('THEME_FRAMEWORK')) exit('No direct script access allowed');
  * @package     artbees
  */
 
-/**
- * Get template parts from views folder
- * @param string    $slug
- * @param string    $name
- * @param boolean   $return
- * @return object
- *
- */
-if (!function_exists('mk_get_view')) {
-    function mk_get_view($slug, $name = '', $return = false, $view_params = array()) {
-        if ($return) {
-            ob_start();
-            mk_get_template_part('views/' . $slug . '/' . $name, $view_params);
-            return ob_get_clean();
-        } 
-        else {
-            mk_get_template_part('views/' . $slug . '/' . $name, $view_params);
-        }
-    }
-}
-
-/**
- * Get header components and put them together. this function passes variables into the file too.
- * @param string    $slug
- * @param string    $name
- * @param boolean   $return
- * @return object
- *
- */
-if (!function_exists('mk_get_header_view')) {
-    function mk_get_header_view($location, $component, $view_params = array() , $return = false) {
-        if ($return) {
-            ob_start();
-            mk_get_template_part('views/header/' . $location . '/' . $component, $view_params);
-            return ob_get_clean();
-        } 
-        else {
-            mk_get_template_part('views/header/' . $location . '/' . $component, $view_params);
-        }
-    }
-}
-
-/**
- * Get template parts from shortcodes folder
- * @param string    $slug
- * @param string    $name
- * @param boolean   $return
- * @return object
- *
- */
-if (!function_exists('mk_get_shortcode_view')) {
-    function mk_get_shortcode_view($shortcode_name, $name = '', $return = false, $view_params = array()) {
-        if ($return) {
-            ob_start();
-            mk_get_template_part('components/shortcodes/' . $shortcode_name . '/' . $name, $view_params);
-            return ob_get_clean();
-        } 
-        else {
-            mk_get_template_part('components/shortcodes/' . $shortcode_name . '/' . $name, $view_params);
-        }
-    }
-}
-
-/**
- * Get template parts from Control Panel
- * @param string    $slug
- * @param string    $name
- * @param boolean   $return
- * @return object
- *
- */
-if (!function_exists('mk_get_control_panel_view')) {
-    function mk_get_control_panel_view($name = '', $return = false, $view_params = array()) {
-        if ($return) {
-            ob_start();
-            mk_get_template_part('framework/admin/control-panel/views/' . $name, $view_params);
-            return ob_get_clean();
-        } 
-        else {
-            mk_get_template_part('framework/admin/control-panel/views/' . $name, $view_params);
-        }
-    }
-}
-
-/**
- * Like get_template_part() put lets you pass args to the template file
- * Args are available in the tempalte as $view_params array
- * @param string filepart
- * @param mixed wp_args style argument list
- *
- *
- * @last_update 5.0.8
- */
-function mk_get_template_part($file, $view_params = array() , $cache_args = array()) {
-    global $post;
-
-    // security check for LFI
-    if(is_numeric(strpos($file,"..")) or is_numeric(strpos($file,"./"))) {
-    // if someone tries to reach parent directories
-        echo "Bad method! Code: GP-113";
-        die;
-    }
-
-    // die if file does not exists in the template or child theme directory.
-    if (file_exists(get_stylesheet_directory() . '/' . $file . '.php')) {
-        $file = get_stylesheet_directory() . '/' . $file . '.php';
-    } else if (file_exists(get_template_directory() . '/' . $file . '.php')) {
-        $file = get_template_directory() . '/' . $file . '.php';
-    } else {
-        echo "Bad method! Code: GP-123";
-        die;
-    }
-
-    $view_params = wp_parse_args($view_params);
-    $cache_args = wp_parse_args($cache_args);
-    if ($cache_args) {
-        foreach ($view_params as $key => $value) {
-            if (is_scalar($value) || is_array($value)) {
-                $cache_args[$key] = $value;
-            } 
-            else if (is_object($value) && method_exists($value, 'get_id')) {
-                $cache_args[$key] = call_user_method('get_id', $value);
-            }
-        }
-        if (($cache = wp_cache_get($file, serialize($cache_args))) !== false) {
-            if (!empty($view_params['return'])) return $cache;
-            echo $cache;
-            return;
-        }
-    }
-    $file_handle = $file;
-    do_action('start_operation', 'mk_template_part::' . $file_handle);
-    ob_start();
-    $return = require ($file);
-    $data = ob_get_clean();
-    do_action('end_operation', 'mk_template_part::' . $file_handle);
-    if ($cache_args) {
-        wp_cache_set($file, $data, serialize($cache_args) , 3600);
-    }
-    if (!empty($view_params['return'])) if ($return === false) return false;
-    else return $data;
-    echo $data;
-}
 
 /**
  * Builds content wrappers for the given content
@@ -170,10 +27,9 @@ if (!function_exists('mk_build_main_wrapper')) {
         
         // Get layout option from post meta
         $layout = is_singular() ? get_post_meta($post->ID, '_layout', true) : '';
-        $layout = (empty($layout)) ? 'full' : $layout;
         
         // Check if its single blog and and get the layout option from theme options
-        $layout = (is_singular('post')) ? ($layout == 'default' ? $mk_options['single_layout'] : $layout) : $layout;
+        $layout = (is_singular()) ? (($layout == 'default' || empty($layout)) ? $mk_options['single_layout'] : $layout) : $layout;
         
         // Check if its single portfolio and and get the layout option from theme options
         $layout = (is_singular('portfolio')) ? ($layout == 'default' ? $mk_options['portfolio_single_layout'] : $layout) : $layout;
@@ -187,8 +43,14 @@ if (!function_exists('mk_build_main_wrapper')) {
         if (isset($_REQUEST['layout']) && !empty($_REQUEST['layout'])) {
             $layout = esc_html($_REQUEST['layout']);
         }
+
+        // For other empty scenarios we get full layout.
+        $layout = (empty($layout)) ? 'full' : $layout;
+
         
         $wrapper_class = empty($wrapper_custom_class) ? 'mk-main-wrapper mk-grid' : $wrapper_custom_class;
+
+        $wrapper_id = is_singular() ? 'id="mk-page-id-'.$post->ID.'"' : '';
 
         
         /*
@@ -202,10 +64,9 @@ if (!function_exists('mk_build_main_wrapper')) {
         mk_get_view('blog/components', 'blog-single-bold-hero');
 ?>
         
-        <div id="theme-page" class="master-holder clear" <?php echo get_schema_markup('main'); ?>>
+        <div id="theme-page" class="master-holder clearfix" <?php echo get_schema_markup('main'); ?>>
             <div class="mk-main-wrapper-holder">
-                <div id="mk-page-id-<?php
-        echo $post->ID; ?>" class="theme-page-wrapper <?php
+                <div <?php echo $wrapper_id; ?> class="theme-page-wrapper <?php
         echo $wrapper_class; ?> <?php
         echo $layout; ?>-layout <?php
         echo $padding; ?> ">
@@ -301,21 +162,25 @@ if (!function_exists('mk_gradient_option_parser')) {
                 case 'vertical':
                     $output['angle_1'] = 'top,';
                     $output['angle_2'] = 'to bottom,';
+                    $output['name'] = 'vertical';
                     break;
 
                 case 'horizontal':
                     $output['angle_1'] = 'left,';
                     $output['angle_2'] = 'to right,';
+                    $output['name'] = 'horizontal';
                     break;
 
                 case 'diagonal_left_bottom':
                     $output['angle_1'] = 'top left,';
                     $output['angle_2'] = 'to bottom right,';
+                    $output['name'] = 'diagonal_left_bottom';
                     break;
 
                 case 'diagonal_left_top':
                     $output['angle_1'] = 'bottom left,';
                     $output['angle_2'] = 'to top right,';
+                    $output['name'] = 'diagonal_left_top';
                     break;
             }
         } 
@@ -417,6 +282,8 @@ if (!function_exists('mk_get_bg_cover_class')) {
         }
     }
 }
+
+
 
 /**
  * Return View port animation classes
@@ -667,6 +534,9 @@ if (!function_exists('mk_curl_getimage')) {
     function mk_curl_getimage($url)
     {
         $file_ext = strtolower(pathinfo(parse_url($url)['path'], PATHINFO_EXTENSION));
+        //Returns undefined in some cases
+        $range = "32768";
+        
         if($file_ext == "png") {
             $range = "24";
         } else if ($file_ext == "gif") {
@@ -835,6 +705,7 @@ if (!function_exists('mk_is_image')) {
  * @param  string $post_type
  * @param int  $count
  * @return array
+ * @deprecated : since v5.1
  */
 if (!function_exists('mk_get_post_enteries')) {
     
@@ -863,6 +734,7 @@ if (!function_exists('mk_get_post_enteries')) {
  * @param  string $taxonomy
  * @param int  $count
  * @return array
+ * @deprecated : since v5.1 
  */
 if (!function_exists('mk_get_category_enteries')) {
     
@@ -891,6 +763,7 @@ if (!function_exists('mk_get_category_enteries')) {
  * @param  string $taxonomy
  * @param int  $count
  * @return array
+ * @deprecated : since v5.1 
  */
 if (!function_exists('mk_get_page_enteries')) {
     
@@ -920,6 +793,7 @@ if (!function_exists('mk_get_page_enteries')) {
  * @param  string $taxonomy
  * @param int  $count
  * @return array
+ * @deprecated : since v5.1 
  */
 if (!function_exists('mk_get_authors')) {
     
@@ -985,3 +859,52 @@ if (!function_exists('mk_breadcrumbs_get_parents')) {
         return $parents;
     }
 }
+
+
+
+
+
+/**
+ * Gets blog post thumbnail conditionally from blog slideshow type if no featured image is provided.  
+ *
+ */
+if (!function_exists('mk_get_blog_post_thumbnail')) {
+    function mk_get_blog_post_thumbnail($post_type = 'image') {
+        global $post;
+
+        if($post_type == 'portfolio') {
+
+            if(has_post_thumbnail()) {
+
+                $attachment_id = get_post_thumbnail_id();   
+
+            } else {
+                $attachment_id = get_post_meta($post->ID, '_gallery_images', true);
+                $attachment_id = explode(',', $attachment_id);
+                $attachment_id = $attachment_id[0];
+            }
+        } else {
+            $attachment_id = get_post_thumbnail_id();
+        }
+        
+        return $attachment_id;
+
+    }
+}
+
+
+if (!function_exists('mk_get_theme_version')) {
+    /**
+     * Gets current jupiter version
+     *
+     * @return mixed|void
+     * @author      Ugur Mirza ZEYREK
+     * @copyright   Artbees LTD (c)
+     * @link        http://artbees.net
+     * @since       Version 5.0.11
+     */
+    function mk_get_theme_version() {
+        return get_option('mk_jupiter_theme_current_version');
+    }
+}
+    

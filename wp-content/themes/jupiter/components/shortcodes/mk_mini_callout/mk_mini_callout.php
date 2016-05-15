@@ -11,7 +11,7 @@ include( $path . '/config.php' );
 	<span class="callout-desc"><?php echo wpb_js_remove_wpautop( $content, true ); ?></span>
 	
 	<?php if ( $button_text ) { ?>
-		<a class="callout-button" href="<?php echo $button_url; ?>"><?php echo $button_text; ?><i class="mk-icon-caret-right"></i></a>
+		<a class="callout-button" href="<?php echo $button_url; ?>"><?php echo $button_text; ?><i class="mk-icon-caret-right center-icon"></i></a>
 	<?php } ?>
 
 </div>

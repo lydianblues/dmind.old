@@ -15,7 +15,7 @@ extract(shortcode_atts(array(
 	'posts'                  		=> '',
 	'author'                  		=> '',
 	'categories'                  	=> '',
-	'pagination'                  	=> '',
+	'pagination'                  	=> 'true',
 	'pagination_style'             	=> 1,
 	'orderby'                  		=> 'date',
 	'order'                  		=> 'DESC',

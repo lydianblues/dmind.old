@@ -22,6 +22,7 @@ Mk_Static_Files::addGlobalStyle("
 	letter-spacing:{$mk_options['main_nav_top_letter_spacing']}px;
 }
 
+
 .mk-vm-menuwrapper ul li a {
 	color: {$mk_options['main_nav_top_text_color']};
 	font-size: {$mk_options['main_nav_top_size']}px;
@@ -215,6 +216,11 @@ Mk_Static_Files::addGlobalStyle("
 .mk-header-start-tour:hover
 {
 	color: {$mk_options['main_nav_top_hover_skin']};
+}
+.mk-search-trigger:hover .mk-svg-icon,
+.mk-header-start-tour:hover .mk-svg-icon
+{
+	fill: {$mk_options['main_nav_top_hover_skin']};
 }
 
 .main-navigation-ul li.menu-item ul.sub-menu li.menu-item a.menu-item-link

@@ -65,13 +65,13 @@ $item_counter = 0;
 	    
 	    $loop_items = $view_params['query']->post_count;
 	    $url = get_post_meta(get_the_ID() , '_url', true);
-	    $image_src_array = wp_get_attachment_image_src(get_post_thumbnail_id() , 'full', true);
+        $image_src = Mk_Image_Resize::resize_by_id( get_post_thumbnail_id(), 'full', false, false, $crop = false, $dummy = true);
 	    ?>
 	    <li>
 		    <?php 
 		    echo !empty($url) ? '<a target="' . $view_params['target'] . '" href="' . $url . '">' : '';
 		    ?>
-		    <div title="<?php the_title(); ?>" class="client-logo" style="background-image:url(<?php echo mk_image_generator($image_src_array[0], false, false); ?>); <?php echo $view_params['height']; ?>"></div>
+		    <div title="<?php the_title_attribute(); ?>" class="client-logo" style="background-image:url(<?php echo $image_src; ?>); <?php echo $view_params['height']; ?>"></div>
 		    <?php 
 		    echo !empty($url) ? '</a>' : '';
 		    ?>

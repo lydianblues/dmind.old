@@ -24,12 +24,14 @@
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 6;
 }
 .edge-nav-bg {
   background-size: cover !important;
 }
 .mk-edge-slider {
-  position: fixed;
+  /* apply later with JS on init so we don't have unexpected overflows */
+  /* position: fixed; */
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
   -webkit-perspective: 1000;
@@ -318,11 +320,17 @@
 .mk-edge-slider .edge-skip-slider[data-skin="dark"] i {
   color: #333333;
 }
+.mk-edge-slider .edge-skip-slider[data-skin="dark"] .mk-svg-icon {
+  fill: #333333;
+}
 .mk-edge-slider .edge-skip-slider[data-skin="light"] {
   border: 2px solid #ffffff;
 }
 .mk-edge-slider .edge-skip-slider[data-skin="light"] i {
   color: #ffffff;
+}
+.mk-edge-slider .edge-skip-slider[data-skin="light"] .mk-svg-icon {
+  fill: #ffffff;
 }
 .mk-edge-slider[data-animation="perspective_flip"] {
   -webkit-perspective: 1000px;
@@ -357,6 +365,12 @@
       -ms-transform: scale(2);
           transform: scale(2);
 }
+.mk-edge-slider[data-animation="kenburned"].is-paused .mk-slider-slide.mk-slider-slide.is-active .mk-section-image,
+.mk-edge-slider[data-animation="kenburned"].is-paused .mk-slider-slide.mk-slider-slide.is-active .mk-section-video {
+  -webkit-transform: scale(1);
+      -ms-transform: scale(1);
+          transform: scale(1);
+}
 .mk-edge-slider[data-animation="kenburned"] .mk-slider-slide:nth-child(2n+1) .mk-section-image,
 .mk-edge-slider[data-animation="kenburned"] .mk-slider-slide:nth-child(2n+1) .mk-section-video {
   -webkit-transform-origin: top right;
@@ -378,10 +392,6 @@
 
 
 @media handheld, only screen and (max-width: 1140px) {
-  .mk-edge-slider .mk-grid {
-    box-sizing: border-box;
-    padding: 0 20px;
-  }
   .mk-edge-slider .edge-title-area {
     font-size: 12px;
   }
@@ -394,15 +404,8 @@
     font-size: 20px;
     line-height: 34px;
   }
-  .mk-edge-slider .edge-slide-content {
-    width: 80% !important;
-  }
 }
 @media handheld, only screen and (max-width: 767px) {
-  .mk-edge-slider .mk-grid {
-    box-sizing: border-box;
-    padding: 0 10px;
-  }
   .mk-edge-slider .mk-edge-next,
   .mk-edge-slider .mk-edge-prev,
   .mk-edge-slider .edge-skip-slider {
@@ -422,6 +425,10 @@
   .mk-edge-slider .mk-button {
     padding: 12px 14px !important;
     font-size: 10px !important;
+  }
+  .mk-edge-slider .mk-button-container {
+    float: none;
+    text-align:inherit; 
   }
   .mk-edge-slider .mk-button.outline-dimension {
     padding-top: 10px !important;
@@ -449,8 +456,8 @@
 .mk-fullwidth-false .mk-edge-slider .mk-slider-slide.right_top .edge-slide-content,
 .mk-fullwidth-false .mk-edge-slider .mk-slider-slide.right_center .edge-slide-content,
 .mk-fullwidth-false .mk-edge-slider .mk-slider-slide.right_bottom .edge-slide-content {
-  margin-left: 25px;
-  margin-right: 25px;
+  padding-left: 25px;
+  padding-right: 25px;
 }
 .edge-buttons a {
   margin-bottom: 10px;
@@ -461,4 +468,13 @@
 }
 .mk-edge-slider .edge-skip-slider {
   top: auto;
+}
+
+.edge-gradient-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 4;
+  height: 100%;
+  width: 100%;
 }

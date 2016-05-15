@@ -301,8 +301,8 @@ class Mk_Options_Framework
         }
     }
     
-    public function field_wrapper($id, $name, $desc, $option_output) {
-        $output = '<div class="mk-single-option" id="' . $id . '_wrapper">';
+    public function field_wrapper($id, $name, $desc, $option_output, $dependency = false) {
+        $output = '<div class="mk-single-option" id="' . $id . '_wrapper"'.$dependency.'>';
         
         $output.= '<label for="' . $id . '"><span>' . $name . '</label>';
         
@@ -328,6 +328,30 @@ class Mk_Options_Framework
 
 
         return $output;
+    }
+
+
+    public static function get_post_types() {
+        $post_type = get_post_types();
+
+        unset(
+            $post_type['post'],
+            $post_type['page'],
+            $post_type['attachment'],
+            $post_type['nav_menu_item'],
+            $post_type['revision'],
+            $post_type['clients'],
+            $post_type['animated-columns'],
+            $post_type['edge'],
+            $post_type['portfolio'],
+            $post_type['shop_order'],
+            $post_type['shop_order_refund'],
+            $post_type['shop_coupon'],
+            $post_type['shop_webhook'],
+            $post_type['banner_builder'],
+            $post_type['banner_builder']
+            );
+        return $post_type;
     }
 
 }

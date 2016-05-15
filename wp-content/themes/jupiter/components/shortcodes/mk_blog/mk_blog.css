@@ -141,6 +141,20 @@
   content: "\f10d";
   font-size: 48px;
 }
+
+.mk-blog-classic-item.blockquote-post-type .blog-blockquote-content:before {
+  content: "\f10d";
+}
+.mk-blog-classic-item.blockquote-post-type .blog-blockquote-content .mk-svg-icon {
+  position: absolute;
+  top: 70px;
+  left: 40px;
+  display: block;
+  fill: #dddddd;
+  fill: rgba(0, 0, 0, 0.1);
+  width: 48px!important;
+  height: 48px!important;
+}
 .mk-blog-classic-item.blockquote-post-type .blog-blockquote-content footer {
   text-align: right;
   color: #999999;
@@ -171,6 +185,7 @@
   line-height: 40px;
   padding-left: 50px;
   position: relative;
+  word-wrap: break-word;
 }
 .mk-blog-classic-item .blog-twitter-content:before {
   content: '';
@@ -627,14 +642,17 @@
   padding: 40px 25px 25px 80px;
 }
 .mk-blog-grid-item.blockquote-post-type .blog-grid-holder .blog-blockquote-content:before {
+  content: "\f10d";
+}
+.mk-blog-grid-item.blockquote-post-type .blog-grid-holder .blog-blockquote-content .mk-svg-icon {
   position: absolute;
   top: 50px;
   left: 25px;
   display: block;
-  color: #ddd;
-  color: rgba(0, 0, 0, 0.1);
-  content: "\f10d";
-  font-size: 48px;
+  fill: #ddd;
+  fill: rgba(0, 0, 0, 0.1);
+  width: 48px!important;
+  height: 48px!important;
 }
 .mk-blog-grid-item.blockquote-post-type .blog-grid-holder .blog-blockquote-content footer {
   text-align: right;
@@ -673,6 +691,7 @@
   line-height: 36px;
   padding-bottom: 30px;
   padding: 25px 40px 90px;
+  word-wrap: break-word;
 }
 .mk-blog-grid-item.twitter-post-type .blog-grid-holder .blog-twitter-content:before {
   content: '';
@@ -844,12 +863,6 @@
 }
 .mk-blog-magazine-item.magazine-thumb-post .item-wrapper .blog-title {
   margin: 5px 0;
-}
-
-.mk-blog-magazine-item.blockquote-post-type,
-.mk-blog-magazine-item.instagram-post-type,
-.mk-blog-magazine-item.twitter-post-type{
-  display: none;
 }
 
 @media handheld, only screen and (max-width: 767px) {
@@ -1026,14 +1039,17 @@
   display: none;
 }
 .mk-blog-modern-item.blockquote-post-type .blog-blockquote-content:before {
+  content: "\f10d";
+}
+.mk-blog-modern-item.blockquote-post-type .blog-blockquote-content .mk-svg-icon {
   position: absolute;
   top: 60px;
   left: 100px;
   display: block;
-  color: #dddddd;
-  color: rgba(0, 0, 0, 0.1);
-  content: "\f10d";
-  font-size: 48px;
+  fill: #dddddd;
+  fill: rgba(0, 0, 0, 0.1);
+  height: 48px!important;
+  width: 48px!important;
 }
 .mk-blog-modern-item.blockquote-post-type .blog-blockquote-content footer {
   text-align: right;
@@ -1122,6 +1138,7 @@
   line-height: 40px;
   padding-left: 100px;
   padding-top: 50px;
+  word-wrap: break-word;
 }
 .mk-blog-modern-item.twitter-post-type .blog-twitter-content a {
   color: #55acee;
@@ -1491,6 +1508,7 @@
   line-height: 36px;
   padding-bottom: 30px;
   padding: 25px 40px 90px;
+  word-wrap: break-word;
 }
 .mk-blog-newspaper-item.twitter-post-type .blog-item-holder .blog-twitter-content:before {
   content: '';
@@ -1662,16 +1680,7 @@
   margin: 5% auto 0;
 }
 
-.mk-blog-spotlight-item.blockquote-post-type,
-.mk-blog-spotlight-item.instagram-post-type,
-.mk-blog-spotlight-item.twitter-post-type{
-  display: none;
-}
-.mk-blog-teaser .blockquote-post-type,
-.mk-blog-teaser .instagram-post-type,
-.mk-blog-teaser .twitter-post-type{
-  display: none;
-}
+
 .mk-blog-thumbnail-item {
   width: 100%;
   margin-bottom: 50px;
@@ -1698,9 +1707,9 @@
 }
 .mk-blog-thumbnail-item .featured-image {
   position: relative;
-  width: 35%;
   display: inline-block;
   overflow: hidden;
+  max-width:35%; 
 }
 .mk-blog-thumbnail-item .featured-image:hover img {
   -webkit-transform: scale(1.05);
@@ -1711,6 +1720,12 @@
   width: 65%;
   display: inline-block;
 }
+
+.mk-blog-thumbnail-item.full-width-post .item-wrapper {
+  padding: 35px;
+  width: 100%;
+}
+
 .mk-blog-thumbnail-item .item-wrapper .mk-blog-author,
 .mk-blog-thumbnail-item .item-wrapper .mk-categories {
   display: inline-block;
@@ -1727,6 +1742,7 @@
   }
 @media handheld, only screen and (max-width: 767px) {
   .mk-blog-thumbnail-item .featured-image {
+    max-width: 100%;
     width: 100%;
     margin-bottom: 20px;
   }
@@ -1737,10 +1753,4 @@
     width: 100%;
     padding: 30px !important;
   }
-}
-
-.mk-blog-thumbnail-item.blockquote-post-type,
-.mk-blog-thumbnail-item.instagram-post-type,
-.mk-blog-thumbnail-item.twitter-post-type{
-  display: none;
 }

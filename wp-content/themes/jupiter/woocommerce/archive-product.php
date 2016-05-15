@@ -38,14 +38,11 @@ get_header( 'shop' ); ?>
 			?>
 
 			<?php 
-			if(woocommerce_product_subcategories()) {
-
 				woocommerce_product_loop_start();
 
 					 woocommerce_product_subcategories();
 
 			 	woocommerce_product_loop_end(); 
-			 }
 			?>	
 
 			

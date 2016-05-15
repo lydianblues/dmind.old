@@ -29,6 +29,10 @@
             $( '.variations_form' ).each( function() {
                 $( this ).wc_variation_form().find('.variations select:eq(0)').change();
             });
+
+            MK.utils.scroll.disable();
+			MK.ui.loader.remove();
+			MK.utils.eventManager.publish('quickViewOpen');
 		},
 
 		cacheElements: function cacheElement() {
@@ -47,7 +51,9 @@
 			this.$modal.on('click', this.handleClose.bind(this));
 		},
 
-		handleClose: function handleClose() {
+		handleClose: function handleClose(e) {
+			e.preventDefault();
+			MK.utils.scroll.enable();
 			this.close();
 		},
 
@@ -76,6 +82,7 @@
 	var createModal = function createModal(e) {
 		e.preventDefault();
 		var el = e.currentTarget;
+		MK.ui.loader.add($(el).parents('.product-loop-thumb'));
 		new AjaxModal(el);
 	};
 

@@ -71,6 +71,13 @@ $portfolio_section[] = array(
             "type" => "toggle"
         ) ,
         array(
+            "name" => __("Show Previous & Next for Same Categories?", "mk_framework") ,
+            "desc" => __("If enabled, the same categories in adjacent posts will be shown.", "mk_framework") ,
+            "id" => "portfolio_prev_next_same_category",
+            "default" => 'true',
+            "type" => "toggle"
+        ) ,
+        array(
             "name" => __("Comment", "mk_framework") ,
             "desc" => __("This option allows you to enable or disable the comment section on your single portfolio page.", "mk_framework") ,
             "id" => "enable_portfolio_comment",

@@ -46,12 +46,17 @@ vc_map(array(
             "description" => __("Number of post to displace or pass over. It means based on your order of the loop, this number will define how many posts to pass over and start from the nth number of the offset.", "mk_framework")
         ) ,
         array(
-            "type" => "textfield",
-            "heading" => __("Select Specific Categories", "mk_framework") ,
-            "param_name" => "faq_cat",
-            "value" => '',
-            "description" => __("You will need to go to Wordpress Dashboard => FAQ => FAQ Categories. In the right hand find Slug column. you will need to add FAQ category slugs in this option. add comma to separate them.", "mk_framework")
-        ) ,
+            'type'        => 'autocomplete',
+            'heading'     => __( 'Select specific Categories', 'mk_framework' ),
+            'param_name'  => 'faq_cat',
+            'settings' => array(
+                                'multiple' => true,
+                                'sortable' => true,
+                                'unique_values' => true,
+                                // In UI show results except selected. NB! You should manually check values in backend
+                            ),
+            'description' => __( 'Search for category name to get autocomplete suggestions', 'mk_framework' ),
+        ),
         array(
             "heading" => __("Order", 'mk_framework') ,
             "description" => __("Designates the ascending or descending order of the 'orderby' parameter.", 'mk_framework') ,

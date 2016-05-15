@@ -3,6 +3,7 @@ if (empty($view_params['url'])) return false;
 
 //delete_post_meta(get_the_ID() , '_blog_post_tweet');
 
+
 if (!get_post_meta(get_the_ID() , '_blog_post_tweet')) {
     
     global $mk_options;
@@ -15,9 +16,9 @@ if (!get_post_meta(get_the_ID() , '_blog_post_tweet')) {
     
     $id = uniqid();
     
-    $token = get_option('mk_twitter_token_' . $id);
+    $token = get_option('mk_twitter_token_' . get_the_ID());
     
-    delete_option('mk_twitter_token_' . $id);
+    delete_option('mk_twitter_token_' . get_the_ID());
     
     if (!$token) {
         
@@ -43,7 +44,7 @@ if (!get_post_meta(get_the_ID() , '_blog_post_tweet')) {
         $keys = json_decode(wp_remote_retrieve_body($response));
         
         if ($keys) {
-            update_option('mk_twitter_token_' . $id, $keys->access_token);
+            update_option('mk_twitter_token_' . get_the_ID(), $keys->access_token);
             $token = $keys->access_token;
         }
     }
@@ -64,20 +65,18 @@ if (!get_post_meta(get_the_ID() , '_blog_post_tweet')) {
     $twitter = json_decode(wp_remote_retrieve_body($response) , true);
     
 
-    //update_post_meta(get_the_ID() , '_blog_post_tweet', strip_tags($twitter['text'], '<a><p>'));
-    update_post_meta(get_the_ID() , '_blog_post_tweet_text', $twitter[0]['text']);
-    update_post_meta(get_the_ID() , '_blog_post_tweet_screen_name', $twitter[0]['user']['screen_name']);
-    update_post_meta(get_the_ID() , '_blog_post_tweet_name', $twitter[0]['user']['name']);
+    update_post_meta(get_the_ID() , '_blog_post_tweet', $twitter);
 }
 
+$tweet = get_post_meta(get_the_ID() , '_blog_post_tweet', true);
 ?>
 
 <div class="blog-twitter-content">
-    <?php echo get_post_meta(get_the_ID() , '_blog_post_tweet_text', true); ?>
+    <?php echo $tweet[0]['text']; ?>
     <footer>
-        <span><?php echo get_post_meta(get_the_ID() , '_blog_post_tweet_name', true); ?></span>
-        <a href="https://twitter.com/<?php echo get_post_meta(get_the_ID() , '_blog_post_tweet_screen_name', true); ?>" target="_blank">
-            @<?php echo get_post_meta(get_the_ID() , '_blog_post_tweet_screen_name', true); ?>
+        <span><?php echo $tweet[0]['user']['name']; ?></span>
+        <a href="https://twitter.com/<?php echo $tweet[0]['user']['screen_name']; ?>" target="_blank">
+            @<?php echo $tweet[0]['user']['screen_name']; ?>
         </a>
     </footer>
 </div>

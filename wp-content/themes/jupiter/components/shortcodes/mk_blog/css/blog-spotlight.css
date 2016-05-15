@@ -106,9 +106,3 @@
 .mk-blog-spotlight-item .item-wrapper .mk-button {
   margin: 5% auto 0;
 }
-
-.mk-blog-spotlight-item.blockquote-post-type,
-.mk-blog-spotlight-item.instagram-post-type,
-.mk-blog-spotlight-item.twitter-post-type{
-  display: none;
-}

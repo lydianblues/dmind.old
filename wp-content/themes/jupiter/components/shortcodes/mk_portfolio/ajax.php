@@ -41,6 +41,7 @@ class Mk_Ajax_Portfolio
             WPBMap::addAllMappedShortcodes();
         }
 
+
         if (empty($id)) return false;
         global $mk_options;
 
@@ -73,7 +74,8 @@ class Mk_Ajax_Portfolio
 
 
                 $image_src_array = wp_get_attachment_image_src(get_post_thumbnail_id() , 'full', true);
-                $image_src = mk_image_generator($image_src_array[0], $mk_options['grid_width'], $image_height);
+
+                $featured_image_src = Mk_Image_Resize::resize_by_id( get_post_thumbnail_id(), 'full', $mk_options['grid_width'], $image_height, $crop = false, $dummy = true);
                 
                 ?>
                 
@@ -90,12 +92,12 @@ class Mk_Ajax_Portfolio
                         <div class="blog-share-container">
                         <div class="blog-single-share mk-toggle-trigger"><i class="mk-moon-share-2"></i></div>
                         <ul class="single-share-box mk-box-to-trigger">
-                        <li><a class="facebook-share" data-title="<?php the_title(); ?>" data-url="<?php echo get_permalink(); ?>" href="#"><i class="mk-jupiter-icon-simple-facebook"></i></a></li>
-                        <li><a class="twitter-share" data-title="<?php the_title(); ?>" data-url="<?php echo get_permalink(); ?>" href="#"><i class="mk-moon-twitter"></i></a></li>
-                        <li><a class="googleplus-share" data-title="<?php the_title(); ?>" data-url="<?php echo get_permalink(); ?>" href="#"><i class="mk-jupiter-icon-simple-googleplus"></i></a></li>
-                        <li><a class="linkedin-share" data-title="<?php the_title(); ?>" data-url="<?php echo get_permalink(); ?>" href="#"><i class="mk-jupiter-icon-simple-linkedin"></i></a></li>
+                        <li><a class="facebook-share" data-title="<?php the_title_attribute(); ?>" data-url="<?php echo get_permalink(); ?>" href="#"><i class="mk-jupiter-icon-simple-facebook"></i></a></li>
+                        <li><a class="twitter-share" data-title="<?php the_title_attribute(); ?>" data-url="<?php echo get_permalink(); ?>" href="#"><i class="mk-moon-twitter"></i></a></li>
+                        <li><a class="googleplus-share" data-title="<?php the_title_attribute(); ?>" data-url="<?php echo get_permalink(); ?>" href="#"><i class="mk-jupiter-icon-simple-googleplus"></i></a></li>
+                        <li><a class="linkedin-share" data-title="<?php the_title_attribute(); ?>" data-url="<?php echo get_permalink(); ?>" href="#"><i class="mk-jupiter-icon-simple-linkedin"></i></a></li>
                         <?php if ($post_type == 'image') { ?>
-                            <li><a class="pinterest-share" data-image="<?php echo $image_src_array[0]; ?>" data-title="<?php the_title(); ?>" data-url="<?php echo get_permalink(); ?>" href="#"><i class="mk-jupiter-icon-simple-pinterest"></i></a></li>
+                            <li><a class="pinterest-share" data-image="<?php echo $image_src_array[0]; ?>" data-title="<?php the_title_attribute(); ?>" data-url="<?php echo get_permalink(); ?>" href="#"><i class="mk-jupiter-icon-simple-pinterest"></i></a></li>
                         <?php } ?>
                         </ul>
                         </div>
@@ -116,8 +118,8 @@ class Mk_Ajax_Portfolio
                         if ($featured_image != 'false') {
                             if ($post_type == 'image') { ?>
                                 <div class="single-featured-image">
-                                <a class="mk-lightbox portfolio-modern-lightbox" data-fancybox-group="portfolio-ajax-image" title="<?php the_title(); ?>" href="<?php echo $image_src_array[0]; ?>">
-                                    <img alt="<?php the_title(); ?>" title="<?php the_title(); ?>" src="<?php echo $image_src; ?>" />
+                                <a class="mk-lightbox portfolio-modern-lightbox" data-fancybox-group="portfolio-ajax-image" title="<?php the_title_attribute(); ?>" href="<?php echo $image_src_array[0]; ?>">
+                                    <img alt="<?php the_title_attribute(); ?>" title="<?php the_title_attribute(); ?>" src="<?php echo $featured_image_src; ?>" />
                                 </a>
                                 </div>
                             <?php } 

@@ -3,7 +3,7 @@
 
     var zIndex = 0;
 
-    $(document).on('click', '.blog-loop-comments', function (event) {
+    $('.mk-newspaper-wrapper').on('click', '.blog-loop-comments', function (event) {
         event.preventDefault();
 
         var $this = $(event.currentTarget);
@@ -16,7 +16,7 @@
         }, 300);
     });
 
-    $(document).on('click', '.newspaper-item-share', function (event) {
+    $('.mk-newspaper-wrapper').on('click', '.newspaper-item-share', function (event) {
         event.preventDefault();
 
         var $this = $(event.currentTarget);

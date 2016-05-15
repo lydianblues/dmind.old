@@ -79,10 +79,14 @@ if ($dimension == 'three' || $dimension == 'two' || $dimension == 'flat') {
 	';
 	if ($dimension == 'three' || $dimension == 'two') {
 		$color = ($text_color == 'light') ? 'color: #fff!important;' : 'color: #585858!important';
+		$fill  = ($text_color == 'light') ? 'color: #fff!important;' : 'color: #585858!important';
 		$app_styles .= '
 			#mk-button-'.$style_id.' .mk-button {
 				background-color: '.$bg_color.';
 				'.$color.'
+			}
+			#mk-button-'.$style_id.' .mk-button .mk-svg-icon {
+				'.$fill.'
 			}
 			#mk-button-'.$style_id.' .mk-button:hover {
 				background-color: '.hexDarker($bg_color, 7).';
@@ -99,11 +103,15 @@ if ($dimension == 'three' || $dimension == 'two' || $dimension == 'flat') {
 	}
 	if($dimension == 'flat') {
 		$hover_text_color = ($btn_hover_txt_color != '') ? 'color:'.$btn_hover_txt_color.';' : '';
+		$fill = ($btn_hover_txt_color != '') ? 'color:'.$btn_hover_txt_color.';' : '';
 		$hover_bg_color = ($btn_hover_bg != '') ? 'background-color:'.$btn_hover_bg.';' : '';
 		$app_styles .= ' 
 			#mk-button-'.$style_id.' .mk-button:hover {
 				'.$hover_text_color.'
 				'.$hover_bg_color.'
+			}
+			#mk-button-'.$style_id.' .mk-button:hover .mk-svg-icon {
+				'.$fill.'
 			}
 		';
 	}
@@ -122,9 +130,15 @@ if($dimension == 'outline' || $dimension == 'double-outline' || $dimension == 's
 				border-color: '.$outline_active_color.';
 				color: '.$active_text_color.'!important;
 			}
+			#mk-button-'.$style_id.' .mk-button .mk-svg-icon {
+				fill: '.$active_text_color.'!important;
+			}
 			#mk-button-'.$style_id.' .mk-button:hover {
 				background-color: '.$hover_bg_color.';
 				color: '.$outline_hover_color.'!important;
+			}
+			#mk-button-'.$style_id.' .mk-button:hover .mk-svg-icon {
+				fill: '.$outline_hover_color.'!important;
 			}
 		';
 	}
@@ -136,11 +150,17 @@ if($dimension == 'outline' || $dimension == 'double-outline' || $dimension == 's
 				border-color: '.$outline_active_color.';
 				color: '.$active_text_color.'!important;
 			}
+			#mk-button-'.$style_id.' .mk-button .mk-svg-icon {
+				fill: '.$active_text_color.'!important;
+			}
 			#mk-button-'.$style_id.' .mk-button::after {
 				background-color: '.$hover_bg_color.';
 			}
 			#mk-button-'.$style_id.' .mk-button:hover {
 				color: '.$outline_hover_color.'!important;
+			}
+			#mk-button-'.$style_id.' .mk-button:hover .mk-svg-icon {
+				fill: '.$outline_hover_color.'!important;
 			}
 		';
 	}
@@ -160,12 +180,18 @@ if($dimension == 'outline' || $dimension == 'double-outline' || $dimension == 's
 				color: '.$outline_hover_color.'!important;
 				background-color: '.$outline_active_color.';
 			}
+			#mk-button-'.$style_id.' .mk-button .mk-svg-icon {
+				fill: '.$outline_hover_color.'!important;
+			}
 			#mk-button-'.$style_id.' .mk-button .double-outline-inside {
 				border-color: '.$outline_active_color.';
 			}
 			#mk-button-'.$style_id.' .mk-button:hover {
 				background-color: '.$outline_hover_color.';
 				color: '.$outline_active_color.'!important;
+			}
+			#mk-button-'.$style_id.' .mk-button:hover .mk-svg-icon {
+				fill: '.$outline_active_color.'!important;
 			}
 		';
 		}else {
@@ -175,12 +201,18 @@ if($dimension == 'outline' || $dimension == 'double-outline' || $dimension == 's
 					color: '.$outline_active_text_color.'!important;
 					background-color: '.$outline_active_color.';
 				}
+				#mk-button-'.$style_id.' .mk-button .mk-svg-icon {
+					fill: '.$outline_active_text_color.'!important;
+				}
 				#mk-button-'.$style_id.' .mk-button .double-outline-inside {
 					border-color: '.$outline_active_color.';
 				}
 				#mk-button-'.$style_id.' .mk-button:hover {
 					background-color: '.$outline_hover_bg_color.';
 					color: '.$outline_hover_color.'!important;
+				}
+				#mk-button-'.$style_id.' .mk-button:hover .mk-svg-icon {
+					fill: '.$outline_active_color.'!important;
 				}
 			';
 		}

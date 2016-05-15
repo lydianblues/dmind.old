@@ -10,7 +10,7 @@ $id = uniqid();
 if( $longitude == '' && $latitude == '') return null;
 
 // Zoom cannot be less than one
-if( $zoom < 1 ) $zoom = 1;
+if( $map_zoom < 1 ) $map_zoom = 1;
 
 // Disable coloring options when full JSON customization is passed
 if( $modify_json == 'true' ) $modify_coloring = 'false';
@@ -31,14 +31,16 @@ $json['icon']    = $pin_icon;
 $json['places'][] = array(
 	"address"   => htmlentities($address),
 	"latitude"  => $latitude,
-	"longitude" => $longitude
+	"longitude" => $longitude,
+	'marker'	=> $custom_marker_1
 );
 
 if( !empty($latitude_2) && !empty($longitude_2) ) {
 	$json['places'][] = array(
 		"address"   => htmlentities($address_2),
 		"latitude"  => $latitude_2,
-		"longitude" => $longitude_2
+		"longitude" => $longitude_2,
+		'marker'	=> $custom_marker_2
 	);
 }
 
@@ -46,19 +48,38 @@ if( !empty($latitude_3) && !empty($longitude_3) ) {
 	$json['places'][] = array(
 		"address"   => htmlentities($address_3),
 		"latitude"  => $latitude_3,
-		"longitude" => $longitude_3
+		"longitude" => $longitude_3,
+		'marker'	=> $custom_marker_3
 	);
+}
+
+if( !empty($additional_markers) ) {
+	$additional_markers = json_decode(urldecode($additional_markers), true);
+    foreach ($additional_markers as $marker) {
+    	
+    	$address  		= isset($marker['address']) ? $marker['address'] : '';
+		$latitude  		= isset($marker['latitude']) ? $marker['latitude'] : '';
+		$longitude 		= isset($marker['longitude']) ? $marker['longitude'] : '';
+		$marker_icon 	= isset($marker['marker_icon']) ? $marker['marker_icon'] : '';
+
+		$json['places'][] = array(
+			"address"   => $address,
+			"latitude"  => $latitude,
+			"longitude" => $longitude,
+			'marker'	=> $marker_icon
+		);
+    } 
 }
 
 
 $json['options'] = array(
-	"zoom"      		=> intval($zoom),
-	"draggable"		=> $draggable == 'true' ? true : false,
+	"zoom"      		=> intval($map_zoom),
+	"draggable"			=> $draggable == 'true' ? true : false,
 	"panControl"		=> $pan_control == 'true' ? true : false,
 	"zoomControl"		=> $zoom_control == 'true' ? true : false,
 	"scaleControl"		=> $scale_control == 'true' ? true : false,
 	"mapTypeControl"	=> $map_type_control == 'true' ? true : false,
-    	"mapTypeId"		=> $map_type
+    "mapTypeId"			=> $map_type
 );
 
 

@@ -110,6 +110,10 @@
   color: #ffffff;
   line-height: 32px;
 }
+.mk-portfolio-classic-item .mk-svg-icon {
+  height: 32px!important;
+  width: 32px!important;
+}
 .mk-portfolio-classic-item .from-left {
   margin-left: -50px;
   right: auto;
@@ -129,16 +133,20 @@
   position: relative;
   width: 100%;
 }
-.mk-portfolio-classic-item .featured-image:hover .hover-icon {
+.mk-portfolio-classic-item .featured-image:hover .hover-icon,
+.mk-portfolio-classic-item .featured-image.hover .hover-icon {
   opacity: 1;
 }
-.mk-portfolio-classic-item .featured-image:hover .from-left {
+.mk-portfolio-classic-item .featured-image:hover .from-left,
+.mk-portfolio-classic-item .featured-image.hover .from-left {
   left: 50%;
 }
-.mk-portfolio-classic-item .featured-image:hover .from-right {
+.mk-portfolio-classic-item .featured-image:hover .from-right,
+.mk-portfolio-classic-item .featured-image.hover .from-right {
   right: 50%;
 }
-.mk-portfolio-classic-item .featured-image:hover .image-hover-overlay {
+.mk-portfolio-classic-item .featured-image:hover .image-hover-overlay,
+.mk-portfolio-classic-item .featured-image.hover .image-hover-overlay {
   opacity: 0.8;
 }
 .portfolio-meta-wrapper {

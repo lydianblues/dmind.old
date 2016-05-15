@@ -108,16 +108,10 @@ foreach ($categories as $category) {
     	$image_id = is_array(get_tax_meta($category->term_id, 'mk_image_field_id')) ? get_tax_meta($category->term_id, 'mk_image_field_id') ['id'] : false;
     }
 
-    if($image_size !== 'crop'){
-        $image = !empty($image_id) ? wp_get_attachment_image_src($image_id, $image_size, true) : '';
-        if (isset($image[0])) {
-            $each_item->find('.item-thumbnail')->attr('src', $image[0]);
-        }
-    }else {
-        $image_src_array = wp_get_attachment_image_src($image_id, 'full', true);
-        $image_src = mk_image_generator($image_src_array[0], $image_width, $row_height, 'true');
-        $each_item->find('.item-thumbnail')->attr('src', $image_src);
-    }
+
+    $image_src = Mk_Image_Resize::resize_by_id($image_id, $image_size, $image_width, $row_height, $crop = true, $dummy = true);
+
+    $each_item->find('.item-thumbnail')->attr('src', $image_src);
 
     //Adding html elements according to style
     if($title_hover == 'none' || $title_hover == 'simple' || $title_hover == 'framed') {

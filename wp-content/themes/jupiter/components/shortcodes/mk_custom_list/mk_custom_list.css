@@ -19,10 +19,13 @@
   padding: 0 0 0 21px;
   line-height: 24px !important;
 }
-.mk-list-styles ul li:before {
+.mk-list-styles ul li i{
+  font-size: 16px;
+}
+.mk-list-styles ul li .mk-svg-icon{
   position: absolute;
-  top: 2px;
+  top: 4px;
   left: 0;
   font-size: 16px;
-  line-height: 24px !important;
+  line-height: 16px !important;
 }

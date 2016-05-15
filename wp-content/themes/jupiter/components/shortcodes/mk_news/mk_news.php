@@ -46,7 +46,7 @@ $data_config[] = 'data-loop-iterator="'.$r->query['posts_per_page'].'"';
 
 ?>
 
-<section id="mk-news-section-<?php echo $id; ?>" <?php echo implode(' ', $data_config); ?> class="mk-news-container js-loop clear" >
+<section id="mk-news-section-<?php echo $id; ?>" <?php echo implode(' ', $data_config); ?> class="mk-news-container js-loop clearfix" >
     <?php
         if ($r->have_posts()):
             while ($r->have_posts()):

@@ -1,5 +1,10 @@
 <?php
-    vc_map(array(
+$captcha_plugin_status = '';
+if(!Mk_Theme_Captcha::is_plugin_active()) {
+    $captcha_plugin_status = '<span style="color:red">Artbees Themes Captcha plugin is not activated! <a href="'.admin_url('themes.php?page=tgmpa-install-plugins').'">Click here</a> to begin installing.</span>';
+}
+
+ vc_map(array(
     "base" => "mk_contact_form",
     "name" => __("Contact Form", "mk_framework"),
     'icon' => 'icon-mk-contact-form vc_mk_element-icon',
@@ -158,19 +163,13 @@
             "value" => "false",
             "description" => __("", "mk_framework")
         ),
-        /*array(
-            "type" => "toggle",
-            "heading" => __("File Attachment field", "mk_framework"),
-            "param_name" => "attachfile",
-            "value" => "false",
-            "description" => __("Let user send file using this contact form.", "mk_framework")
-        ),*/
         array(
             "type" => "toggle",
             "heading" => __("Captcha authentication?", "mk_framework"),
             "param_name" => "captcha",
             "value" => "true",
-            "description" => __("Keep away spam bots.", "mk_framework")
+            "description" => __("Keep away spam bots. " . $captcha_plugin_status , "mk_framework"),
+
         ),
         array(
             "type" => "textfield",

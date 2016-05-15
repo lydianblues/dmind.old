@@ -22,6 +22,7 @@ extract(shortcode_atts(array(
     'bg_image'              => '',
     'bg_color'              => '',
     'bg_image'              => '',
+    'bg_image_portrait'     => '',
     'attachment'            => 'scroll',
     'bg_position'           => 'left top',
     'bg_stretch'            => 'false',

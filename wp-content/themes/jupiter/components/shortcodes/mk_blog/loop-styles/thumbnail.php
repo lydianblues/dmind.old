@@ -1,6 +1,8 @@
 <?php
 
     global $mk_options;
+    
+    $output = '';
 
     if ($view_params['thumbnail_align'] == 'left'){
         $align_class = ' content-align-right';
@@ -15,27 +17,19 @@
     $post_type = get_post_meta($post->ID, '_single_post_type', true);
     $post_type = !empty($post_type) ? $post_type : 'image';
 
-    if ($view_params['image_size'] == 'crop') {
-        $image_src_array = wp_get_attachment_image_src(get_post_thumbnail_id() , 'full', true);
-        $image_output_src = mk_image_generator($image_src_array[0], $image_width, $image_height);
-    } 
-    else {
-        if(has_post_thumbnail() && !mk_is_default_thumbnail(wp_get_attachment_image_src(get_post_thumbnail_id(), 'full', true)[0])) {
-            $image_src_array = wp_get_attachment_image_src(get_post_thumbnail_id() , $view_params['image_size'], true);
-            $image_output_src = $image_src_array[0];
-            $image_width = $image_src_array[1];
-            $image_height = $image_src_array[2];    
-        } else {
-            $image_output_src = '';
-        }
-    }
+    $attachment_id = mk_get_blog_post_thumbnail($post_type);
+
+    $featured_image_src = Mk_Image_Resize::resize_by_id_adaptive($attachment_id, $view_params['image_size'], $image_width, $image_height, $crop = true, $dumm = false);
+
+    $image_size_atts = Mk_Image_Resize::get_image_dimension_attr($attachment_id, $view_params['image_size'], $image_width, $image_height);
     
+    $post_width = Mk_Image_Resize::is_default_thumb($featured_image_src['default']) ? 'full-width-post' : '';
 
-    $output = '<article id="' . get_the_ID() . '" class="mk-blog-thumbnail-item '.$post_type.'-post-type mk-isotop-item ' . $post_type . '-post-type'.$align_class.' clear">' . "\n";
+    $output .= '<article id="' . get_the_ID() . '" class="mk-blog-thumbnail-item '.$post_type.'-post-type mk-isotop-item ' . $post_type . '-post-type'.$align_class.' '.$post_width.' clearfix">' . "\n";
 
-    if (has_post_thumbnail()) {
-        $output .= '<div class="featured-image" ><a href="' . get_permalink() . '" title="' . get_the_title() . '">';
-        $output .= '<img alt="' . get_the_title() . '" title="' . get_the_title() . '" width="'.$image_width.'" height="'.$image_height.'" src="' . $image_output_src . '" itemprop="image" />';
+    if (!Mk_Image_Resize::is_default_thumb($featured_image_src['default'])) {
+        $output .= '<div class="featured-image" ><a href="' . get_permalink() . '" title="' . the_title_attribute(array('echo' => false)) . '">';
+        $output .= '<img alt="' . the_title_attribute(array('echo' => false)) . '" title="' . the_title_attribute(array('echo' => false)) . '" src="'.$featured_image_src['dummy'].'" '.$featured_image_src['data-set'].' width="'.esc_attr($image_size_atts['width']).'" height="'.esc_attr($image_size_atts['height']).'" itemprop="image" />';
         $output .= '<div class="image-hover-overlay"></div>';
         $output .= '<div class="post-type-badge" href="' . get_permalink() . '"><i class="mk-li-' . $post_type . '"></i></div>';
         $output .= '</a></div>';

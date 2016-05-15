@@ -18,7 +18,7 @@ $query = mk_wp_query(array(
 
 $loop = $query['wp_query'];
 
-$image_dimension = ($style != 'boxed') ? array('employees-large', 500) : array('employees-small', 225);
+$image_size = ($style != 'boxed') ? 'employees-large' : 'employees-small';
 
 
 if($style == 'boxed') {
@@ -110,7 +110,7 @@ Mk_Static_Files::addCSS($app_styles, $id);
 		<li class="mk-employee-item a_colitem a_align-center a_display-inline-block a_float-left m_7<?php echo implode(' ', $item_class); ?>">
 			<div class="item-holder">
 				<div class="team-thumbnail a_position-relative a_width-100-per a_height-100-per a_overflow-hidden rounded-<?php echo $rounded_image; ?>">
-					<?php echo mk_get_shortcode_view('mk_employees', 'components/thumbnail', true, ['image_dimension' => $image_dimension, 'link' => $link]); ?>
+					<?php echo mk_get_shortcode_view('mk_employees', 'components/thumbnail', true, ['image_size' => $image_size, 'link' => $link]); ?>
 
 					<?php if ($style == 'classic') {
 						echo mk_get_shortcode_view('mk_employees', 'components/social'); 

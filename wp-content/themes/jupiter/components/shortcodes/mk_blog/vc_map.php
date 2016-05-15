@@ -23,6 +23,23 @@ vc_map(array(
             "type" => "dropdown"
         ),
 
+        array(
+            "heading" => __("Blog Post Formats to Exclude", 'mk_framework'),
+            "description" => __("Using this option you may want to exclude post Formats you do not want to show in this blog feed.", 'mk_framework'),
+            "param_name" => "exclude_post_format",
+            "options" => array(
+                "image" => __('Image', "mk_framework") ,
+                "video" => __('Video', "mk_framework") ,
+                "audio" => __('Audio', "mk_framework") ,
+                "portfolio" => __('Portfolio', "mk_framework") ,
+                "twitter" => __('Twitter', "mk_framework") ,
+                "blockquote" => __('Blockquote', "mk_framework") ,
+                "instagram" => __('Instagram', "mk_framework") ,
+            ),
+            "type" => "multiselect"
+        ),
+
+             
 
         array(
             "type" => "range",
@@ -121,28 +138,11 @@ vc_map(array(
                 )
             )
         ),
-         /*array(
-            "type" => "dropdown",
-            "heading" => __("Increase Quality of Image", "mk_framework"),
-            "param_name" => "image_quality",
-            "value" => array(
-                __("Normal Quality", 'mk_framework') => "1",
-                __("Images 2 times bigger (Retina compatible)", 'mk_framework') => "2",
-                __("Images 3 times bigger (Fullwidth row compatible)", 'mk_framework') => "3"
-            ),
-            "dependency" => array(
-                'element' => "image_size",
-                'value' => array(
-                    'crop'
-                )
-            ),
-            "description" => __("If you would like your Blog images to be retina compatible or just want to use it in fullwidth row, you may consider increasing the image size. This option will help you define the image quality manually.", "mk_framework")
-        ),*/
 
         array(
             "type" => "range",
             "heading" => __("How many Posts?", "mk_framework"),
-            "param_name" => "count",
+            "param_name" => "post_count",
             "value" => "10",
             "min" => "-1",
             "max" => "50",
@@ -153,7 +153,7 @@ vc_map(array(
         array(
             "type" => "range",
             "heading" => __("Offset", "mk_framework"),
-            "param_name" => "offset",
+            "param_name" => "post_offset",
             "value" => "0",
             "min" => "0",
             "max" => "50",
@@ -162,28 +162,41 @@ vc_map(array(
             "description" => __("Number of posts to displace or pass over, it means based on your order of the loop, this number will define how many posts to pass over and start from the nth number of the offset.", "mk_framework")
         ),
         array(
-            "type" => "multiselect",
-            "heading" => __("Select specific Categories", "mk_framework"),
-            "param_name" => "cat",
-            "options" => mk_get_category_enteries('category', 50),
-            "value" => '',
-            "description" => __("", "mk_framework")
+            'type'        => 'autocomplete',
+            'heading'     => __( 'Select specific Categories', 'mk_framework' ),
+            'param_name'  => 'cat',
+            'settings' => array(
+                                'multiple' => true,
+                                'sortable' => true,
+                                'unique_values' => true,
+                                // In UI show results except selected. NB! You should manually check values in backend
+                            ),
+            'description' => __( 'Search for category name to get autocomplete suggestions', 'mk_framework' ),
         ),
         array(
-            "type" => "multiselect",
-            "heading" => __("Select specific Posts", "mk_framework"),
-            "param_name" => "posts",
-            "options" => mk_get_post_enteries('post', 40),
-            "value" => '',
-            "description" => __("", "mk_framework")
+            'type'        => 'autocomplete',
+            'heading'     => __( 'Select specific Posts', 'mk_framework' ),
+            'param_name'  => 'posts',
+            'settings' => array(
+                                'multiple' => true,
+                                'sortable' => true,
+                                'unique_values' => true,
+                                // In UI show results except selected. NB! You should manually check values in backend
+                            ),
+            'description' => __( 'Search for post ID or post title to get autocomplete suggestions', 'mk_framework' ),
         ),
+
         array(
-            "type" => "multiselect",
-            "heading" => __("Select specific Authors", "mk_framework"),
-            "param_name" => "author",
-            "options" => mk_get_authors(50),
-            "value" => '',
-            "description" => __("", "mk_framework")
+            'type'        => 'autocomplete',
+            'heading'     => __( 'Select specific Authors', 'mk_framework' ),
+            'param_name'  => 'author',
+            'settings' => array(
+                                'multiple' => true,
+                                'sortable' => true,
+                                'unique_values' => true,
+                                // In UI show results except selected. NB! You should manually check values in backend
+                            ),
+            'description' => __( 'Search for user ID, Username, Email Address to get autocomplete suggestions', 'mk_framework' ),
         ),
 
         array(

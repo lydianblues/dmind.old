@@ -519,10 +519,6 @@
             tinyMCE.activeEditor.selection.setContent('[vc_row][vc_column width="1/1"][mk_social_networks size="small" style="rounded" margin="4" icon_color="#cccccc" align="left" facebook="#" twitter="#" rss="#" dribbble="#" digg="#" pinterest="#" flickr="#" google_plus="#" linkedin="#" blogger="#" youtube="#" last_fm="#" stumble_upon="#" tumblr="#" vimeo="#" wordpress="#" yelp="#" reddit="#" xing="#"][/vc_column][/vc_row]');
           }
 
-          if (id === 'skype') {
-            tinyMCE.activeEditor.selection.setContent('[vc_row][vc_column width="1/1"][mk_skype display_number="Your Skype Number (Display)" number="Your Skype Number (exact number)"][/vc_column][/vc_row]');
-          }
-
 
           if (id === 'contact-form') {
             tinyMCE.activeEditor.selection.setContent('[vc_row][vc_column width="1/1"][mk_contact_form style="modern" skin="dark" email="#"][/vc_column][/vc_row]');

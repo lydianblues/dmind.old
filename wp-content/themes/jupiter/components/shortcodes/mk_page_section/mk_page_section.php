@@ -8,6 +8,7 @@ include( $path . '/config.php' );
 
 $data_config[] = ( $full_height == 'true' ) ? 'data-mk-component="FullHeight"' : '';
 $data_config[] = ($video_source == 'social') ? 'data-source="'.$stream_host_website.'"' : '' ;
+$data_config[] = ($video_source == 'social') ? 'data-sound="'.$stream_sound.'"' : '' ;
 $data_config[] = 'data-intro-effect="' . $intro_effect . '"';
 
 $classes[] = 'mk-page-section';
@@ -18,6 +19,7 @@ $classes[] = 'js-el';
 $classes[] = 'js-master-row';
 $classes[] = $visibility;
 $classes[] = get_viewport_animation_class($animation);
+$classes[] = ($top_shadow == 'true') ? 'drop-top-shadow' : '';
 $classes[] = $el_class;
 if($js_vertical_centered == 'true' || $full_height == 'true') $classes[] = 'center-y';
 
@@ -66,8 +68,25 @@ if($js_vertical_centered == 'true' || $full_height == 'true') $classes[] = 'cent
 <?php 
 
 
+if (!function_exists('is_gradient_stop_transparent')) {
+    function is_gradient_stop_transparent($color) {
+        if (strpos($color, 'rgba') !== false) {
+            $var = $color;
+            $var = str_replace('rgba(', '', $var);
+            $var = str_replace(')', '', $var);
+            $var = explode(',', $var);
 
+            if(floatval($var[3]) > 0.05) {
+                return false;
+            } else {
+                return true;
+            }
 
+        } else {
+            return false;
+        }
+    }
+}
 
 
 if($bg_gradient != 'false') {
@@ -75,6 +94,9 @@ if($bg_gradient != 'false') {
     $el = '.full-width-'.$id.' .mk-video-color-mask';
     $vertical = $horizontal = $left_top = $left_bottom = $radial = '';
     $gr_start = $video_color_mask;
+
+    $gr_start = is_gradient_stop_transparent($gr_start) ? 'transparent' : $gr_start;
+    $gr_end   = is_gradient_stop_transparent($gr_end)   ? 'transparent' : $gr_end;
     
     if($bg_gradient == 'vertical')
         $vertical = "
@@ -144,7 +166,7 @@ if($bg_gradient != 'false') {
 
 $bg_color_css = $bg_color ? ('background-color:' . $bg_color . ';') : '';
 $bg_layer_bg_css = $blend_mode !== 'none' ? ('background-color:' . $bg_color . ';') : '';
-$backgroud_image = ($layout_structure == 'full') ? (!empty($bg_image) ? 'background-image:url(' . $bg_image . '); ' : '') : '';
+// $backgroud_image = ($layout_structure == 'full') ? (!empty($bg_image) ? 'background-image:url(' . $bg_image . '); ' : '') : '';
 $border_css = (!empty($border_color)) ? 'border:1px solid ' . $border_color . ';border-left:none;border-right:none;' : '';
 
 
@@ -168,15 +190,10 @@ Mk_Static_Files::addCSS("
         {$border_css}
     }
 
-    .full-width-{$id} .mk-half-layout {
-        background-image:url({$bg_image});
-    }
-
     .full-width-{$id} .page-section-content {
         padding:{$padding_top}px 0 {$padding_bottom}px;
     }
     #background-layer--{$id} {
-        {$backgroud_image}
         background-position:{$bg_position};
         background-repeat:{$bg_repeat};
         {$bgAttachment};

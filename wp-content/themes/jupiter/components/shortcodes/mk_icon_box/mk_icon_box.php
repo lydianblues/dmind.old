@@ -17,7 +17,7 @@ $animation_css = get_viewport_animation_class($animation);
 
 
 
-$output .= '<div id="box-icon-'.$id.'" style="margin-bottom:'.$margin.'px;" class="'.$el_class.' '.$visibility.' '.$style.'-style mk-box-icon clear">';
+$output .= '<div id="box-icon-'.$id.'" style="margin-bottom:'.$margin.'px;" class="'.$el_class.' '.$visibility.' '.$style.'-style mk-box-icon clearfix">';
 if ( $style == "simple_minimal" ) {
     if ( $circled == 'true' ) {
         $border_css =  !empty( $icon_circle_border_color ) ? ( 'border:1px solid '.$icon_circle_border_color.';' ) : '';
@@ -76,7 +76,7 @@ if ( $style == "simple_minimal" ) {
         }
         $output .= '</div><div class="clearboth"></div></div>';
     }
-$output .= '</div>';
+$output .= '<div class="clearboth"></div></div>';
 
 echo $output;
 

@@ -11,4 +11,4 @@ $post_type = !empty($post_type) ? $post_type : 'image';
 
 ?>
 
-<a class="mk-lightbox hover-icon from-right <?php echo $single_icon_inview; ?>" href="<?php echo mk_get_portfolio_lightbox_url($post_type); ?>" title="<?php the_title(); ?>" data-fancybox-group="portfolio-loop-item" ><i class="mk-jupiter-icon-plus-circle"></i></a>
+<a class="mk-lightbox hover-icon from-right <?php echo $single_icon_inview; ?>" href="<?php echo mk_get_portfolio_lightbox_url($post_type); ?>" title="<?php the_title_attribute(); ?>" data-fancybox-group="portfolio-loop-item" ><i class="mk-jupiter-icon-plus-circle"></i></a>

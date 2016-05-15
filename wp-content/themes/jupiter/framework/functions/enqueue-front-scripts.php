@@ -26,7 +26,7 @@ if (!function_exists('mk_enqueue_scripts')) {
         
         // Theme scripts
         if (is_singular()) wp_enqueue_script('comment-reply');
-        wp_enqueue_script('theme-scripts', THEME_JS . ($is_js_min ? '/min' : '') .'/scripts.js', array('jquery') , $theme_data['Version'], true);
+        wp_enqueue_script('theme-scripts', THEME_JS . ($is_js_min ? '/min' : '') .'/core-scripts.js', array('jquery') , $theme_data['Version'], true);
 	}
 }
 
@@ -46,10 +46,8 @@ if (!function_exists('mk_enqueue_styles')) {
         remove_action('bbp_enqueue_scripts', 'enqueue_styles'); 
 
         // Register Plugins
-		//  wp_enqueue_style('critical-path', THEME_STYLES  .'/min/critical-path.css', false, $theme_data['Version'], 'all');
         wp_enqueue_style('js-media-query', THEME_STYLES . ($is_css_min ? '/min' : '') .'/media.css', false, $theme_data['Version'], 'all');
-        wp_enqueue_style('theme-styles', THEME_STYLES . ($is_css_min ? '/min' : '') .'/styles.css', false, $theme_data['Version'], 'all');
-        wp_enqueue_style('theme-icons', THEME_STYLES . ($is_css_min ? '/min' : '') .'/theme-icons.css', false, $theme_data['Version'], 'all');
+        wp_enqueue_style('theme-styles', THEME_STYLES . ($is_css_min ? '/min' : '') .'/core-styles.css', false, $theme_data['Version'], 'all');
         
 	}
 }
@@ -86,6 +84,12 @@ if (!function_exists('mk_enqueue_fonts')) {
         }
 	}
 }
+
+
+
+// TOdo replacement for this function
+
+
 
 /**
  * Adding font icons in HTML document to prevent issues when using CDN
@@ -133,95 +137,43 @@ if (!function_exists('mk_enqueue_font_icons')) {
 			  url('{$styles_dir}/icons/theme-icons/theme-icons.svg?wsvj4f#icomoon') format('svg');
 			  font-weight: normal;
 			  font-style: normal;
-			}
-
-			@font-face {
-				font-family: 'star';
-				src: url('{$styles_dir}/icons/woocommerce/star.eot');
-				src: url('{$styles_dir}/icons/woocommerce/star.eot?#iefix') format('embedded-opentype'), 
-				url('{$styles_dir}/icons/woocommerce/star.woff') format('woff'), 
-				url('{$styles_dir}/icons/woocommerce/star.ttf') format('truetype'), 
-				url('{$styles_dir}/icons/woocommerce/star.svg#star') format('svg');
-				font-weight: normal;
-				font-style: normal;
-			}
-			@font-face {
-				font-family: 'WooCommerce';
-				src: url('{$styles_dir}/icons/woocommerce/WooCommerce.eot');
-				src: url('{$styles_dir}/icons/woocommerce/WooCommerce.eot?#iefix') format('embedded-opentype'), 
-				url('{$styles_dir}/icons/woocommerce/WooCommerce.woff') format('woff'), 
-				url('{$styles_dir}/icons/woocommerce/WooCommerce.ttf') format('truetype'), 
-				url('{$styles_dir}/icons/woocommerce/WooCommerce.svg#WooCommerce') format('svg');
-				font-weight: normal;
-				font-style: normal;
 			}";
-			return $output;
+            
+		
+        return $output;
 	}
 }
 
 
 
-
-
-/**
- * Adds media.css into DOM
- * @author      Bob ULUSOY & Ugur Mirza ZEYREK
- * @copyright   Artbees LTD (c)
- * @link        http://artbees.net
- * @since       Version 5.0
- * @last_update Version 5.0.5
- */
-/*if (!function_exists('mk_output_media_css')) {
-    function mk_output_media_css() {
-        $wp_remote_get_file_body = '';
-        $base_dir = mk_base_url();
-
-        global $wp_filesystem;
-        if (empty($wp_filesystem)) {
-            require_once (ABSPATH . '/wp-admin/includes/file.php');
-            WP_Filesystem();
-        }
-
-        if (is_numeric(strpos(THEME_STYLES, $base_dir))) {
-            $styles_uri = THEME_STYLES;
-        } 
-        else {
-            $styles_uri = $base_dir . THEME_STYLES;
-        }
-
-        $theme_dir = get_template_directory();
-        $styles_dir = $theme_dir.THEME_STYLES_SUFFIX;
-        $wp_remote_get_file_dir = $styles_dir."/min/media.css";
-
-        $wp_remote_get_file_body = $wp_filesystem->get_contents($wp_remote_get_file_dir);
-
-        if($wp_remote_get_file_body == false) {
-            $wp_remote_get_file = wp_remote_get($styles_uri . '/min/media.css');
-            if (!is_wp_error($wp_remote_get_file) and is_array($wp_remote_get_file) and array_key_exists('body', $wp_remote_get_file)) {
-
-                $wp_remote_get_file_body = $wp_remote_get_file['body'];
-            }
-            else if (is_numeric(strpos($styles_uri, "https://"))) {
-
-                $styles_uri = str_replace("https://", "http://", $styles_uri);
-                $wp_remote_get_file = wp_remote_get($styles_uri . '/min/media.css');
-
-                if (!is_array($wp_remote_get_file) or !array_key_exists('body', $wp_remote_get_file)) {
-                    echo "SSL connection error. Code: ds-ConcatenateAssetsByExtension";
-                    die;
-                }
-
-                $wp_remote_get_file_body = $wp_remote_get_file['body'];
-            }
-        }
+if (!function_exists('mk_enqueue_woocommerce_font_icons')) {
+    function mk_enqueue_woocommerce_font_icons() {
         
-        $output = '<style type="text/css" id="js-media-query">';
-        $output.= $wp_remote_get_file_body;
-        $output.= '</style>';
+        $styles_dir = THEME_DIR_URI . '/assets/stylesheet';        
+        $output = "
+            @font-face {
+                font-family: 'star';
+                src: url('{$styles_dir}/fonts/star/font.eot');
+                src: url('{$styles_dir}/fonts/star/font.eot?#iefix') format('embedded-opentype'), 
+                url('{$styles_dir}/fonts/star/font.woff') format('woff'), 
+                url('{$styles_dir}/fonts/star/font.ttf') format('truetype'), 
+                url('{$styles_dir}/fonts/star/font.svg#star') format('svg');
+                font-weight: normal;
+                font-style: normal;
+            }
+            @font-face {
+                font-family: 'WooCommerce';
+                src: url('{$styles_dir}/fonts/woocommerce/font.eot');
+                src: url('{$styles_dir}/fonts/woocommerce/font.eot?#iefix') format('embedded-opentype'), 
+                url('{$styles_dir}/fonts/woocommerce/font.woff') format('woff'), 
+                url('{$styles_dir}/fonts/woocommerce/font.ttf') format('truetype'), 
+                url('{$styles_dir}/fonts/woocommerce/font.svg#WooCommerce') format('svg');
+                font-weight: normal;
+                font-style: normal;
+            }";
         
-        echo $output;
+        return $output;
     }
 }
 
-*/
 

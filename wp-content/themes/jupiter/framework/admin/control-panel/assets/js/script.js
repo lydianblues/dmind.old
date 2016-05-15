@@ -3,6 +3,7 @@ jQuery("#revoke_button").click(function() {
         jQuery("#apikey").val("");
     }
 });
+
 jQuery(document).ready(function($) {
     var $uploader = $('.uploader'),
         dragging = false,
@@ -211,6 +212,35 @@ jQuery(document).ready(function($){
                 'opacity': 0
             }, 100);
         });
+    });
+
+
+    $('.cp-update-notice .close-button').on("click", function(e) {
+        e.preventDefault();
+
+        var $this = $(this),
+            $new_version = $this.attr('data-new-version');
+            
+            console.log($new_version);
+
+            $.ajax({
+                url: ajaxurl,
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                  'action': 'mk_dismiss_update_notice',
+                  'version': $new_version,
+                },
+                success: function(data) {
+                 $this.parent().fadeOut();
+                }
+            });
+
+            
+
+
+
+
     });
 
 });

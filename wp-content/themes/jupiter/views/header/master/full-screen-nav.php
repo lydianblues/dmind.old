@@ -8,15 +8,16 @@
  */
 
 global $mk_options;
-$full_screen_skin = !empty($mk_options['fullscreen_nav_logo']) ? $mk_options['fullscreen_nav_logo'] : 'dark';
+$logo_skin = !empty($mk_options['fullscreen_nav_logo']) ? $mk_options['fullscreen_nav_logo'] : 'dark';
+$close_btn_skin = !empty($mk_options['fullscreen_close_btn_skin']) ? $mk_options['fullscreen_close_btn_skin'] : 'light';
 $light_logo = isset($mk_options['light_header_logo']) ? $mk_options['light_header_logo'] : '';
-$logo = ($full_screen_skin == 'dark') ? $mk_options['logo'] : $light_logo;
+$logo = ($logo_skin == 'dark') ? $mk_options['logo'] : $light_logo;
 $mobile_logo = isset($mk_options['responsive_logo']) ? $mk_options['responsive_logo'] : '';
 $is_repsonive_logo = !empty($mobile_logo) ? 'logo-is-responsive' : '';
 ?>
 
 <div class="mk-fullscreen-nav <?php echo $is_repsonive_logo; ?>">
-    <a href="#" class="mk-fullscreen-nav-close"><i class="mk-moon-close-2"></i></a> 
+    <a href="#" class="mk-fullscreen-nav-close <?php echo $close_btn_skin; ?>"><i class="mk-moon-close-2"></i></a> 
     <div class="mk-fullscreen-inner _ flex flex-center flex-items-center ">
         <div class="mk-fullscreen-nav-wrapper">
 

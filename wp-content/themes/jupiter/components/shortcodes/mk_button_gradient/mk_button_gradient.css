@@ -3,6 +3,7 @@
   position: relative;
   display: inline-block;
   font-weight: bold;
+  text-align: center;
 }
 .mk-gradient-button a.dark-skin {
   color: #222222;
@@ -64,6 +65,9 @@
 .mk-gradient-button a:hover .darker-background {
   opacity: 1;
 }
+.mk-gradient-button .text {
+  text-align: center;
+}
 .mk-gradient-button a:hover .text {
   position: relative;
   z-index: 2;
@@ -82,28 +86,39 @@
 .mk-gradient-button a:hover.dark-skin {
   color: #222222;
 }
+.mk-gradient-button.custom-width-true a {
+  display: block;
+}
+
+
+.mk-gradient-button.btn-align-left,
+.mk-gradient-button.btn-align-right,
+.mk-gradient-button.btn-align-none
+{
+  display: inline-block;
+}
+.mk-gradient-button.btn-align-center {
+  text-align: center;
+  width: 100%;
+}
+.mk-gradient-button.btn-align-center a{
+  margin:0 auto;
+}
+.mk-gradient-button.btn-align-right {
+  float: right;
+}
+
 .mk-gradient-button.fullwidth-true {
   width: 100%;
+  float: none;
 }
 .mk-gradient-button.fullwidth-true a {
   display: block;
 }
-.mk-gradient-button.custom-width-true a {
-  display: block;
-}
-.mk-gradient-button.align-left {
-  float: left;
-}
-.mk-gradient-button.align-left,
-.mk-gradient-button.align-right,
-.mk-gradient-button.align-none
-{
-  display: inline-block;
-}
-.mk-gradient-button.align-center {
-  width: 100%;
-  text-align: center;
-}
-.mk-gradient-button.align-right {
-  float: right;
+
+@media handheld, only screen and (max-width: 767px) {
+  .mk-gradient-button{
+    width: 100%;
+    float: none !important;
+  }
 }

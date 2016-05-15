@@ -60,7 +60,7 @@
 		endwhile;
 	
 
-	mk_post_pagination(NULL, $paged);
+	mk_post_pagination(NULL);
 
 	wp_reset_query();
 

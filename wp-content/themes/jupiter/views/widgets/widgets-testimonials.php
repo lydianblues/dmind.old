@@ -27,14 +27,13 @@ class Artbees_Widget_Testimonials extends WP_Widget {
 				$url =  isset( $instance["url_".$i] ) ? $instance["url_".$i]:'';
 				$src =  isset( $instance["src_".$i] ) ? $instance["src_".$i]:'';
 				if(!empty($src)) {
-					require_once (THEME_INCLUDES . "/bfi_thumb.php");
-					$image_src = bfi_thumb( $src, array('width' => 50, 'height' => 50)); 
+					$image_src = Mk_Image_Resize::resize_by_url_adaptive($src, 50, 50, $crop = true, $dummy = false);
 				}
 				
 				$output .= '<li>';
 				$output .= '<div class="testimonial-quote"><span>' . $quote . '</span></div>';
-				if(!empty($image_src)) {
-					$output .= '<img class="testimonial-author-image" width="50" hieght="50" src="'.$image_src.'" alt="' . $company  . '" />';
+				if(!empty($image_src['default'])) {
+					$output .= '<img class="testimonial-author-image" width="50" hieght="50" src="'.$image_src['dummy'].'" '.$image_src['data-set'].' alt="' . $company  . '" />';
 				}
 				$output .= '<a class="testimonial-author" target="_blank" href="' . $url .'">' . $company  . '</a>';
 				$output .= '<span class="testimonial-position">'.$position.'</span></li>';

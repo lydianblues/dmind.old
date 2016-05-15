@@ -29,7 +29,6 @@ if (($view_params['masonray_style'] == 'style1' && $view_params['i'] % 5 == 0) |
                     'style' => $view_params['style'], 
                     'column' => $view_params['column'], 
                     'height' => $view_params['height'], 
-                    //'image_quality' => $view_params['image_quality'], 
                     'image_size' => $view_params['image_size']
                     )
         );

@@ -9,8 +9,8 @@ $backup = $post;
 $cats = wp_get_object_terms($post->ID, 'portfolio_category');
 $catSlugs = array();
 $related_post_found = false;
-$width = ($mk_options['grid_width'] / 4) * 2;
-$height = $width / 1.25;
+$width = absint($mk_options['grid_width'] / 4);
+$height = absint($width / 1.25);
 
 function mk_similar_portfolio_html($title, $width, $height, $query) {
     global $post;
@@ -62,14 +62,12 @@ function mk_similar_portfolio_html($title, $width, $height, $query) {
                     $terms_name[] = $term->name;
                 }
             }
-            $image_src_array = wp_get_attachment_image_src(get_post_thumbnail_id() , 'full', true);
-            $image_src = bfi_thumb($image_src_array[0], array(
-                'width' => $width,
-                'height' => $height
-            ));
-            $output.= '<div class="portfolio-similar-posts-image"><img src="' . mk_image_generator($image_src, $width, $height) . '" alt="' . get_the_title() . '" title="' . get_the_title() . '" />';
+
+            $featured_image_src = Mk_Image_Resize::resize_by_id_adaptive( get_post_thumbnail_id(), 'crop', $width, $height, $crop = true, $dummy = true);
+
+            $output.= '<div class="portfolio-similar-posts-image"><img src="' . $featured_image_src['dummy'] . '" '.$featured_image_src['data-set'].' alt="' . the_title_attribute(array('echo' => false)) . '" title="' . the_title_attribute(array('echo' => false)) . '" />';
             $output.= '<div class="image-hover-overlay"></div>';
-            $output.= '<a title="' . get_the_title() . '" class="modern-post-type-icon" href="' . $permalink . '"><i class="mk-jupiter-icon-plus-circle"></i></a>';
+            $output.= '<a title="' . the_title_attribute(array('echo' => false)) . '" class="modern-post-type-icon" href="' . $permalink . '"><i class="mk-jupiter-icon-plus-circle"></i></a>';
             $output.= '<div class="portfolio-similar-meta">';
             $output.= '<a class="the-title" href="' . get_permalink() . '">' . get_the_title() . '</a><div class="clearboth"></div>';
             $output.= '<div class="portfolio-categories">' . implode(' ', $terms_name) . '</div>';

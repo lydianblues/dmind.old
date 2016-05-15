@@ -39,6 +39,9 @@
   font-size: 16px;
   line-height: 32px;
 }
+.mk-font-icons .circle-enabled .mk-svg-icon {
+  margin: 0 auto;
+}
 .mk-font-icons .font-icon.mk-size-large {
   font-size: 48px;
 }

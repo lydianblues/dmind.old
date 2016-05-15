@@ -101,6 +101,12 @@ vc_map(array(
                 __('Diagonal ↗', "mk_framework") => "diagonal_left_top",
             ) ,
             "description" => __("", "mk_framework") ,
+            "dependency" => array(
+                'element' => "grandient_color_style",
+                'value' => array(
+                    'linear',
+                )
+            )
         ) ,
         array(
             "type" => "colorpicker",
@@ -155,7 +161,7 @@ vc_map(array(
             "heading" => __("Full Width button?", "mk_framework") ,
             "param_name" => "fullwidth",
             "value" => "false",
-            "description" => __("Using this option you can make the button full width and cover one row.", "mk_framework")
+            "description" => __("Using this option you can make the button full width and cover one row.", "mk_framework") 
         ) ,
         array(
             "type" => "range",
@@ -166,7 +172,13 @@ vc_map(array(
             "max" => "1500",
             "step" => "1",
             "unit" => 'px',
-            "description" => __("", "mk_framework")
+            "description" => __("", "mk_framework"),
+            "dependency" => array(
+                'element' => "fullwidth",
+                'value' => array(
+                    'false',
+                )
+            )
         ) ,
         array(
             "type" => "textfield",

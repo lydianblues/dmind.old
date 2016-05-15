@@ -80,6 +80,38 @@ styles & states
 .s_social.g_style.small i {
   font-size: 12px;
 }
+
+.s_social.g_style.xx-large i {
+  display: block;
+  text-align: center;
+  width: 20px !important;
+  height: 20px !important;
+}
+.s_social.g_style.x-large i {
+  display: block;
+  text-align: center;
+  width: 18px !important;
+  height: 18px !important;
+}
+.s_social.g_style.large i {
+  display: block;
+  text-align: center;
+  width: 16px !important;
+  height: 16px !important;
+}
+.s_social.g_style.medium i {
+  display: block;
+  text-align: center;
+  width: 14px !important;
+  height: 14px !important;
+}
+.s_social.g_style.small i {
+  display: block;
+  text-align: center;
+  width: 12px !important;
+  height: 12px !important;
+}
+
 .s_social.s_square-rounded a {
   border-radius: 25%;
 }
@@ -94,4 +126,18 @@ styles & states
   line-height: normal !important;
   position: static;
   top: 0px;
+}
+
+.mk-jupiter-icon-simple-xing {
+  display: block;
+}
+  
+.mk-jupiter-icon-simple-xing:before {
+  content: "\f168";
+}
+.mk-jupiter-icon-xing:before {
+  content: "\e3d3"; 
+}
+.mk-jupiter-icon-square-xing:before {
+  content: "\e3d2";
 }

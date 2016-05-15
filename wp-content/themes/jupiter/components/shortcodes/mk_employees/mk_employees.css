@@ -71,6 +71,9 @@
   font-size: 16px;
   color: #ffffff;
 }
+.mk-employees.classic .mk-employeee-networks a .mk-svg-icon {
+  fill: #fff;
+}
 .mk-employees.classic .mk-employeee-networks a:hover {
   box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.6) inset;
 }
@@ -176,6 +179,7 @@
 .mk-employeee-networks i {
   font-size: 16px;
   color: #aaaaaa;
+  vertical-align: middle;
 }
 .mk-employeee-networks a:hover i {
   transition: all 0.2s;
@@ -239,7 +243,7 @@
   }
 }
 
-/* Adds 100% width to employee images if they are in fulkl width row */
+/* Adds 100% width to employee images if they are in full width row */
 .vc_row.mk-fullwidth-true .mk-employee-item .team-thumbnail img {
-  with:100%;
+  width:100%;
 }

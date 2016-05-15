@@ -154,8 +154,8 @@ $options = array(
     ) ,
     
     array(
-        "name" => __("Post Type", "mk_framework") ,
-        "desc" => __("You can set the post type using this option.", "mk_framework") ,
+        "name" => __("Post Format", "mk_framework") ,
+        "desc" => __("You can set the post format using this option.", "mk_framework") ,
         "id" => "_single_post_type",
         "default" => 'image',
         "preview" => false,
@@ -351,7 +351,7 @@ $options = array(
     
     array(
         "name" => __("Featured Image", "mk_framework") ,
-        "desc" => __("This option will disable post featured image, video, audio and gallery (portfolio post type).", "mk_framework") ,
+        "desc" => __("This option will disable post featured image, video, audio and gallery (portfolio Post Format).", "mk_framework") ,
         "id" => "_disable_featured_image",
         "default" => 'true',
         "type" => "toggle"

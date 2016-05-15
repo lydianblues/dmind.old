@@ -7,7 +7,7 @@ include( $path . '/config.php' );
 $id = Mk_Static_Files::shortcode_id();
 ?>
 
-<div id="padding-<?php echo $id; ?>" class="mk-padding-divider <?php echo $visibility; ?>  clear"></div>
+<div id="padding-<?php echo $id; ?>" class="mk-padding-divider <?php echo $visibility; ?>  clearfix"></div>
 
 <?php
 /**

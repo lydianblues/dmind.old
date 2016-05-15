@@ -84,9 +84,10 @@ switch ($display) {
 		    'post_type'             => 'product',
 		    'post_status'           => 'publish',
 		    'ignore_sticky_posts'   => 1,
-		    'posts_per_page'        => 12,
+		    'posts_per_page'        => $count,
 		    'orderby'               => 'meta_value_num',
 		    'order'                 => $order,
+		    'orderby'               => $orderby,
 		    'paged'                 => $paged,
 		    'meta_key'            	 => 'total_sales',
 		    'meta_query'            => WC()->query->get_meta_query(),
@@ -128,12 +129,11 @@ if($query->have_posts()):
         $product_id 		= get_the_ID();
         $uid 				= uniqid();
         $woocommerce_cat 	= $mk_options['woocommerce_catalog'];
-        $quality 			= $mk_options['woo_image_quality'] ? $mk_options['woo_image_quality'] : 1;
         $grid_width 		= $mk_options['grid_width'];
         $content_width 		= $mk_options['content_width'];
         $height 			= $mk_options['woo_loop_img_height'];
         $product_type 		= $product->product_type;
-        $image_hover_src 	= '';
+        $hover_image_src 	= '';
 
         // thumbnail
         switch ($columns) {
@@ -158,27 +158,14 @@ if($query->have_posts()):
 
     if ( has_post_thumbnail() ) {
 
-		if($image_size == 'crop') {
-			$image_src_array = wp_get_attachment_image_src(get_post_thumbnail_id(), 'full', true);
-	        $image_output_src = mk_image_generator($image_src_array[0], $image_width*$quality, $height*$quality, 'true');
-		} else {
-			$image_src_array = wp_get_attachment_image_src(get_post_thumbnail_id(), $image_size, true);
-	        $image_output_src = $image_src_array[0];
-		}
+		$featured_image_src = Mk_Image_Resize::resize_by_id_adaptive( get_post_thumbnail_id(), $image_size, $image_width, $height, $crop = false, $dummy = true);
 
 		$product_gallery = get_post_meta( $post->ID, '_product_image_gallery', true );
 
 		if ( !empty( $product_gallery ) ) {
 			$gallery = explode( ',', $product_gallery );
 			$hover_image_id  = $gallery[0];
-
-			if($image_size == 'crop') {
-				$image_src_hover_array = wp_get_attachment_image_src($hover_image_id, 'full', true);
-		        $image_hover_src = mk_image_generator($image_src_hover_array[0], $image_width*$quality, $height*$quality, 'true');
-			} else {
-				$image_src_hover_array = wp_get_attachment_image_src($hover_image_id, $image_size, true);
-		        $image_hover_src = $image_src_hover_array[0];
-			}
+			$hover_image_src = Mk_Image_Resize::resize_by_id_adaptive($hover_image_id, $image_size, $image_width, $height, $crop = false, $dummy = true);
 		}
 	}
 
@@ -238,9 +225,9 @@ if($query->have_posts()):
 		'product_id' 				=> $product_id,
 		'product_type'				=> $product_type,
 		'product_col' 				=> $column_class,
-		'thumb_image' 				=> $image_output_src,
+		'thumb_image' 				=> $featured_image_src,
 		'thumb_title' 				=> get_the_title(),
-		'thumb_hover_image' 		=> $image_hover_src,
+		'thumb_hover_image' 		=> $hover_image_src,
 		'product_rating' 			=> $product_rating,
 		'show_quickview'			=> $show_quickview,
 		'show_category'			=> $show_category,

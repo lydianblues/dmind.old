@@ -24,11 +24,10 @@
             "description" => __("", "mk_framework")
         ),
         array(
-            "heading" => __("View All Page", 'mk_framework'),
-            "description" => __("Select the page you would like to navigate when [View All] link is clicked.", 'mk_framework'),
-            "param_name" => "view_all",
-            "value" => mk_get_page_enteries(50),
-            "type" => "dropdown"
+            'type'        => 'autocomplete',
+            'heading'     => __( 'View All Page', 'mk_framework' ),
+            'param_name'  => 'view_all',
+            'description' => __( 'Search for post ID or post title to get autocomplete suggestions', 'mk_framework' ),
         ),
         array(
             "type" => "range",
@@ -65,13 +64,17 @@
             "unit" => 'posts',
             "description" => __("Number of post to displace or pass over, it means based on your order of the loop, this number will define how many posts to pass over and start from the nth number of the offset.", "mk_framework")
         ),
+
         array(
-            "type" => "multiselect",
-            "heading" => __("Select Specific Categories to Show", "mk_framework"),
-            "param_name" => "cat",
-            "options" => mk_get_category_enteries('category', 50),
-            "value" => '',
-            "description" => __("", "mk_framework"),
+            'type'        => 'autocomplete',
+            'heading'     => __( 'Select specific Categories', 'mk_framework' ),
+            'param_name'  => 'cat',
+            'settings' => array(
+                                'multiple' => true,
+                                'sortable' => true,
+                                'unique_values' => true,
+                            ),
+            'description' => __( 'Search for category name to get autocomplete suggestions', 'mk_framework' ),
             "dependency" => array(
                 'element' => "post_type",
                 'value' => array(
@@ -80,12 +83,15 @@
             )
         ),
         array(
-            "type" => "multiselect",
-            "heading" => __("Select Specific Posts", "mk_framework"),
-            "param_name" => "posts",
-            "options" => mk_get_post_enteries('post', 40),
-            "value" => '',
-            "description" => __("", "mk_framework"),
+            'type'        => 'autocomplete',
+            'heading'     => __( 'Select specific Posts', 'mk_framework' ),
+            'param_name'  => 'posts',
+            'settings' => array(
+                                'multiple' => true,
+                                'sortable' => true,
+                                'unique_values' => true,
+                            ),
+            'description' => __( 'Search for post ID or post title to get autocomplete suggestions', 'mk_framework' ),
             "dependency" => array(
                 'element' => "post_type",
                 'value' => array(
@@ -93,13 +99,17 @@
                 )
             )
         ),
-        array(
-            "type" => "multiselect",
-            "heading" => __("Select Specific Authors", "mk_framework"),
-            "param_name" => "author",
-            "options" => mk_get_authors(50),
-            "value" => '',
-            "description" => __("", "mk_framework")
+
+         array(
+            'type'        => 'autocomplete',
+            'heading'     => __( 'Select specific Authors', 'mk_framework' ),
+            'param_name'  => 'author',
+            'settings' => array(
+                                'multiple' => true,
+                                'sortable' => true,
+                                'unique_values' => true,
+                            ),
+            'description' => __( 'Search for user ID, Username, Email Address to get autocomplete suggestions', 'mk_framework' ),
         ),
         array(
             "heading" => __("Order", 'mk_framework'),

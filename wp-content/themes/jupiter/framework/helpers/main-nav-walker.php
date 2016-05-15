@@ -394,6 +394,7 @@ class Walker_Nav_Menu_Edit_Custom extends Walker_Nav_Menu
                 <input class="menu-item-data-parent-id" type="hidden" name="menu-item-parent-id[<?php echo $item_id; ?>]" value="<?php echo esc_attr( $item->menu_item_parent ); ?>" />
                 <input class="menu-item-data-position" type="hidden" name="menu-item-position[<?php echo $item_id; ?>]" value="<?php echo esc_attr( $item->menu_order ); ?>" />
                 <input class="menu-item-data-type" type="hidden" name="menu-item-type[<?php echo $item_id; ?>]" value="<?php echo esc_attr( $item->type ); ?>" />
+                <div class="clear"></div>
             </div><!-- .menu-item-settings-->
             <ul class="menu-item-transport"></ul>
         <?php

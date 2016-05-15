@@ -18,7 +18,7 @@ Mk_Static_Files::addCSS('
 
 
 <div id="flipbox-<?php echo $id; ?>" onclick="" class="mk-flipbox flip-<?php echo $flip_direction; ?> <?php echo $el_class; ?> _ perspective height-full">
-	<div class="mk-flipbox-holder _ flex flex-items-stretch width-x2 height-full text-center no-pointer" style="min-height: <?php echo $min_height ?>px">
+	<div class="mk-flipbox-holder _ flex flex-items-stretch width-x2 height-full text-center no-pointer perspective" style="min-height: <?php echo $min_height ?>px">
 
 		<div class="mk-flipbox-front _ flex flex-items-center a_col-1of2 no-backface origin-center bezier-1">
 			<div class="mk-flipbox-content _ width-full">

@@ -81,19 +81,26 @@ vc_map(array(
             "description" => __("How many testimonial you would like to show? (-1 means unlimited)", "mk_framework")
         ) ,
         array(
-            "type" => "multiselect",
-            "heading" => __("Select specific Testimonials", "mk_framework") ,
-            "param_name" => "testimonials",
-            "value" => '',
-            "options" => mk_get_post_enteries('testimonial', 40),
-            "description" => __("", "mk_framework")
-        ) ,
+            'type'        => 'autocomplete',
+            'heading'     => __( 'Select specific Categories', 'mk_framework' ),
+            'param_name'  => 'categories',
+            'settings' => array(
+                                'multiple' => true,
+                                'sortable' => true,
+                                'unique_values' => true,
+                            ),
+            'description' => __( 'Search for category name to get autocomplete suggestions', 'mk_framework' ),
+        ),
         array(
-            "type" => "textfield",
-            "heading" => __("Select Specific Categories.", "mk_framework"),
-            "param_name" => "categories",
-            "value" => '',
-            "description" => __("You will need to go to Wordpress Dashboard => Testimonials => Testimonials Categories. In the right hand find Slug column. you will need to add testimonials category slugs in this option. add comma to separate them.", "mk_framework")
+            'type'        => 'autocomplete',
+            'heading'     => __( 'Select specific Testimonials', 'mk_framework' ),
+            'param_name'  => 'testimonials',
+            'settings' => array(
+                                'multiple' => true,
+                                'sortable' => true,
+                                'unique_values' => true,
+                            ),
+            'description' => __( 'Search for post ID or post title to get autocomplete suggestions', 'mk_framework' ),
         ),
         array(
             "heading" => __("Order", 'mk_framework') ,

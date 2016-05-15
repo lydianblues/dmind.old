@@ -13,7 +13,7 @@ class Artbees_Widget_Contact_Form extends WP_Widget {
 		extract( $args );
 		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? 'Contact Us' : $instance['title'], $instance, $this->id_base );		
 		
-		mk_update_contact_form_email(2342, $args['id'], $instance['email']);
+		Mk_Send_Mail::update_contact_form_email(2342, $args['id'], $instance['email']);
 
 		$phone = !empty( $instance['phone'] )?$instance['phone']:false;
 		$captcha = !empty( $instance['captcha'] )?$instance['captcha']:false;
@@ -39,7 +39,7 @@ class Artbees_Widget_Contact_Form extends WP_Widget {
 			<?php } ?>
 			<input type="email" required="required" placeholder="<?php _e( 'Email', 'mk_framework' ); ?>" name="contact_email" class="text-input" value="" tabindex="<?php echo $tabindex_3; ?>"  />
 			<textarea placeholder="<?php _e( 'Type your message...', 'mk_framework' ); ?>" required="required" name="contact_content" class="textarea" tabindex="<?php echo $tabindex_4; ?>"></textarea>
-			<?php if($captcha == true) { ?>
+			<?php if($captcha == true && Mk_Theme_Captcha::is_plugin_active()) { ?>
 			<input placeholder="<?php _e( 'Enter Captcha', 'mk_framework' ); ?>" type="text" name="captcha" class="captcha-form text-input full" required="required" autocomplete="off" />
                 <a href="#" class="captcha-change-image"><?php _e( 'Not readable? Change text.', 'mk_framework' ); ?></a>
                 <span class="captcha-image-holder"></span> <br/>
@@ -55,7 +55,8 @@ class Artbees_Widget_Contact_Form extends WP_Widget {
                 </button>
             </div>
 			<?php wp_nonce_field('mk-contact-form-security', 'security'); ?>
-			<?php echo mk_contact_form_hidden_values($args['id'], 2342); ?>
+			<?php echo Mk_Send_Mail::contact_form_hidden_values($args['id'], 2342); ?>
+			<div class="contact-form-message clearfix"></div>  
 	</form>
 <?php
 		echo $after_widget;
@@ -77,6 +78,10 @@ class Artbees_Widget_Contact_Form extends WP_Widget {
 		$email = isset( $instance['email'] ) ? $instance['email'] : get_bloginfo( 'admin_email' );
 		$phone = isset( $instance['phone'] ) ? (bool)$instance['phone']  : false;
 		$captcha = isset( $instance['captcha'] ) ? (bool)$instance['captcha']  : true;
+		$captcha_plugin_status = '';
+		if(!Mk_Theme_Captcha::is_plugin_active()) {
+		    $captcha_plugin_status = '<span style="color:red">Captcha plugin is not active! please visit Appearance > Install Plugins to install it.</span>';
+		}
 ?>
 		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e('Title:', 'mk_framework'); ?></label>
 		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $title; ?>" /></p>
@@ -84,7 +89,12 @@ class Artbees_Widget_Contact_Form extends WP_Widget {
 		<input class="widefat" id="<?php echo $this->get_field_id( 'email' ); ?>" name="<?php echo $this->get_field_name( 'email' ); ?>" type="text" value="<?php echo $email; ?>" /></p>
 		<br>
 		<p><input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'captcha' ); ?>" name="<?php echo $this->get_field_name( 'captcha' ); ?>"<?php checked( $captcha ); ?> />
-		<label for="<?php echo $this->get_field_id( 'phone' ); ?>"><?php _e( 'Show Captcha?', 'mk_framework' ); ?></label></p>
+		<label for="<?php echo $this->get_field_id( 'phone' ); ?>"><?php _e( 'Show Captcha?', 'mk_framework' ); ?></label>
+		<br><?php echo $captcha_plugin_status; ?>
+		</p>
+
+
+
 		<p><input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'phone' ); ?>" name="<?php echo $this->get_field_name( 'phone' ); ?>"<?php checked( $phone ); ?> />
 		<label for="<?php echo $this->get_field_id( 'phone' ); ?>"><?php _e( 'Show Phone Number Field?', 'mk_framework' ); ?></label></p>
 

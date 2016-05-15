@@ -282,5 +282,18 @@ $general_section[] = array(
                 ) ,
             )
         ) ,
+
+
+        array(
+            "name" => __("Responsive Menu Icon Alignment", "mk_framework") ,
+            "desc" => __("Set the alignment option for the burger icon which appears in Mobile devices.", "mk_framework") ,
+            "id" => "responsive_burger_align",
+            "default" => 'right',
+            "options" => array(
+                "right" => __('Right', "mk_framework") ,
+                "left" => __('Left', "mk_framework") ,
+            ) ,
+            "type" => "dropdown",
+        ) ,
     )
 );

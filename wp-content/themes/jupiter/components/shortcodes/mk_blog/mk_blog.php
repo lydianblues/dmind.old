@@ -5,21 +5,27 @@ include ($path . '/config.php');
 
 global $mk_options, $wp_query;
 
-require_once (THEME_INCLUDES . "/bfi_thumb.php");
-
-
 $id = Mk_Static_Files::shortcode_id();
 
 $query_options = array(
-    'post_type' => 'post',
+    'post_type' => $post_type,
+    'exclude_post_format' => $exclude_post_format,
     'offset' => $offset,
     'posts' => $posts,
     'orderby' => $orderby,
     'order' => $order,
 );
 
+
 if(is_archive()) {
-    $query_options['category_name'] = isset($wp_query->query['category_name']) ? $wp_query->query['category_name'] : '';
+
+    if($post_type != 'post') {
+        $category_name = $wp_query->query_vars['taxonomy'];
+        $query_options['categories'] = isset($wp_query->query[$category_name]) ? $wp_query->query[$category_name] : '';
+    } else {
+        $query_options['category_name'] = isset($wp_query->query['category_name']) ? $wp_query->query['category_name'] : '';    
+    }
+    
     $count = isset($wp_query->query_vars['posts_per_page']) ? $wp_query->query_vars['posts_per_page'] : $count;
     $query_options['author_name'] = isset($wp_query->query['author_name']) ? $wp_query->query['author_name'] : '';
 
@@ -130,7 +136,7 @@ if($style == 'grid' || $style == 'newspaper' || $style == 'spotlight') {
 ?>
 
 
-<section id="loop-<?php echo $id; ?>" <?php echo implode(' ', $data_config); ?> class="js-loop js-el clear <?php echo implode(' ', $wrapper_class); ?>" <?php echo get_schema_markup('blog'); ?>>
+<section id="loop-<?php echo $id; ?>" <?php echo implode(' ', $data_config); ?> class="js-loop js-el clearfix <?php echo implode(' ', $wrapper_class); ?>" <?php echo get_schema_markup('blog'); ?>>
     <?php
         if ($r->have_posts()):
             while ($r->have_posts()):

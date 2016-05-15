@@ -9,7 +9,6 @@ extract(shortcode_atts(array(
      'meta_type'              => 'category',
      'pagination_style'       => '1',
      'height'                 => 300,
-     //'cat'                    => '', // Deprecated
      'categories'             => '',
      'author'                 => '',
      'posts'                  => '',
@@ -21,14 +20,15 @@ extract(shortcode_atts(array(
      'hover_scenarios'        => 'slidebox',
      'grid_spacing'           => 4,
      'el_class'               => '',
-     //'image_quality'          => 1,
      'image_size'             => 'crop',
      "sortable"               => 'true',
      'sortable_align'         => 'left',     
-     'sortable_style'         => 'classic',
+     'sortable_style'         => 'classic', 
+     'sortable_mode'          => 'ajax',
      'sortable_bg_color'      => '#1a1a1a',
      'sortable_txt_color'     => '#cccccc',
      'excerpt_length'         => 200,
 ), $atts));
 Mk_Static_Files::addAssets('mk_portfolio');
 
+$style = ($style == 'modern') ? 'grid' : $style;

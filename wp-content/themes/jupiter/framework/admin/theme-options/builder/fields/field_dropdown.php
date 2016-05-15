@@ -34,6 +34,7 @@ if (!class_exists('Mk_Options_Framework_Fields_Dropdown')) {
             $this->options = $value['options'];
             $this->default = parent::saved_default_value($this->id, $value['default']);
             $this->description = isset($value['desc']) ? $value['desc'] : '';
+            $this->dependency = isset($value['dependency']) ? $value['dependency'] : '';
         }
         
         public function render() {
@@ -57,7 +58,7 @@ if (!class_exists('Mk_Options_Framework_Fields_Dropdown')) {
             }
             $output.= '</select>';
             
-           return  parent::field_wrapper($this->id, $this->name, $this->description, $output);
+           return  parent::field_wrapper($this->id, $this->name, $this->description, $output, parent::dependency_builder($this->dependency));
         }
         
         /**

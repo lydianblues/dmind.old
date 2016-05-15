@@ -8,7 +8,7 @@ $('.mk-faq-wrapper').each( function() {
 	var $faq = $this.find('.mk-faq-container > div');
 	var currentFilter = '';
 
-	$filterItem.on('click', function() {
+	$filterItem.on('click', function(e) {
 		var $this = $(this);
 
 		currentFilter = $this.data('filter');
@@ -16,6 +16,8 @@ $('.mk-faq-wrapper').each( function() {
 		$this.addClass('current');
 
 		filterItems( currentFilter );
+
+		e.preventDefault();
 	});
 
 	function filterItems( cat ) {

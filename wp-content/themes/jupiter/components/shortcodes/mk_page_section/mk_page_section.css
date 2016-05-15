@@ -20,7 +20,7 @@
   top: 0;
   left: 0;
 }
-.background-layer.drop-top-shadow {
+.mk-page-section.drop-top-shadow {
   box-shadow: inset 0 1px 10px rgba(0, 0, 0, 0.3);
 }
 .mk-page-section .vc_row-fluid {
@@ -185,9 +185,6 @@
 }
 .mk-page-section-loader .mk-preloader {
   top: 50%;
-}
-.hidden-canvas {
-  display: none;
 }
 .mk-blend-layer {
   width: 100%;

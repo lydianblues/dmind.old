@@ -3,7 +3,7 @@ if($view_params['layout_structure'] != 'full') return false;
 
 $grid_layout = ($view_params['full_width'] == 'true') ? 'page-section-fullwidth' : 'mk-grid';
 
- if ($view_params['section_layout'] == 'full') { ?>
+if ($view_params['section_layout'] == 'full') { ?>
 
         <div class="page-section-content vc_row-fluid <?php echo $grid_layout; ?>">
             <div class="mk-padding-wrapper"><?php echo wpb_js_remove_wpautop($view_params['content']); ?></div>

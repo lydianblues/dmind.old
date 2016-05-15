@@ -28,14 +28,18 @@
                 "unit" => 'columns',
                 "description" => __("How many columns would you like to show in one row?", "mk_framework")
             ) ,
+
             array(
-                "type" => "multiselect",
-                "heading" => __("Choose the Animated Columns", "mk_framework") ,
-                "param_name" => "columns",
-                "value" => '',
-                "options" => mk_get_post_enteries('animated-columns', 40),
-                "description" => __("If you do not see anything here, it means you have no animated columns yet. First you should create animated column post types here: Wordpress Side Menu > Animated Columns. ", "mk_framework")
-            ) ,
+            'type'        => 'autocomplete',
+            'heading'     => __( 'Select specific Animated Columns', 'mk_framework' ),
+            'param_name'  => 'columns',
+            'settings' => array(
+                                'multiple' => true,
+                                'sortable' => true,
+                                'unique_values' => true,
+                            ),
+            'description' => __( 'Search for post ID or post title to get autocomplete suggestions', 'mk_framework' ),
+        ),
 
             array(
                 "heading" => __("Order", 'mk_framework') ,

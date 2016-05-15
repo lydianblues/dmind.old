@@ -70,13 +70,13 @@ class Artbees_Widget_Recent_Posts extends WP_Widget {
         <?php 
 	    if ( has_post_thumbnail() ) :
 	    ?>
-	        <a href="<?php echo get_permalink(); ?>" title="<?php the_title(); ?>" class="post-list-thumb">
+	        <a href="<?php echo get_permalink(); ?>" title="<?php the_title_attribute(); ?>" class="post-list-thumb">
 		        <?php	$image_src_array = wp_get_attachment_image_src( get_post_thumbnail_id(), 'thumbnail', true );	
 		        		$image_src = $image_src_array[0];
 		        		$image_width = $image_src_array[1];
 		        		$image_height = $image_src_array[2];
 				 ?>
-				 <img src="<?php echo $image_src; ?>" alt="<?php the_title(); ?>" width="<?php echo $image_width; ?>" height="<?php echo $image_height; ?>"/>
+				 <img src="<?php echo $image_src; ?>" alt="<?php the_title_attribute(); ?>" width="<?php echo $image_width; ?>" height="<?php echo $image_height; ?>"/>
 			</a>
 		<?php else:
 			$no_thumb_css = 'posts-no-thumb';

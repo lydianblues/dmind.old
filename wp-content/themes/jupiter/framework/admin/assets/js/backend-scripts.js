@@ -1,8 +1,10 @@
-function mk_upload_option() {
+function mk_upload_option(option_id) {
     if (typeof wp.media != 'undefined') {
         var _custom_media = true,
             _orig_send_attachment = wp.media.editor.send.attachment;
-        jQuery('.option-upload-button').click(function(e) {
+        var option_selector = option_id ? ("#" + option_id + "_button") : '.option-upload-button';
+
+        jQuery(option_selector).click(function(e) {
             var send_attachment_bkp = wp.media.editor.send.attachment;
             var button = jQuery(this);
             var id = button.attr('id').replace('_button', '');
@@ -23,6 +25,43 @@ function mk_upload_option() {
         });
     }
 }
+
+function mk_range_option(option_id) {
+    var range_wrapper = jQuery("#rangeInput-" + option_id);
+    var mk_min = parseFloat(range_wrapper.attr("data-min"));
+    var mk_max = parseFloat(range_wrapper.attr("data-max"));
+    var mk_step = parseFloat(range_wrapper.attr("data-step"));
+    var mk_value = parseFloat(range_wrapper.attr("data-value"));
+    range_wrapper.slider({
+        value: mk_value,
+        min: mk_min,
+        max: mk_max,
+        step: mk_step,
+        slide: function(event, ui) {
+            range_wrapper.siblings(".range-input-selector").val(ui.value);
+        }
+    });
+}
+
+function mk_toggle_option(option_id) {
+    var $this = jQuery("#toggle-switch-" + option_id),
+        $input = $this.find("input");
+    if ($input.val() == "true") {
+        $this.addClass("mk-toggle-on");
+    } else {
+        $this.addClass("mk-toggle-off");
+    }
+    $this.click(function() {
+        if ($this.hasClass("mk-toggle-on")) {
+            $this.removeClass("mk-toggle-on").addClass("mk-toggle-off");
+            $input.val("false").trigger("change");
+        } else {
+            $this.removeClass("mk-toggle-off").addClass("mk-toggle-on");
+            $input.val("true").trigger("change");
+        }
+    });
+}
+
 
 function mk_shortcode_fonts() {
     jQuery("#font_family").change(function() {

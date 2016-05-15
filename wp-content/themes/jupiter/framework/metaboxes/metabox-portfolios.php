@@ -199,7 +199,7 @@ $options = array(
     
     array(
         "name" => __('Item Hover Skin', 'mk_framework') ,
-        "desc" => __("Using this option you can modify this portfolio item hover skin color.", "mk_framework") ,
+        "desc" => __("Using this option you can modify this portfolio item hover skin color in Grid & Masonry loop style > Zoom Out Box hover scenario.", "mk_framework") ,
         "id" => "_hover_skin",
         "default" => "",
         "type" => "color"

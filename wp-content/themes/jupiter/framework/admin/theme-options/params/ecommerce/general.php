@@ -12,7 +12,20 @@ $ecommerce_section[] = array(
             "default" => 'false',
             "type" => "toggle"
         ) ,
-        
+        array(
+            "name" => __("Shop Loop columns?", "mk_framework") ,
+            "desc" => __("How many columns per row in your shop archive loop?", "mk_framework") ,
+            "id" => "shop_archive_columns",
+            "default" => "default",
+            "options" => array(
+                "default" => __("Default (4 Columns full layout, 3 columns with sidebar)", "mk_framework") ,
+                "1" => __("1", "mk_framework") ,
+                "2" => __("2", "mk_framework") ,
+                "3" => __("3", "mk_framework") ,
+                "4" => __("4", "mk_framework") ,
+            ) ,
+            "type" => "dropdown"
+        ) ,
         array(
             "name" => __("Product Loop Image Height", "mk_framework") ,
             "desc" => __("Using this option you can change the product loop image height. default : 330", "mk_framework") ,
@@ -23,16 +36,6 @@ $ecommerce_section[] = array(
             "step" => "1",
             "unit" => 'px',
             "type" => "range"
-        ) ,
-        array(
-            "name" => __("Shop Loop Image Quality", "mk_framework") ,
-            "id" => "woo_image_quality",
-            "default" => "crop",
-            "options" => array(
-                "1" => __("Normal Size", "mk_framework") ,
-                "2" => __("Retina Quality", "mk_framework") ,
-            ) ,
-            "type" => "dropdown"
         ) ,
         array(
             "name" => __("Shop Loop Image Size", "mk_framework") ,
@@ -56,6 +59,14 @@ $ecommerce_section[] = array(
             "default" => 'true',
             "type" => "toggle"
         ) ,
+        array(
+            "name" => __("Show Shopping Cart For Mobile devices", "mk_framework") ,
+            "desc" => __("You can turn on/off the floating shopping cart link for mobile and tablet devices.", "mk_framework") ,
+            "id" => "add_cart_responsive",
+            "default" => 'true',
+            "type" => "toggle"
+        ) ,
+        
         array(
             "name" => __("Excerpt For Products Loop", "mk_framework") ,
             "desc" => __("If you would like to show some small description for products loop enable this option.", "mk_framework") ,

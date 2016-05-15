@@ -32,6 +32,7 @@ if (!class_exists('Mk_Options_Framework_Fields_Social_Share')) {
             $this->id = $value['id'];
             $this->default = parent::saved_default_value($this->id, $value['default']);
             $this->description = $value['desc'];
+            $this->dependency = isset($value['dependency']) ? $value['dependency'] : '';
             $this->site_names = array(
                 'px',
                 'aim',
@@ -140,8 +141,8 @@ if (!class_exists('Mk_Options_Framework_Fields_Social_Share')) {
                             })
                         })
                     </script>";
-            $output .= '<style>'.mk_enqueue_font_icons().'</style>';
-            return parent::field_wrapper($this->id, $this->name, $this->description, $output);
+             $output .= '<style>'.mk_enqueue_font_icons().'</style>';
+            return parent::field_wrapper($this->id, $this->name, $this->description, $output, parent::dependency_builder($this->dependency));
         }
         
         /**

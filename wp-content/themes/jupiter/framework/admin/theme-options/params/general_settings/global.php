@@ -2,7 +2,7 @@
 $general_section[] = array(
     "type" => "sub_group",
     "id" => "mk_options_global_settings",
-    "name" => __("General / Global Settings Settings", "mk_framework") ,
+    "name" => __("General / Global Settings", "mk_framework") ,
     "desc" => __("", "mk_framework") ,
     "fields" => array(
         array(
@@ -97,15 +97,13 @@ $general_section[] = array(
             "default" => "",
             "type" => "text",
         ) ,
-
-        /*array(
-            "name" => __('Flickr API Key', "mk_framework") ,
-            "desc" => __('You will need to fill this field if you want to use flickr shrotcode. You can obtain your API key from <a href="http://www.flickr.com/services/api/misc.api_keys.html">Flickr The App Garden</a>', "mk_framework") ,
-            "id" => "flickr_api_key",
-            "default" => "",
-            "type" => "text",
-        ) ,*/
-        
+         array(
+            "name" => __("Retina Images", "mk_framework") ,
+            "desc" => __("All images are by default retina compatible. Turn off this option if you don't wish to support retina displays.", "mk_framework") ,
+            "id" => "retina_images",
+            "default" => 'true',
+            "type" => "toggle",
+        ) ,
         array(
             "name" => __("Breadcrumbs", "mk_framework") ,
             "desc" => __("You can disable breadcrumb navigation globally using this option, or you may need to disable it in a page locally.", "mk_framework") ,

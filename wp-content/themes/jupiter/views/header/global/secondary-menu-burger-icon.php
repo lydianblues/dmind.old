@@ -4,7 +4,7 @@ $style = !empty($mk_options['secondary_menu']) ? $mk_options['secondary_menu'] :
 
 $seondary_header_for_all = !empty($mk_options['seondary_header_for_all']) ? $mk_options['seondary_header_for_all'] : 'false';
 
-if($seondary_header_for_all == 'false' && get_header_style() != 3 && !$view_params['is_shortcode']) return false;
+if($seondary_header_for_all == 'false' && $view_params['header_style'] != 3) return false;
 
 ?>
 <div class="mk-dashboard-trigger <?php echo $style; ?>-style add-header-height">

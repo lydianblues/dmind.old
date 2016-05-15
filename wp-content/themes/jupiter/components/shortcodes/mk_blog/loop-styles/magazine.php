@@ -12,22 +12,14 @@ if ($view_params['i'] == 1) {
         $image_width = (($mk_options['content_width'] / 100) * $mk_options['grid_width']) - 40;
         $image_height = ($image_width) * 0.6;
     }
-    if ($view_params['image_size'] == 'crop') {
-        $image_src_array = wp_get_attachment_image_src(get_post_thumbnail_id() , 'full', true);
-        $image_output_src = bfi_thumb($image_src_array[0], array(
-            'width' => $image_width,
-            'height' => $image_height
-        ));
-    } 
-    else {
-        $image_src_array = wp_get_attachment_image_src(get_post_thumbnail_id() , $view_params['image_size'], true);
-        $image_output_src = $image_src_array[0];
-    }
+    
+    $featured_image_src = Mk_Image_Resize::resize_by_id_adaptive( get_post_thumbnail_id(), $view_params['image_size'], $image_width, $image_height, $crop = true, $dummy = true);
+
 } 
 else {
     $loop_style = 'magazine-thumb-post';
-    $image_output_src = wp_get_attachment_image_src(get_post_thumbnail_id() , 'blog-magazine-thumbnail', true)[0];
     $image_width = $image_height = 200;
+    $featured_image_src = Mk_Image_Resize::resize_by_id_adaptive( get_post_thumbnail_id(), 'blog-magazine-thumbnail', $image_width, $image_height, $crop = true, $dummy = true);
 }
 
 $post_type = get_post_meta($post->ID, '_single_post_type', true);
@@ -37,8 +29,8 @@ $output = '<article id="' . get_the_ID('Y-m-d') . '" class="mk-blog-magazine-ite
 
 if (has_post_thumbnail()) {
     
-    $output.= '<div class="featured-image"><a title="' . get_the_title() . '" href="' . get_permalink() . '">';
-    $output.= '  <img alt="' . get_the_title() . '" title="' . get_the_title() . '" src="' . mk_image_generator($image_output_src, $image_width, $image_height) . '" itemprop="image" />';
+    $output.= '<div class="featured-image"><a title="' . the_title_attribute(array('echo' => false)) . '" href="' . get_permalink() . '">';
+    $output.= '  <img alt="' . the_title_attribute(array('echo' => false)) . '" title="' . the_title_attribute(array('echo' => false)) . '" src="' . $featured_image_src['dummy'] . '" '.$featured_image_src['data-set'].' itemprop="image" />';
     $output.= '  <div class="image-gradient-overlay"></div>';
     $output.= '</a></div>';
 }

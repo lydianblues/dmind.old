@@ -8,8 +8,6 @@ $images = explode( ',', $images );
 
 $id = uniqid();
 
-require_once (THEME_INCLUDES . "/bfi_thumb.php");
-
 $class[] = get_viewport_animation_class($animation);
 $class[] = $el_class;
 
@@ -33,11 +31,10 @@ mk_get_view('global', 'shortcode-heading', false, ['title' => $title]); ?>
 				$i = -1;
 				foreach ( $images as $attach_id ) {
 					$i++;
-					$image_src_array = wp_get_attachment_image_src( $attach_id, 'full', true );
-					$image_src = bfi_thumb( $image_src_array[ 0 ], array('width' => 810, 'height' => 475));
+					$featured_image_src = Mk_Image_Resize::resize_by_id_adaptive($attach_id, 'crop', 810, 475, $crop = true, $dummy = true); 
 					?>
 						<li>
-							<img alt="<?php echo trim(strip_tags( get_post_meta($attach_id, '_wp_attachment_image_alt', true) )); ?>" src="<?php echo mk_image_generator($image_src, 810, 475); ?>" />
+							<img alt="<?php echo trim(strip_tags( get_post_meta($attach_id, '_wp_attachment_image_alt', true) )); ?>" src="<?php echo $featured_image_src['dummy']; ?>" <?php echo $featured_image_src['data-set']; ?> />
 						</li>
 					<?php
 				}

@@ -109,7 +109,7 @@ echo mk_get_shortcode_view('mk_gallery', 'components/hover-blur-svg', true, ['ho
 <?php mk_get_view('global', 'shortcode-heading', false, ['title' => $title]); ?>
 
 
-<section id="gallery-loop-<?php echo $id; ?>" <?php echo implode(' ', $data_config); ?> class="mk-gallery <?php echo $mansory_style. $el_class; ?> js-loop js-el clear">
+<section id="gallery-loop-<?php echo $id; ?>" <?php echo implode(' ', $data_config); ?> class="mk-gallery <?php echo $mansory_style. $el_class; ?> js-loop js-el clearfix">
 
     <?php 
     $style = ($style != 'grid') ? 'masonry' : $style;
@@ -121,7 +121,7 @@ echo mk_get_shortcode_view('mk_gallery', 'components/hover-blur-svg', true, ['ho
         endwhile;
     endif;
     ?>
-
+<div class="clearboth"></div>    
 </section>
 
 <?php 

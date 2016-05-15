@@ -1,7 +1,5 @@
 <?php
 
-    
-    
     global $mk_options;
     switch ($view_params['column']) {
         case 1:
@@ -54,14 +52,11 @@
             break;
     }
 
-    if ($view_params['image_size'] == 'crop') {
-        $image_src_array = wp_get_attachment_image_src(get_post_thumbnail_id() , 'full', true);
-        $image_output_src = mk_image_generator($image_src_array[0], $width, $view_params['height']);
-    } 
-    else {
-        $image_src_array = wp_get_attachment_image_src(get_post_thumbnail_id() , $view_params['image_size'], true);
-        $image_output_src = $image_src_array[0];
-    }
+    
+    $featured_image_src = Mk_Image_Resize::resize_by_id_adaptive( get_post_thumbnail_id(), $view_params['image_size'], $width, $view_params['height'], $crop = false, $dummy = true);
+
+    $image_size_atts = Mk_Image_Resize::get_image_dimension_attr(get_post_thumbnail_id(), $view_params['image_size'], $width, $view_params['height']);
+
 
     /* Dynamic color for slidebox meta overlay hover scenario */
     $hover_overlay_value = get_post_meta($post->ID, '_hover_skin', true);
@@ -75,14 +70,14 @@
     /* ---- */
 
 ?>
-
+ 
 <article id="<?php the_ID(); ?>" class="mk-portfolio-item mk-portfolio-grid-item <?php echo implode(' ', $item_classes); ?>">
 
     <div class="item-holder">
         
-        <div class="featured-image <?php if($view_params['permalink_icon'] == 'false' && $view_params['zoom_icon'] == 'false') echo 'buttons-disabled'; ?>" onclick="">
+        <div class="featured-image js-taphover <?php if($view_params['permalink_icon'] == 'false' && $view_params['zoom_icon'] == 'false') echo 'buttons-disabled'; ?>" onclick="">
             
-            <img alt="<?php the_title(); ?>" title="<?php the_title(); ?>" src="<?php echo $image_output_src; ?>" width="<?php echo $width; ?>" height="<?php echo $view_params['height']; ?>"  />
+            <img alt="<?php the_title_attribute(); ?>" title="<?php the_title_attribute(); ?>" src="<?php echo $featured_image_src['dummy']; ?>" <?php echo $featured_image_src['data-set']; ?>  width="<?php echo esc_attr($image_size_atts['width']); ?>" height="<?php echo esc_attr($image_size_atts['height']); ?>"  />
             
                 <?php echo mk_get_shortcode_view('mk_portfolio', 'components/hover-overlay', true, ['hover_scenarios' => $view_params['hover_scenarios']]); ?>
 

@@ -300,6 +300,7 @@
   line-height: 36px;
   padding-bottom: 30px;
   padding: 25px 40px 90px;
+  word-wrap: break-word;
 }
 .mk-blog-newspaper-item.twitter-post-type .blog-item-holder .blog-twitter-content:before {
   content: '';

@@ -6,7 +6,8 @@ include ($path . '/config.php');
 
 $output = $video_output = $gradient_output = $effectsLayer = $underline_class = $skrollr_bg_output = $content_opacity = '';
 $half_section = $section_height / 2;
-$id     = Mk_Static_Files::shortcode_id();
+$id = Mk_Static_Files::shortcode_id();
+$imageset = Mk_Image_Resize::get_bg_res_set($bg_image, $bg_image_portrait);
 
 global $post;
 
@@ -56,13 +57,14 @@ if (!empty($bg_effects)) {
     if ($bg_effects == "parallaxZoomOut") {
         $skrollr_bg_output = 'data-top-top="transform: translateY(0%) scale(1.5)" data-top-bottom="transform: translateY(50%) scale(1)"';  }
 
-    $effectsLayer .= '
-    <div class="mk-section-preloader js-el" data-mk-component="Preloader">
-        <div class="mk-section-preloader__icon"></div>
-    </div>
-    <div class="mk-effect-bg-layer ' .mk_get_bg_cover_class($bg_stretch). '" '. $skrollr_bg_output .' data-effect="' .$bg_effects. '">
-        '.$gradient_output . $video_output .'
-    </div>'; 
+    $effectsLayer .= '<div class="mk-section-preloader js-el" data-mk-component="Preloader">';
+    $effectsLayer .= '     <div class="mk-section-preloader__icon"></div>';
+    $effectsLayer .= '</div>';
+    $effectsLayer .= '<div class="mk-effect-bg-layer ' .mk_get_bg_cover_class($bg_stretch). '" '. $skrollr_bg_output .' data-effect="' .$bg_effects. '" ';
+    if (!empty($bg_effects) && $bg_type != 'color') { $effectsLayer .= $imageset; }
+    $effectsLayer .= '>';
+    $effectsLayer .=    $gradient_output . $video_output;
+    $effectsLayer .= '</div>'; 
 } else {
     $effectsLayer .= $video_output;
 }
@@ -96,7 +98,9 @@ if(!empty($overlay)) {
     $output .= '<div style="opacity: 1 !important; background-color:' . $overlay . ';" class="mk-video-color-mask"></div>';
 }
 
-$output .= '    <div id="mk-page-title-box-' .$id. '" class="mk-page-title-box ' .mk_get_bg_cover_class($bg_stretch). ' '.$el_class.'">';
+$output .= '    <div id="mk-page-title-box-' .$id. '" class="mk-page-title-box ' .mk_get_bg_cover_class($bg_stretch). ' '.$el_class.'"';
+if(empty($bg_effects)) { $output .= $imageset; }
+$output .= '    >';
 $output .= '        '.$effectsLayer;
 $output .= '        <div class="mk-page-title-box-content" '.$content_opacity.'>';
 $output .= '            <div class="mk-grid">';
@@ -128,7 +132,6 @@ $app_styles .= "
         text-align: {$text_align};";
         if (empty($bg_effects)) { 
             $app_styles .= "
-                background-image: url(\"{$bg_image}\");
                 background-attachment:{$attachment};
                 background-position:{$bg_position};
             "; 
@@ -166,7 +169,6 @@ $app_styles .= "
     $app_styles .= "}";
     if (!empty($bg_effects) && $bg_type != 'color') { $app_styles .= "
     #mk-page-title-box-{$id} .mk-effect-bg-layer {
-        background-image: url(\"{$bg_image}\");
         background-position:{$bg_position};
     }"; }
 

@@ -6,7 +6,7 @@ $config = array(
         'edge'
     ) ,
     'callback' => '',
-    'context' => 'normal',
+    'context' => 'normal', 
     'priority' => 'core'
 );
 $options = array(
@@ -117,6 +117,21 @@ $options = array(
     ) ,
     
     array(
+        "name" => __("Upload Portrait Image", "mk_framework") ,
+        "desc" => __("Alternatively, this image could be shown in mobile devices with portrait orientation. It is recommended to use images with portrait ratio such as 2:3.", "mk_framework") ,
+        "id" => "_slide_image_portrait",
+        "default" => '',
+        "preview" => true,
+        "type" => 'upload',
+        "dependency" => array(
+            'element' => "_edge_type",
+            'value' => array(
+                'image',
+            )
+        ) ,
+    ) ,
+    
+    array(
         "name" => __("Cover whole background", "mk_framework") ,
         "subtitle" => __("This option is only when image is uploaded.", "mk_framework") ,
         "desc" => __("Scale the background image to be as large as possible so that the background area is completely covered by the background image. Some parts of the background image may not be in view within the background positioning area.", "mk_framework") ,
@@ -170,9 +185,61 @@ $options = array(
         "unit" => 'alpha',
         "type" => "range"
     ) ,
+
+    array(
+        "type" => "select",
+        "name" => __("Gradient Overlay Orientation", "mk_framework") ,
+        "id" => "_gradient_layer",
+        "default" => "false",
+        "options" => array(
+            "false" => __('-- No Gradient ↓', "mk_framework"),
+            "vertical" => __('Vertical ', "mk_framework"),
+            "horizontal" => __('Horizontal →', "mk_framework"),
+            "left_top" => __('Diagonal ↘', "mk_framework"),
+            "left_bottom" => __('Diagonal ↗', "mk_framework"),
+            "radial" => __('Radial ○', "mk_framework")
+        ) ,
+        "desc" => __("Choose the orientation of gradient overlay", "mk_framework")
+    ) ,
+
+    array(
+        "type" => "color",
+        "name" => __("Gradient Layer Color Start", "mk_framework") ,
+        "id" => "_gr_start",
+        "default" => "",
+        "description" => __("The ending color for gradient fill overlay. Use only with gradient option selected.", "mk_framework") ,
+        "dependency" => array(
+            'element' => "_gradient_layer",
+            'value' => array(
+                "vertical",
+                "horizontal",
+                "left_top",
+                "left_bottom",
+                "radial"
+            )
+        )
+    ) ,
+    array(
+        "type" => "color",
+        "name" => __("Gradient Layer Color End", "mk_framework") ,
+        "id" => "_gr_end",
+        "default" => "",
+        "description" => __("The ending color for gradient fill overlay. Use only with gradient option selected.", "mk_framework") ,
+        "dependency" => array(
+            'element' => "_gradient_layer",
+            'value' => array(
+                "vertical",
+                "horizontal",
+                "left_top",
+                "left_bottom",
+                "radial"
+            )
+        )
+    ) ,
+
     array(
         "name" => __("Content Align", "mk_framework") ,
-        "desc" => __("Location of caption and buttons.", "mk_framework") ,
+        "desc" => __("Location of caption and buttons. Please note that if you add content via Visual Composer into this post, this option will only control the location of the container inside the main grid. So module-based horizontal alignments should be taken care inside the shortcode options.", "mk_framework") ,
         "id" => "_caption_align",
         "default" => 'left_center',
         "options" => array(
@@ -325,6 +392,17 @@ $options = array(
         "default" => '',
         "type" => "text"
     ) ,
+    array(
+        "name" => __("Button 1 Target", "mk_framework") ,
+        "desc" => __("", "mk_framework") ,
+        "id" => "_btn_1_target",
+        "default" => '_self',
+        "options" => array(
+            "_self" => __("Same Window", 'mk_framework') ,
+            "_blank" => __('New Wnidow', 'mk_framework')
+        ) ,
+        "type" => "select"
+    ) ,
     
     array(
         "name" => __("Button 2 Style", "mk_framework") ,
@@ -373,6 +451,17 @@ $options = array(
         "id" => "_btn_2_url",
         "default" => '',
         "type" => "text"
+    ) ,
+    array(
+        "name" => __("Button 2 Target", "mk_framework") ,
+        "desc" => __("", "mk_framework") ,
+        "id" => "_btn_2_target",
+        "default" => '_self',
+        "options" => array(
+            "_self" => __("Same Window", 'mk_framework') ,
+            "_blank" => __('New Wnidow', 'mk_framework')
+        ) ,
+        "type" => "select"
     ) ,
     
     array(

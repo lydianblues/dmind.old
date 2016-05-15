@@ -14,7 +14,7 @@ if ($mk_options['disable_quick_contact'] != 'true') return false;
 
 if(is_singular(array('post', 'portfolio')) && $mk_options['quick_contact_on_single'] == 'false') return false;
 
-$captcha_quick_contact = isset($mk_options['captcha_quick_contact']) ? $mk_options['captcha_quick_contact'] : 'true';
+$captcha = isset($mk_options['captcha_quick_contact']) ? $mk_options['captcha_quick_contact'] : 'true';
 
 $id = mt_rand(99, 999);
 $tabindex_1 = $id;
@@ -22,7 +22,7 @@ $tabindex_2 = $id + 1;
 $tabindex_3 = $id + 2;
 $tabindex_4 = $id + 3;
 
-mk_update_contact_form_email(2342, 15, $mk_options['quick_contact_email']);
+Mk_Send_Mail::update_contact_form_email(2342, 15, $mk_options['quick_contact_email']);
 
 ?>
 	<div class="mk-quick-contact-wrapper  js-bottom-corner-btn js-bottom-corner-btn--contact">
@@ -38,7 +38,7 @@ mk_update_contact_form_email(2342, 15, $mk_options['quick_contact_email']);
 				<input type="email" required="required" placeholder="<?php _e('Email*', 'mk_framework'); ?>" id="contact_email" name="contact_email" class="text-input" value="" tabindex="<?php echo $tabindex_2; ?>"  />
 				<textarea placeholder="<?php _e('Message*', 'mk_framework'); ?>" required="required" id="contact_content" name="contact_content" class="textarea" tabindex="<?php echo $tabindex_3; ?>"></textarea>
 				<?php
-				if ($captcha_quick_contact == 'true') { ?>
+				if ($captcha == 'true' && Mk_Theme_Captcha::is_plugin_active()) { ?>
 				<input placeholder="<?php _e('Enter Captcha', 'mk_framework'); ?>" type="text" name="captcha" class="captcha-form text-input full" required="required" autocomplete="off" />
 		            <a href="#" class="captcha-change-image"><?php _e('Not readable? Change text.', 'mk_framework'); ?></a>
 		            <span class="captcha-image-holder"></span> <br/>
@@ -56,7 +56,8 @@ mk_update_contact_form_email(2342, 15, $mk_options['quick_contact_email']);
                     </button>
                 </div>
 				<?php wp_nonce_field('mk-contact-form-security', 'security'); ?>
-				<?php echo mk_contact_form_hidden_values(15, 2342); ?>
+				<?php echo Mk_Send_Mail::contact_form_hidden_values(15, 2342); ?>
+				<div class="contact-form-message clearfix"></div>  
 			</form>
 			<div class="bottom-arrow"></div>
 		</div>

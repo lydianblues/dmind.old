@@ -2,17 +2,22 @@
 vc_map(array(
     "name" => __("Banner Builder", "mk_framework"),
     "base" => "mk_banner_builder",
-    'icon' => '',
+    'icon' => 'icon-mk-custom-box vc_mk_element-icon',
     "category" => __('Slideshows', 'mk_framework'),
     'description' => __( 'Banner Builder.', 'mk_framework' ),
+    //'deprecated' => '4.9',
     "params" => array(
-        array(
-            "type" => "multiselect",
-            "heading" => __("Select specific slides", "mk_framework"),
-            "param_name" => "slides",
-            "value" => '',
-            "options" => mk_get_post_enteries('banner_builder', 40),
-            "description" => __("", "mk_framework")
+         array(
+            'type'        => 'autocomplete',
+            'heading'     => __( 'Select specific Posts', 'mk_framework' ),
+            'param_name'  => 'slides',
+            'settings' => array(
+                                'multiple' => true,
+                                'sortable' => true,
+                                'unique_values' => true,
+                                // In UI show results except selected. NB! You should manually check values in backend
+                            ),
+            'description' => __( 'Search for post ID or post title to get autocomplete suggestions', 'mk_framework' ),
         ),
         array(
             "type" => "range",

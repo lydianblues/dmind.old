@@ -18,9 +18,12 @@ class mkMetaboxesGenerator
         add_action('admin_menu', array(&$this,
             'create'
         ));
+
         add_action('save_post', array(&$this,
             'save'
         ) , 10, 3);
+
+
     }
     
     function create() {
@@ -38,6 +41,7 @@ class mkMetaboxesGenerator
             }
         }
     }
+
     
     function save($post_id) {
         if (!isset($_POST[$this->config['id'] . '_noncename'])) {
@@ -1058,4 +1062,41 @@ function mk_get_sidebar_options() {
 }
 
 add_action('admin_init', 'mk_get_sidebar_options');
+
+
+
+
+
+if(!function_exists('mk_load_metaboxes')) {
+    function mk_load_metaboxes() {
+
+        $metabox_path = get_template_directory() . '/framework/metaboxes/';
+        $chid_theme_metabox_path = get_stylesheet_directory() . '/framework/metaboxes/';
+
+        $metabox_dir = $metabox_path . 'metabox-*.php';
+
+        
+        $metaboxes = glob($metabox_dir);
+        
+        if(is_array($metaboxes) && !empty($metaboxes)) {
+            foreach ($metaboxes as $metabox) {
+
+                $metabox_name = array_reverse(explode('/', $metabox));
+                $metabox_name = $metabox_name[0];
+
+                if(file_exists($chid_theme_metabox_path.$metabox_name)) {
+                    include_once($chid_theme_metabox_path.$metabox_name);
+                } else {
+                    include_once ($metabox);
+                }
+
+            }
+        }
+    }
+
+    mk_load_metaboxes();
+}
+
+
+
 

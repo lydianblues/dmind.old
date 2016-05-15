@@ -35,7 +35,7 @@
 		<?php } ?>
 
 		<?php if(!empty( $website)) { ?>
-			<li><i class="mk-icon-globe"></i><span><a href="<?php echo $website; ?>" itemprop="url"><?php echo str_replace( 'http://', '', $website ); ?></a></span></li>
+			<li><i class="mk-icon-globe"></i><span><a href="<?php echo $website; ?>" itemprop="url"><?php echo $website; ?></a></span></li>
 		<?php } ?>
 
 		<?php if(!empty( $skype)) { ?>

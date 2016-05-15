@@ -96,7 +96,7 @@ if (!function_exists('mk_js_get')) {
     	echo '<script type="text/javascript">';
         echo '	window.get = {};';
         echo '	window.get.captcha = function(enteredCaptcha) {
-                  return jQuery.get( mk_theme_dir + "/captcha/captcha-check.php", { captcha: enteredCaptcha });
+                  return jQuery.get(ajaxurl, { action : "mk_validate_captcha_input", captcha: enteredCaptcha });
               	};';
         echo '</script>';
     }

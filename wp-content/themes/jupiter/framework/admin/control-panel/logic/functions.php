@@ -3,6 +3,11 @@ class mk_artbees_products
 {
     
     function __construct() {
+
+        $this->store_theme_current_version();
+
+        $this->api_url = 'https://artbees.net/api/v1/';
+
         add_action('wp_ajax_abb_get_templates_action', array(&$this,
             'abb_get_templates_action'
         ));
@@ -33,10 +38,11 @@ class mk_artbees_products
      *
      */
     function enqueue() {
+        $theme_version = get_option('mk_jupiter_theme_current_version');
         wp_enqueue_style('theme-style', THEME_ADMIN_ASSETS_URI . '/stylesheet/css/min/theme-backend-styles.css');
-        wp_enqueue_style('importer-styles', THEME_CONTROL_PANEL_ASSETS . '/css/style.css', false, false, 'all');
-        wp_enqueue_script('artbees-uploader', THEME_CONTROL_PANEL_ASSETS . '/js/uploader.min.js', false, false, 'all');
-        wp_enqueue_script('control-panel-scripts', THEME_CONTROL_PANEL_ASSETS . '/js/script.js', false, false, 'all');
+        wp_enqueue_style('control-panel-styles', THEME_CONTROL_PANEL_ASSETS . '/css/style.css', false, $theme_version, 'all');
+        wp_enqueue_script('artbees-uploader', THEME_CONTROL_PANEL_ASSETS . '/js/uploader.min.js', false, $theme_version, 'all');
+        wp_enqueue_script('control-panel-scripts', THEME_CONTROL_PANEL_ASSETS . '/js/script.js', false, $theme_version, 'all');
     }
     
     /**
@@ -64,7 +70,7 @@ class mk_artbees_products
             )
         );
         
-        $query = wp_remote_post('https://artbees.net/api/v1/verify', $data);
+        $query = wp_remote_post($this->api_url . 'verify', $data);
         if (!is_wp_error($query)) {
             $result = json_decode($query['body'], true);
             return $result;
@@ -77,6 +83,27 @@ class mk_artbees_products
         
         return $result;
     }
+
+
+    /**
+     * Stores theme current version into options table to be used in multiple instances
+     *
+     */
+    public function store_theme_current_version(){
+
+        if(function_exists('wp_get_theme')){
+            $theme_data = wp_get_theme(get_option('template'));
+            $theme_version = $theme_data->Version;  
+        } else {
+            $theme_data = get_theme_data( TEMPLATEPATH . '/style.css');
+            $theme_version = $theme_data['Version'];
+        }
+
+        if(get_option('mk_jupiter_theme_current_version') != $theme_version) {
+            
+            update_option('mk_jupiter_theme_current_version', $theme_version);
+        }
+    }
     
     /**
      *
@@ -85,13 +112,30 @@ class mk_artbees_products
      *
      *
      */
-    function is_verified_artbees_customer() {
+    function is_verified_artbees_customer($localhost = true) {
         
-        $result = $this->verify_artbees_apikey(get_option('artbees_api_key', ''));
+        $result = $this->verify_artbees_apikey(get_option('artbees_api_key'));
         
         if(defined('MK_DEV')) return true;
+
+        if(self::isLocalHost() && $localhost == true) return true;
         
         return ($result['status'] == 202 ? true : false);
+    }
+    
+
+    function is_api_key_exists($localhost = true) {
+        
+        $api_key = get_option('artbees_api_key');
+        
+        if(!empty($api_key)) return true;
+        
+        if(defined('MK_DEV')) return true;
+
+        if(self::isLocalHost() && $localhost == true) return true;
+
+        return false;
+        
     }
     
     
@@ -277,6 +321,43 @@ class mk_artbees_products
     }
 
     /**
+     * Fetch Announcements from artbees themes API, store them in transients. So they get updated once a day
+     *
+     * @copyright   ArtbeesLTD (c)
+     * @link        http://artbees.net
+     * @since       Version 5.1
+     * @last_update Version 5.1
+     * @package     artbees
+     * @author      Bob Ulusoy
+     */
+    public function get_announcements()
+    {
+
+        //set_transient('mk_artbees_themes_announcements', null);
+
+        if(false == get_transient('mk_artbees_themes_announcements')) {
+            global $wp_version;
+            
+            $data = array(
+                'user-agent' => 'WordPress/' . $wp_version . '; ' . get_bloginfo('url')
+            );
+
+            $raw_response = wp_remote_get($this->api_url . 'announcements' , $data);
+
+            if (!is_wp_error($raw_response) && ($raw_response['response']['code'] == 200)) {
+               $response = $raw_response['body'];
+            } else {
+               $response = is_wp_error($raw_response);
+            }
+            // Transient will be cleared after 1 day. 
+            set_transient('mk_artbees_themes_announcements', $response, 86400);
+        }
+
+        return unserialize(get_transient('mk_artbees_themes_announcements'));
+
+    }
+
+    /**
      * Warns the customer for incorrect environment settings.
      *
      * @copyright	ArtbeesLTD (c)
@@ -351,12 +432,12 @@ class mk_artbees_products
                 }
             }
     public static function isLocalHost() {
-                return ( $_SERVER['REMOTE_ADDR'] === '127.0.0.1' || $_SERVER['REMOTE_ADDR'] === 'localhost' || $_SERVER['REMOTE_ADDR'] === '::1') ? 1 : 0;
-            }
+        return ( $_SERVER['REMOTE_ADDR'] === '127.0.0.1' || $_SERVER['REMOTE_ADDR'] === 'localhost' || $_SERVER['REMOTE_ADDR'] === '::1') ? 1 : 0;
+    }
 
-            public static function isWpDebug() {
-                return ( defined( 'WP_DEBUG' ) && WP_DEBUG == true );
-            }        
+    public static function isWpDebug() {
+        return ( defined( 'WP_DEBUG' ) && WP_DEBUG == true );
+    }        
     
     public static function compileSystemStatus($json_output = false, $remote_checks = false) {
         global $wpdb;

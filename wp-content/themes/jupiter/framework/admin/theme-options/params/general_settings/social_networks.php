@@ -16,6 +16,7 @@ $general_section[] = array(
                 "disable" => __('Disable', "mk_framework") ,
             ) ,
             "type" => "dropdown",
+
         ) ,
         array(
             "name" => __("Header Social Networks Style", "mk_framework") ,
@@ -31,10 +32,17 @@ $general_section[] = array(
                 "square-rounded" => __('Square Rounded', "mk_framework") ,
             ) ,
             "type" => "dropdown",
+            "dependency" => array(
+                   'element' => "header_social_location",
+                   'value' => array(
+                       'header',
+                       'toolbar'
+                   )
+            ),  
         ) ,
         array(
             "name" => __("Icons Size", "mk_framework") ,
-            "desc" => __("Icon size will be used for outline styles: Simple Rounded, Square Pointed & Square Rounde.", "mk_framework") ,
+            "desc" => __("Icon size will be used for outline styles: Simple Rounded, Square Pointed & Square Rounded.", "mk_framework") ,
             "type" => "dropdown",
             "id" => "header_icon_size",
             "default" => "small",
@@ -43,6 +51,12 @@ $general_section[] = array(
                 "medium" => "Medium",
                 "large" => "Large",
             ) ,
+            "dependency" => array(
+                   'element' => "header_social_location",
+                   'value' => array(
+                       'header'
+                   )
+            ),   
         ) ,
         array(
             "name" => __("Add New Network", "mk_framework") ,
@@ -50,6 +64,13 @@ $general_section[] = array(
             "id" => "header_social_networks_site",
             "default" => '',
             "type" => 'social_share',
+            "dependency" => array(
+                   'element' => "header_social_location",
+                   'value' => array(
+                       'header',
+                       'toolbar'
+                   )
+            ),  
         ) ,
         array(
             "id" => "header_social_networks_url",

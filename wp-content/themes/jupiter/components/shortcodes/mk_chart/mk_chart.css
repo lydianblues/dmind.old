@@ -29,6 +29,13 @@
   letter-spacing: 1px;
   line-height: 1.3em;
 }
+.mk-chart__icon {
+    display: flex;
+    align-items: center;
+}
+.mk-chart__icon .mk-svg-icon {
+    margin: 0 auto;  
+}
 @media handheld, only screen and (max-width: 600px) {
   .mk-chart__chart {
     margin: 0 auto;

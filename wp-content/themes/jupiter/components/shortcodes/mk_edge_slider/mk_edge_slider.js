@@ -1,15 +1,36 @@
 (function($) {
 	'use strict';
 
+    $('.mk-edge-slider').find('video').each(function() {
+        this.pause();
+        this.currentTime = 0;
+    });
+
 	MK.component.EdgeSlider = function( el ) {
 		var self = this,
 			$this = $( el ), 
             $window = $(window),
             $wrapper = $this.parent(),
-			config = $this.data( 'edgeslider-config' );
+			config = $this.data( 'edgeslider-config' ),
+            $nav = $( config.nav ),
+            $prev = $nav.find( '.mk-edge-prev' ),
+            $prevTitle = $prev.find( '.nav-item-caption' ),
+            $prevBg = $prev.find('.edge-nav-bg'),
+            $next = $nav.find( '.mk-edge-next' ),
+            $nextTitle = $next.find( '.nav-item-caption' ),
+            $nextBg = $next.find('.edge-nav-bg'),
+            $navBtns = $nav.find( 'a' ),  
+            $pagination = $( '.swiper-pagination' ),
+            $skipBtn = $( '.edge-skip-slider' ),
+            $opacityLayer = $this.find('.edge-slide-content'),
+            $videos = $this.find('video'),
+            currentSkin = null,
+            currentPoint = null,
+            winH = null,
+            opacity = null,
+            offset = null;
 
         var callbacks = { 
-
     		onInitialize : function( slides ) {
     			self.$slides = $( slides );
 				
@@ -21,6 +42,7 @@
 								$slide.find('.mk-video-section-touch').css('background-image'),
 						bgColor = $slide.find('.mk-section-image').css('background-color');
 
+
 					return {
 						skin: skin,
 						title: title,
@@ -29,37 +51,43 @@
 					};
 				});
 
+                // Set position fixed here rather than css to avoid flash of strangely styled slides befor plugin init
+                if(MK.utils.isSmoothScroll) $this.css('position', 'fixed');
+
 				setNavigationContent( 1, self.$slides.length - 1 );
 				setSkin( 0 );
+                // stopVideos();
+                playVideo(0);
 
                 setTimeout( function() {
                     $( '.edge-slider-loading' ).fadeOut( '100' );
                 }, 1000 );
     		},
 
+            onBeforeSlide : function( id ) {
+                
+            },
+
     		onAfterSlide : function( id ) {
-    			var currentId = id;
-
-				var len = self.$slides.length,
-					nextId = ( currentId + 1 === len ) ? 0 : currentId + 1,
-					prevId = ( currentId - 1 === -1 ) ? len - 1 : currentId - 1; 
-
-    			setNavigationContent( nextId, prevId );
-    			setSkin( id );
+    			setNavigationContent( nextFrom(id), prevFrom(id) );
+    			setSkin( id );   
+                stopVideos(); // stop all others if needed
+                playVideo( id );
     		}
     	};
 
 
-    	var $nav = $( config.nav ),
-    		$prev = $nav.find( '.mk-edge-prev' ),
-    		$prevTitle = $prev.find( '.nav-item-caption' ),
-    		$prevBg = $prev.find('.edge-nav-bg'),
-    		$next = $nav.find( '.mk-edge-next' ),
-    		$nextTitle = $next.find( '.nav-item-caption' ),
-    		$nextBg = $next.find('.edge-nav-bg');
+        var nextFrom = function nextFrom(id) {
+            return ( id + 1 === self.$slides.length ) ? 0 : id + 1;
+        };
+
+
+        var prevFrom = function prevFrom(id) {
+            return ( id - 1 === -1 ) ? self.$slides.length - 1 : id - 1;
+        };
+
 
         var setNavigationContent = function( nextId, prevId ) {
-
             if(self.slideContents[ prevId ]) {
         		$prevTitle.text( self.slideContents[ prevId ].title );
         		$prevBg.css( 'background', 
@@ -78,12 +106,7 @@
         };
 
 
-        var $navBtns = $nav.find( 'a' ),  
-        	$pagination = $( '.swiper-pagination' ),
-        	$skipBtn = $( '.edge-skip-slider' ),
-            currentSkin = null;
-
-        var setSkin = function( id ) {  
+        var setSkin = function setSkin( id ) {  
         	currentSkin = self.slideContents[ id ].skin;
 
           	$navBtns.attr('data-skin', currentSkin);
@@ -96,11 +119,23 @@
         };
 
 
-        var currentPoint;
-        var $opacityLayer = $this.find('.edge-slide-content');
-        var winH = null;
-        var opacity = null;
-        var offset = null;
+        var stopVideos = function stopVideos() {
+            $videos.each(function() {
+                this.pause();
+                this.currentTime = 0;
+            });
+        };
+
+
+        var playVideo = function playVideo(id) {
+            var video = self.$slides.eq(id).find('video').get(0);
+            if(video) {
+                video.play();
+                console.log('play video in slide nr ' + id);
+            }
+
+        };
+
 
         var onResize = function onResize() {
             var height = $wrapper.height();
@@ -112,19 +147,22 @@
             winH = $window.height();
             offset = $this.offset().top;
 
+            if(!MK.utils.isSmoothScroll) return; 
             if(MK.utils.isResponsiveMenuState()) {
+                // Reset our parallax layers position and styles when we're in responsive mode
                 $this.css({
-                    '-webkit-transform': 0,
-                    '-moz-transform': 0,
-                    '-ms-transform': 0,
-                    '-o-transform': 0,
-                    'transform': 0,
+                    '-webkit-transform': 'translateZ(0)',
+                    '-moz-transform': 'translateZ(0)',
+                    '-ms-transform': 'translateZ(0)',
+                    '-o-transform': 'translateZ(0)',
+                    'transform': 'translateZ(0)',
                     'position': 'absolute'
                 });
                 $opacityLayer.css({
                     'opacity': 1
                 });
             } else {
+                // or proceed with scroll logic when we assume desktop screen
                 onScroll();
             }
         };
@@ -153,14 +191,17 @@
         };
 
         onResize();
-        $window.on('load resize', onResize);
+        $window.on('load', onResize);
+        $window.on('resize', onResize);
         window.addResizeListener( $wrapper.get(0), onResize );
 
-        onScroll();
-        $window.on('scroll', function() {
-            if(MK.utils.isResponsiveMenuState()) return;
-            window.requestAnimationFrame(onScroll);
-        });
+        if(MK.utils.isSmoothScroll) {
+            onScroll();
+            $window.on('scroll', function() {
+                if(MK.utils.isResponsiveMenuState()) return;
+                window.requestAnimationFrame(onScroll);
+            });
+        }
 
 		this.el = el;
 		this.config = $.extend( config, callbacks );

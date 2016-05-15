@@ -5,7 +5,7 @@
     // When instance is discovered in cache object then we return exisiting instance.
     // 
     // TODO move it to core functions and run logic on init
-    var _instancesCollecetion = {};
+    var _instancesCollection = {};
 
     MK.component.SwipeSlideshow = function( el ) {
         var $this = $( el );
@@ -22,14 +22,13 @@
             var slider = new MK.ui.Slider( this.el, this.config );
             slider.init();
 
-            _instancesCollecetion[ this.id ] = slider;
+            _instancesCollection[ this.id ] = slider;
         }
     };
 
 
     // Additional nav
     // Mostly for thumbs in woocommerce
-
     MK.component.SwipeSlideshowExtraNav = function( el ) {
         this.el = el;
     };
@@ -44,7 +43,7 @@
             var $this = $( this.el );
 
             this.sliderId = $this.data( 'gallery' );
-            this.slider = _instancesCollecetion[this.sliderId]; // convert to js obj
+            this.slider = _instancesCollection[this.sliderId]; // convert to js obj
             this.$thumbs = $( '#' + this.sliderId ).find( '.thumbnails a');
         },
 
@@ -63,10 +62,9 @@
 
 
     // Mostly for switcher in woocommerce
-    // 
     MK.utils.eventManager.subscribe('gallery-update', function(e, config) {
-        if(typeof _instancesCollecetion[config.id] === 'undefined') return;
-        _instancesCollecetion[config.id].reset();
+        if(typeof _instancesCollection[config.id] === 'undefined') return;
+        _instancesCollection[config.id].reset();
     });
 
 })( jQuery );

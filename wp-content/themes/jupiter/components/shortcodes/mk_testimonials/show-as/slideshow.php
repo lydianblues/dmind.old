@@ -23,7 +23,7 @@ $slide_atts[] = 'data-arrow-right="mk-jupiter-icon-arrow-right"';
 
 ?>
 
-<div class="mk-testimonial mk-script-call mk-flexslider js-flexslider <?php echo $view_params['style']; ?>-style <?php echo $view_params['skin'].'-version '.$view_params['el_class']; ?> <?php echo $view_params['animation_css']; ?> clear" id="testimonial_<?php echo $view_params['id']; ?>" <?php echo implode(' ', $slide_atts); ?>>
+<div class="mk-testimonial mk-script-call mk-flexslider js-flexslider <?php echo $view_params['style']; ?>-style <?php echo $view_params['skin'].'-version '.$view_params['el_class']; ?> <?php echo $view_params['animation_css']; ?> clearfix" id="testimonial_<?php echo $view_params['id']; ?>" <?php echo implode(' ', $slide_atts); ?>>
 	<?php if ( $view_params['style'] == 'simple' ) { ?>
 		<i class="mk-moon-quotes-left"></i>
 		<i class="mk-moon-quotes-right"></i>
@@ -43,4 +43,5 @@ $slide_atts[] = 'data-arrow-right="mk-jupiter-icon-arrow-right"';
 
 		?>
 	</ul>
+	<div class="clearboth"></div>
 </div>

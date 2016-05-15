@@ -9,7 +9,7 @@ echo mk_get_fontfamily("#mk-title-box-", $id, $font_family, $font_type);
 
 ?>
 
-<h3  id="mk-title-box-<?php echo $id; ?>" class="mk-title-box clear <?php echo get_viewport_animation_class($animation).$el_class; ?>">
+<h3  id="mk-title-box-<?php echo $id; ?>" class="mk-title-box clearfix <?php echo get_viewport_animation_class($animation).$el_class; ?>">
 	<span><?php echo wpb_js_remove_wpautop( $content ); ?></span>
 </h3>
 

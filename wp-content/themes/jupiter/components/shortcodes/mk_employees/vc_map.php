@@ -79,20 +79,29 @@ vc_map(array(
             "unit" => 'employee',
             "description" => __("How many Employees you would like to show? (-1 means unlimited)", "mk_framework")
         ) ,
+         array(
+            'type'        => 'autocomplete',
+            'heading'     => __( 'Select specific Categories', 'mk_framework' ),
+            'param_name'  => 'categories',
+            'settings' => array(
+                                'multiple' => true,
+                                'sortable' => true,
+                                'unique_values' => true,
+                                // In UI show results except selected. NB! You should manually check values in backend
+                            ),
+            'description' => __( 'Search for category name to get autocomplete suggestions', 'mk_framework' ),
+        ),
         array(
-            "type" => "multiselect",
-            "heading" => __("Select specific Employees", "mk_framework") ,
-            "param_name" => "employees",
-            "value" => '',
-            "options" => mk_get_post_enteries('employees', 40),
-            "description" => __("", "mk_framework")
-        ) ,
-        array(
-            "type" => "textfield",
-            "heading" => __("Select Specific Categories.", "mk_framework"),
-            "param_name" => "categories",
-            "value" => '',
-            "description" => __("You will need to go to Wordpress Dashboard => Employees => Employees Categories. In the right hand find Slug column. you will need to add employees category slugs in this option. add comma to separate them.", "mk_framework")
+            'type'        => 'autocomplete',
+            'heading'     => __( 'Select specific Employees', 'mk_framework' ),
+            'param_name'  => 'employees',
+            'settings' => array(
+                                'multiple' => true,
+                                'sortable' => true,
+                                'unique_values' => true,
+                                // In UI show results except selected. NB! You should manually check values in backend
+                            ),
+            'description' => __( 'Search for post ID or post title to get autocomplete suggestions', 'mk_framework' ),
         ),
         array(
             "type" => "range",

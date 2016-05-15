@@ -74,6 +74,7 @@ if (!class_exists('Mk_Options_Framework_Fields_Css_Class_Selector')) {
                 '.mk-blog-container .mk-blog-meta .the-title, .post .blog-single-title, .mk-blog-hero .content-holder .the-title, .blog-blockquote-content, .blog-twitter-content' => 'Blog Headings',
                 '.mk-blog-container .mk-blog-meta .the-excerpt p, .mk-single-content p' => 'Blog Body',
                 '.mk-employees .mk-employee-item .team-info-wrapper .team-member-name' => 'Employee Title',
+                '.mk-testimonial-quote' => 'Testimonial Quote'
             );
         } 
         public function render() {

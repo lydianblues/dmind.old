@@ -21,8 +21,7 @@ else {
 
 if (!$twitter_name || !$consumer_key || !$consumer_secret || !$access_token || !$access_token_secret || !$tweets_count) return false;
 
-$transName = 'mk_tweets_' . $item_id;
-$cacheTime = 10;
+$transName = 'mk_jupiter_tweets_' . $item_id;
 
 if (false === get_transient($transName)) {
     
@@ -70,7 +69,7 @@ if (false === get_transient($transName)) {
     $api_url = 'https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=' . $twitter_name . '&count=' . $tweets_count;
     $response = wp_remote_get($api_url, $args);
     
-    set_transient($transName, wp_remote_retrieve_body($response) , 60 * $cacheTime);
+    set_transient($transName, wp_remote_retrieve_body($response) , HOUR_IN_SECONDS);
 }
 
 @$twitter = json_decode(get_transient($transName) , true);

@@ -95,20 +95,20 @@ class Artbees_Widget_Recent_Portfolio extends WP_Widget {
 				 			$post_type_link = 'http'.( is_ssl() ? 's' : '' ).'://www.dailymotion.com/video/'.$video_type_video_id;
 				 		}
 				 	}else{
-				 		$post_type_link_array = wp_get_attachment_image_src( get_post_thumbnail_id(), 'full', true );
+				 		$post_type_link_array = wp_get_attachment_image_src( get_post_thumbnail_id(), 'full');
 				 		$post_type_link = $post_type_link_array[0];
 				 	}
 				 ?>
-				 <img src="<?php echo $image_src; ?>" alt="<?php the_title(); ?>" width="<?php echo $image_width; ?>" height="<?php echo $image_height; ?>"/>
+				 <img src="<?php echo $image_src; ?>" alt="<?php the_title_attribute(); ?>" width="<?php echo $image_width; ?>" height="<?php echo $image_height; ?>"/>
 				 <span class="widget-portfolio-overlay"></span>
-				 <a class="mk-lightbox portfolio-widget-lightbox" title="<?php the_title(); ?>" data-fancybox-group="blog-widget-recent-portfolio" href="<?php echo $post_type_link; ?>"><i class="mk-moon-zoom-in"></i></a>
+				 <a class="mk-lightbox portfolio-widget-lightbox" title="<?php the_title_attribute(); ?>" data-fancybox-group="blog-widget-recent-portfolio" href="<?php echo $post_type_link; ?>"><i class="mk-moon-zoom-in"></i></a>
 				 <a class="portfolio-widget-permalink" href="<?php the_permalink(); ?>"><i class="mk-icon-link"></i></a>
 			 </span>
 		<?php } // condition for has_post_thumbnail() ?>
 
 
         <div class="portfolio-widget-info">
-       	<span class="portfolio-widget-title"><?php the_title(); ?></span>
+       	<span class="portfolio-widget-title"><?php the_title_attribute(); ?></span>
        	<div class="clearboth"></div>
        	<div class="portfolio-widget-cats"><?php echo implode( ' ', $terms_name ); ?></div>
        </div>

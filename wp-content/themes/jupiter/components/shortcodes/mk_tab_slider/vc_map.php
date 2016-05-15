@@ -7,14 +7,16 @@ vc_map(array(
     'description' => __('Tab based slider.', 'mk_framework') ,
     "params" => array(
         array(
-            "type" => "multiselect",
-            "heading" => __("Choose the Tabs", "mk_framework") ,
-            "param_name" => "tabs",
-            "value" => '',
-            "options" => mk_get_post_enteries('tab_slider', 40),
-            "description" => __("", "mk_framework")
-        ) ,
-
+            'type'        => 'autocomplete',
+            'heading'     => __( 'Select specific Tabs', 'mk_framework' ),
+            'param_name'  => 'tabs',
+            'settings' => array(
+                                'multiple' => true,
+                                'sortable' => true,
+                                'unique_values' => true,
+                            ),
+            'description' => __( 'Search for post ID or post title to get autocomplete suggestions', 'mk_framework' ),
+        ),
         array(
             "heading" => __("Order", 'mk_framework') ,
             "description" => __("Designates the ascending or descending order of the 'orderby' parameter.", 'mk_framework') ,

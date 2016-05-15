@@ -1,6 +1,7 @@
 <?php
 global $product, $mk_options;
  ?>
+
 <div class="mk-modal is-active close-inside _ flex flex-center flex-items-center">
     <div class="mk-modal-container">
         <div class="mk-modal-header">
@@ -40,8 +41,11 @@ global $product, $mk_options;
                             }
                             else {
                                 // Product featured image
-                                echo '<img src="'.mk_image_generator(wp_get_attachment_url( get_post_thumbnail_id() ), 550, 550).'" alt="'.get_the_title(get_post_thumbnail_id()).'">';
+                                $featured_image_src = Mk_Image_Resize::resize_by_id_adaptive( get_post_thumbnail_id(), 'image-size-550x550', 550, 550, $crop = true, $dummy = true);
+  
+                                echo '<img src="'.$featured_image_src['dummy'].'" '.$featured_image_src['data-set'].' alt="'.get_the_title(get_post_thumbnail_id()).'">';
                             }
+                            
                         ?>
                 </div>
                 <div class="mk-product-details">

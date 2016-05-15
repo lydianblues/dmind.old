@@ -30,27 +30,38 @@ vc_map(array(
             "description" => __("Number of post to displace or pass over, it means based on your order of the loop, this number will define how many posts to pass over and start from the nth number of the offset.", "mk_framework")
         ),
         array(
-            "type" => "multiselect",
-            "heading" => __("Select specific Posts", "mk_framework"),
-            "param_name" => "posts",
-            "options" => mk_get_post_enteries('news', 40),
-            "value" => '',
-            "description" => __("", "mk_framework")
+            'type'        => 'autocomplete',
+            'heading'     => __( 'Select specific Categories', 'mk_framework' ),
+            'param_name'  => 'categories',
+            'settings' => array(
+                                'multiple' => true,
+                                'sortable' => true,
+                                'unique_values' => true,
+                            ),
+            'description' => __( 'Search for category name to get autocomplete suggestions', 'mk_framework' ),
         ),
         array(
-            "type" => "multiselect",
-            "heading" => __("Select specific Authors", "mk_framework"),
-            "param_name" => "author",
-            "options" => mk_get_authors(50),
-            "value" => '',
-            "description" => __("", "mk_framework")
+            'type'        => 'autocomplete',
+            'heading'     => __( 'Select specific Posts', 'mk_framework' ),
+            'param_name'  => 'posts',
+            'settings' => array(
+                                'multiple' => true,
+                                'sortable' => true,
+                                'unique_values' => true,
+                            ),
+            'description' => __( 'Search for post ID or post title to get autocomplete suggestions', 'mk_framework' ),
         ),
+
         array(
-            "type" => "textfield",
-            "heading" => __("Select Specific Categories.", "mk_framework"),
-            "param_name" => "categories",
-            "value" => '',
-            "description" => __("You will need to go to Wordpress Dashboard => News => News Categories. In the right hand find Slug column. you will need to add News category slugs in this option. Use comma to separate them.", "mk_framework")
+            'type'        => 'autocomplete',
+            'heading'     => __( 'Select specific Authors', 'mk_framework' ),
+            'param_name'  => 'author',
+            'settings' => array(
+                                'multiple' => true,
+                                'sortable' => true,
+                                'unique_values' => true,
+                            ),
+            'description' => __( 'Search for user ID, Username, Email Address to get autocomplete suggestions', 'mk_framework' ),
         ),
         array(
             "type" => "range",

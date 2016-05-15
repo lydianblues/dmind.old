@@ -44,7 +44,7 @@ class Artbees_Widget_News_Feed extends WP_Widget {
 		if ( $title ) echo $before_title . $title . $after_title; ?>
 
 
-       <div class="news-widget-slider mk-flexslider js-flexslider clear" id="slider_<?php echo $random; ?>">
+       <div class="news-widget-slider mk-flexslider js-flexslider clearfix" id="slider_<?php echo $random; ?>">
        		<ul class="mk-flex-slides">
 
 				<?php while ( $r-> have_posts() ) : $r -> the_post();
@@ -52,11 +52,11 @@ class Artbees_Widget_News_Feed extends WP_Widget {
 					?>
 					<li>
 					<?php if ( has_post_thumbnail() ) : ?>
-			        <a href="<?php echo get_permalink(); ?>" title="<?php the_title(); ?>" class="news-widget-thumbnail">
+			        <a href="<?php echo get_permalink(); ?>" title="<?php the_title_attribute(); ?>" class="news-widget-thumbnail">
 			        <?php		
-							$image_src_array = wp_get_attachment_image_src( get_post_thumbnail_id(), 'full', true );
-							$image_src = bfi_thumb( $image_src_array[ 0 ], array('width' => 500, 'height' => 250)); 
-						?><img alt="<?php the_title(); ?>" title="<?php the_title(); ?>" src="<?php echo $image_src; ?>" />
+							$featured_image_src = Mk_Image_Resize::resize_by_id_adaptive( get_post_thumbnail_id(), 'crop', 500, 250, $crop = true, $dummy = true);
+
+						?><img alt="<?php the_title_attribute(); ?>" title="<?php the_title_attribute(); ?>" src="<?php echo $featured_image_src['dummy']; ?>" <?php echo $featured_image_src['data-set']; ?> width="500" height="250" />
 					</a>
 					<?php endif; ?>
 

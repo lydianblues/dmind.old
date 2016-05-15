@@ -72,10 +72,13 @@ $full_height = $full_height == 'true' ? true : false;
 				?>
 
 					<?php 
-						$slide_class[]  = $caption_align;
+						$slide_class = array('');
+						$slide_class[] = $caption_align;
 						$slide_class[] = mk_get_bg_cover_class($cover_bg);
 					?>
 					<div class="mk-slider-slide <?php echo implode(' ', $slide_class); ?>" data-header-skin="<?php echo $header_skin; ?>">
+
+						<?php echo mk_get_shortcode_view('mk_edge_slider', 'components/gradient-layer', true, $gradient_layer_atts); ?>
 
 						<?php if( $video_pattern == 'true' ) { ?>
 							<div class="mk-video-mask" style="background-image: url('<?php echo THEME_IMAGES; ?>/video-mask.png')"></div>
@@ -117,12 +120,12 @@ $full_height = $full_height == 'true' ? true : false;
 							</div>
 
 						<?php } else { 
-							$bg_image_css = 'style="';
-							$bg_image_css .= !empty($slide_image) ? 'background-image: url('. $slide_image .'); ' : '';
+							$bg_image_css = 'style="'; 
 							$bg_image_css .= !empty($slide_bg_color) ? 'background-color:'. $slide_bg_color .'; ' : '';
-							$bg_image_css .= '"';
+							$bg_image_css .= '"'; 
+							$bg_image_set = (!empty($slide_image) || !empty($slide_image_portrait)) ? Mk_Image_Resize::get_bg_res_set($slide_image, $slide_image_portrait) : '';
 						?>
-							<div class="mk-section-image <?php echo $animation_effect ?>"  <?php echo $bg_image_css ?>></div>
+							<div class="mk-section-image <?php echo $animation_effect ?>"  <?php echo $bg_image_css .' '. $bg_image_set ?>></div>
 						<?php } ?>
 
 

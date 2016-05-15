@@ -23,13 +23,13 @@ $blog_section[] = array(
             "id" => "archive_loop_style",
             "default" => 'modern',
             "options" => array(
-                "modern" => 'modern',
+                "modern" => 'Modern',
                 "classic" => 'Classic',
                 "newspaper" => 'Newspaper',
                 "spotlight" => 'Spotlight',
                 "thumbnail" => 'Thumbnail',
                 "magazine" => 'Magazine',
-                "grid" => 'grid'
+                "grid" => 'Grid'
             ) ,
             "type" => "dropdown"
         ) ,

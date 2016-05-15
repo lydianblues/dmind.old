@@ -429,9 +429,10 @@ if ( ! class_exists( 'WPBakeryShortCode' ) ) {
 			}
 
 			$shortcode_name = $this->getFilename();
-			 $user_template = vc_shortcodes_theme_templates_dir( $shortcode_name . '/' . $shortcode_name . '.php' );
-               $parent_user_template = vc_shortcodes_theme_parent_templates_dir( $shortcode_name . '/' . $shortcode_name . '.php' );
-               //echo $user_template;
+			$user_template = vc_shortcodes_theme_templates_dir( $shortcode_name . '/' . $shortcode_name . '.php' );
+            $parent_user_template = vc_shortcodes_theme_parent_templates_dir( $shortcode_name . '/' . $shortcode_name . '.php' );
+            
+            
                if ( is_file( $user_template ) ) {
                     return $this->setTemplate( $user_template );
                } else if(is_file($parent_user_template)) {
@@ -441,8 +442,8 @@ if ( ! class_exists( 'WPBakeryShortCode' ) ) {
 			   $default_dir = vc_manager()->getDefaultShortcodesTemplatesDir() . '/';
 
 			   if ( is_file( $default_dir . $shortcode_name . '.php' ) ) {
-				return $this->setTemplate( $default_dir . $shortcode_name . '.php' );
-			}
+					return $this->setTemplate( $default_dir . $shortcode_name . '.php' );
+				}
 
 			return '';
 		}
@@ -496,23 +497,7 @@ if ( ! class_exists( 'WPBakeryShortCode' ) ) {
 				$content = wpautop( stripslashes( $content ) );
 			}
 			$shortcode_attributes = array( 'width' => '1/1' );
-			if ( isset( $this->settings['params'] ) && is_array( $this->settings['params'] ) ) {
-				foreach ( $this->settings['params'] as $param ) {
-					if ( 'content' !== $param['param_name'] ) {
-						if ( isset( $param['value'] ) ) {
-							$value = $param['value'];
-						} else {
-							$value = '';
-						}
-
-						$shortcode_attributes[ $param['param_name'] ] = $value;
-					} elseif ( 'content' === $param['param_name'] && null === $content ) {
-						$content = isset( $param['value'] ) ? $param['value'] : '';
-					}
-				}
-			}
-			$atts = shortcode_atts( $shortcode_attributes, $atts );
-			extract( $atts );
+			$atts = vc_map_get_attributes($this->shortcode, $atts) + $shortcode_attributes;
 			$this->atts = $atts;
 			$elem = $this->getElementHolder( $width );
 			if ( isset( $this->settings['custom_markup'] ) && '' !== $this->settings['custom_markup'] ) {
@@ -980,7 +965,6 @@ if ( ! class_exists( 'WPBakeryShortCode' ) ) {
 		 *      {{ content }}
 		 *      {{ title }}
 		 *      {{ container-class }}
-		 *      {{ params }}
 		 *
 		 * Possible keys:
 		 *  {{
@@ -1022,7 +1006,9 @@ if ( ! class_exists( 'WPBakeryShortCode' ) ) {
 							}
 							break;
 						}
-						case 'params': {
+						/*
+						 * not really work. there is not $atts and no dynamically updated.
+						 case 'params': {
 							$inner = '';
 							if ( isset( $this->settings['params'] ) && is_array( $this->settings['params'] ) ) {
 								foreach ( $this->settings['params'] as $param ) {
@@ -1038,7 +1024,7 @@ if ( ! class_exists( 'WPBakeryShortCode' ) ) {
 							}
 							$markup = str_replace( $match[0], $inner, $markup );
 							break;
-						}
+						}*/
 						case 'editor_controls': {
 							$markup = str_replace( $match[0], $this->getColumnControls( $this->settings( 'controls' ) ), $markup );
 							break;
@@ -1060,17 +1046,10 @@ if ( ! class_exists( 'WPBakeryShortCode' ) ) {
 		 * @return string
 		 */
 		protected function paramsHtmlHolders( $atts ) {
-			extract( $atts );
 			$inner = '';
 			if ( isset( $this->settings['params'] ) && is_array( $this->settings['params'] ) ) {
 				foreach ( $this->settings['params'] as $param ) {
-					$param_value = isset( ${$param['param_name']} ) ? ${$param['param_name']} : '';
-					if ( is_array( $param_value ) ) {
-						// Get first element from the array
-						reset( $param_value );
-						$first_key = key( $param_value );
-						$param_value = is_null( $first_key ) ? '' : $param_value[ $first_key ];
-					}
+					$param_value = isset( $atts[$param['param_name']] ) ? $atts[$param['param_name']] : '';
 					$inner .= $this->singleParamHtmlHolder( $param, $param_value );
 				}
 			}

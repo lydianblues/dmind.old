@@ -58,7 +58,7 @@
 
 	$border_color_css = (!empty($border_color)) ? 'has-border ' : '';
 ?>
-	<div id="animated-columns-<?php echo $id ?>" class="mk-animated-columns clear <?php echo $style; ?>-style <?php echo $column_css; ?> <?php echo $border_color_css; echo get_viewport_animation_class($animation); echo $el_class; ?>">
+	<div id="animated-columns-<?php echo $id ?>" class="mk-animated-columns clearfix <?php echo $style; ?>-style <?php echo $column_css; ?> <?php echo $border_color_css; echo get_viewport_animation_class($animation); echo $el_class; ?>">
 <?php
 	while ( $r->have_posts() ) { $r->the_post();
 
@@ -72,6 +72,27 @@
 	    $btn_txt = get_post_meta( $post->ID, '_btn_text', true );
 	    $target = get_post_meta( $post->ID, '_target', true );
 
+
+
+	    // Attempt to get image sizes (width and height)
+	    $image_id = mk_get_attachment_id_from_url($image_icon);
+	    if(!empty($image_id)) {
+        
+		    $image_src_array = wp_get_attachment_image_src($image_id, 'full');
+		    $actual_image_width = $image_src_array[1];
+		    $actual_image_height = $image_src_array[2];
+
+		} else {
+
+		    $imageSize = mk_getimagesize($image_icon);
+		    $actual_image_width = $imageSize[0];
+		    $actual_image_height = $imageSize[1];
+
+		}
+
+		$size_attr = 'width="'.$actual_image_width.'" height="'.$actual_image_height.'"';
+
+
 ?>
 		<div class="animated-column-item s_item a_colitem a_position-relative a_opacity-0 a_float-left a_overflow-hidden a_align-center a_box-border">
 		<?php
@@ -84,7 +105,7 @@
 				<div class="animated-column-holder a_position-absolute a_width-100-per a_height-100-per a_display-block padding-20 a_top-0 a_box-border">
 
 			<?php  if($icon_type == 'image') { ?>
-				<div class="animated-column-icon animated-column-image-icon a_margin-0-auto a_display-block a_padding-bottom-30"><img src="<?php echo $image_icon; ?>" /></div>
+				<div class="animated-column-icon animated-column-image-icon a_margin-0-auto a_display-block a_padding-bottom-30"><img alt="<?php echo $title; ?>" src="<?php echo $image_icon; ?>" <?php echo $size_attr; ?> /></div>
 			<?php } else { ?>
 				<i class="<?php echo $icon; ?> animated-column-icon a_padding-bottom-30"></i>
 			<?php } ?>
@@ -99,7 +120,7 @@
 		?>
 			<div class="animated-column-holder a_position-absolute a_width-100-per a_display-block padding-20 a_top-0 a_box-border">
 			<?php  if($icon_type == 'image') { ?>
-				<div class="animated-column-icon animated-column-image-icon a_margin-0-auto a_display-block a_padding-bottom-30"><img src="<?php echo $image_icon; ?>" /></div>
+				<div class="animated-column-icon animated-column-image-icon a_margin-0-auto a_display-block a_padding-bottom-30"><img alt="<?php echo $title; ?>"  src="<?php echo $image_icon; ?>" <?php echo $size_attr; ?> /></div>
 			<?php } else { ?>
 				<i class="<?php echo $icon; ?> animated-column-icon a_padding-bottom-30"></i>
 			<?php } ?>
@@ -119,6 +140,7 @@
 	} //end while
 ?>
 	</div>
+	<div class="clearboth"></div>
 <?php
 
 	$border_full = !empty($border_color) ? ('border-top:1px solid '.$border_color.';') : '';

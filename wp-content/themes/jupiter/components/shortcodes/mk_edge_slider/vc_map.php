@@ -30,12 +30,16 @@ vc_map(array(
             "description" => __("Please note that Smooth Scroll option should be enabled for the parallax feature function correctly. Smooth Scroll option is loctated in Theme Options > General Settings > Global > Smooth Scroll.", "mk_framework")
         ),
         array(
-            "type" => "multiselect",
-            "heading" => __("Select specific slides", "mk_framework"),
-            "param_name" => "slides",
-            "value" => '',
-            "options" => mk_get_post_enteries('edge', 40),
-            "description" => __("", "mk_framework")
+            'type'        => 'autocomplete',
+            'heading'     => __( 'Select Specific Slides', 'mk_framework' ),
+            'param_name'  => 'slides',
+            'settings' => array(
+                                'multiple' => true,
+                                'sortable' => true,
+                                'unique_values' => true,
+                                // In UI show results except selected. NB! You should manually check values in backend
+                            ),
+            'description' => __( 'Search for post ID or post title to get autocomplete suggestions', 'mk_framework' ),
         ),
         array(
             "heading" => __("Order", 'mk_framework'),

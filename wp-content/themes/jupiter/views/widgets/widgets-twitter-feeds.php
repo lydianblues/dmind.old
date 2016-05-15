@@ -14,12 +14,13 @@ class Artbees_Widget_Twitter extends WP_Widget {
 		$title = $instance['title'];
 		$username = $instance['username'];
 		$skin = $instance['skin'];
+		$uniqid = $instance['uniqid'];
 		$count = isset( $instance['count'] ) ? (int)$instance['count'] : 1;
 		$consumer_key = $mk_options['twitter_consumer_key'];
 		$consumer_secret = $mk_options['twitter_consumer_secret'];
 		$access_token = $mk_options['twitter_access_token'];
 		$access_token_secret = $mk_options['twitter_access_token_secret'];
-		$widget_id = isset($args['widget_id']) ? $args['widget_id'] : '5418a1b132d75';
+		$uniqid = isset($uniqid) ? $uniqid : $args['widget_id'];
 
 		if ( $count < 1 ) {
 			$count = 1;
@@ -39,13 +40,13 @@ if($username && $consumer_key && $consumer_secret && $access_token && $access_to
 		if ( $title )
 			echo $before_title . $title . $after_title;
 
-		$transName = 'mk_Jupiter_tweets_'.$widget_id;
-		$cacheTime = 10;
-		if(false === ($twitterData = get_transient($transName))) {
+		$transName = 'mk_jupiter_tweets_'.$uniqid;
 
-			$token = get_option('mk_twitter_token_'.$widget_id);
+		if (false === get_transient($transName)) {
 
-			delete_option('mk_twitter_token_'.$widget_id);
+			$token = get_option('mk_twitter_token_'.$uniqid);
+
+			delete_option('mk_twitter_token_'.$uniqid);
 			
 
 			if(!$token) {
@@ -70,7 +71,7 @@ if($username && $consumer_key && $consumer_secret && $access_token && $access_to
 				$keys = json_decode(wp_remote_retrieve_body($response));
 
 				if($keys) {
-					update_option('mk_twitter_token_'.$widget_id, $keys->access_token);
+					update_option('mk_twitter_token_'.$uniqid, $keys->access_token);
 					$token = $keys->access_token;
 				}
 			}
@@ -86,7 +87,7 @@ if($username && $consumer_key && $consumer_secret && $access_token && $access_to
 			$api_url = 'https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name='.$username.'&count='.$count;
 			$response = wp_remote_get($api_url, $args);
 
-			set_transient($transName, wp_remote_retrieve_body($response), 60 * $cacheTime);
+			set_transient($transName, wp_remote_retrieve_body($response), HOUR_IN_SECONDS);
 		}
 		@$twitter = json_decode(get_transient($transName), true);
 
@@ -94,11 +95,12 @@ if($username && $consumer_key && $consumer_secret && $access_token && $access_to
 		if($twitter && is_array($twitter)) {
 		?>
 
-					<div id="tweets_<?php echo $widget_id; ?>">
+					<div id="tweets_<?php echo $uniqid; ?>">
 						
 						<ul class="mk-tweet-list <?php echo $skin; ?>">
 							<?php foreach($twitter as $tweet): ?>
 							<li>
+								<svg class="mk-svg-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1664 1792"><path d="M1620 408q-67 98-162 167 1 14 1 42 0 130-38 259.5t-115.5 248.5-184.5 210.5-258 146-323 54.5q-271 0-496-145 35 4 78 4 225 0 401-138-105-2-188-64.5t-114-159.5q33 5 61 5 43 0 85-11-112-23-185.5-111.5t-73.5-205.5v-4q68 38 146 41-66-44-105-115t-39-154q0-88 44-163 121 149 294.5 238.5t371.5 99.5q-8-38-8-74 0-134 94.5-228.5t228.5-94.5q140 0 236 102 109-21 205-78-37 115-142 178 93-10 186-50z"/></svg>
 								<span class="tweet-text">
 								<?php
 								$latestTweet = $tweet['text'];
@@ -130,6 +132,7 @@ if($username && $consumer_key && $consumer_secret && $access_token && $access_to
 		$instance = $old_instance;
 		$instance['title'] = strip_tags( $new_instance['title'] );
 		$instance['username'] = strip_tags( $new_instance['username'] );
+		$instance['uniqid'] = $new_instance['uniqid'];
 		$instance['skin'] = $new_instance['skin'];
 		$instance['count'] = (int) $new_instance['count'];
 
@@ -141,6 +144,7 @@ if($username && $consumer_key && $consumer_secret && $access_token && $access_to
 		$username = isset( $instance['username'] ) ? esc_attr( $instance['username'] ) : '';
 		$skin = isset( $instance['skin'] ) ? esc_attr( $instance['skin'] ) : 'light';
 		$count = isset( $instance['count'] ) ? absint( $instance['count'] ) : 1;
+		$uniqid = uniqid();
 ?>
 		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e('Title:', 'mk_framework'); ?></label>
 		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $title; ?>" /></p>
@@ -157,6 +161,8 @@ if($username && $consumer_key && $consumer_secret && $access_token && $access_to
 		<p><label for="<?php echo $this->get_field_id( 'count' ); ?>"><?php _e('Count', 'mk_framework'); ?></label>
 		<input id="<?php echo $this->get_field_id( 'count' ); ?>" name="<?php echo $this->get_field_name( 'count' ); ?>" type="text" value="<?php echo $count; ?>" size="3" /></p>
 		<em><?php _e('First Please refer to Theme Options > Advanced > Twitter API and complete the process in order to authenticate.', 'mk_framework'); ?></em>
+
+		<input id="<?php echo $this->get_field_id( 'uniqid' ); ?>" name="<?php echo $this->get_field_name( 'uniqid' ); ?>" type="hidden" value="<?php echo $uniqid; ?>" size="3" />
 <?php
 
 	}

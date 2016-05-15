@@ -12,7 +12,7 @@ global $mk_options;
 
 ?>
 <div class="clearboth"></div>
-<div class="mk-single-content clear">
+<div class="mk-single-content clearfix">
 	<?php the_content(); ?>
 </div>
 

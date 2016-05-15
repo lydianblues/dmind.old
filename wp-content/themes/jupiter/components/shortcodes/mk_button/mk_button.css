@@ -9,6 +9,16 @@
 	font-size: 16px;
 }
 
+/* Align center buttons should have no sinlinges in row otherwise there will be zindex issue */
+.mk-button-container.text-center {
+	clear:both;
+}
+/* Full width button can not be floated */
+.mk-button-container.width-full {
+  width: 100%;
+  float: none;
+}
+
 /*Button Corner Style*/
 .mk-button--corner-pointed,
 .mk-button--corner-pointed .double-outline-inside {
@@ -74,8 +84,14 @@
 .mk-button--dimension-flat.text-color-light {
 	color: #ffffff;
 }
+.mk-button--dimension-flat.text-color-light .mk-svg-icon {
+	fill: #ffffff;
+}
 .mk-button--dimension-flat.text-color-dark {
 	color: #252525;
+}
+.mk-button--dimension-flat.text-color-dark .mk-svg-icon {
+	fill: #252525;
 }
 
 
@@ -175,6 +191,8 @@
 	background-color: #222222;
 	color: #ffffff;
 }
+.mk-button--dimension-double-outline.skin-dark .mk-svg-icon { fill: #fff !important; }
+
 .mk-button--dimension-double-outline.skin-dark,
 .mk-button--dimension-double-outline.skin-dark .double-outline-inside {
 	border-color: #222222;
@@ -184,11 +202,14 @@
 	background-color: #ffffff;
 	color: #222222;
 }
+.mk-button--dimension-double-outline.skin-dark:hover .mk-svg-icon { fill: #222 !important; }
 
 .mk-button--dimension-double-outline.skin-light{
 	background-color: #ffffff;
 	color: #222222;
 }
+.mk-button--dimension-double-outline.skin-light .mk-svg-icon { fill: #222 !important; }
+
 .mk-button--dimension-double-outline.skin-light,
 .mk-button--dimension-double-outline.skin-light .double-outline-inside {
 	border-color: #ffffff;
@@ -198,6 +219,7 @@
 	background-color: #222222;
 	color: #ffffff;
 }
+.mk-button--dimension-double-outline.skin-light:hover .mk-svg-icon { fill: #fff !important; }
 
 
 /*Button animation */
@@ -257,10 +279,13 @@
 }
 
 .mk-button--anim-vertical .mk-button .mk-button--icon {
-	display: block;
 	transform: translate3d(0, -100%, 0);
 	-webkit-transform: translate3d(0, -100%, 0);
 	margin: auto;
+}
+.mk-button--anim-vertical .mk-svg-icon {
+	display: inline-block;
+	vertical-align: middle;
 }
 .mk-button--anim-vertical .mk-button .mk-button--text {
 	position: absolute;
@@ -317,8 +342,6 @@ input[type="text"].mk-button::-moz-focus-inner {
   .mk-button-container .mk-button {
   	float: none;
   }
-}
-@media handheld, only screen and (max-width: 767px) {
   .ls-wp-container .mk-button {
     padding: 8px 10px;
     font-size: 10px;
@@ -328,6 +351,10 @@ input[type="text"].mk-button::-moz-focus-inner {
     margin-top: -3px;
     font-size: 10px;
   }
+  .mk-button-container{
+	  width: 100%;
+	  float: none;
+	}
 }
 @media handheld, only screen and (max-width: 550px) {
   .ls-wp-container .mk-button {
@@ -339,5 +366,10 @@ input[type="text"].mk-button::-moz-focus-inner {
     margin-top: -3px;
     font-size: 10px;
   }
+
 }
 
+.mk-button.skin-dark .mk-svg-icon, 
+.mk-button.skin-light:hover .mk-svg-icon { fill: #252525; }
+.mk-button.skin-light .mk-svg-icon, 
+.mk-button.skin-dark:hover .mk-svg-icon { fill: #ffffff; }

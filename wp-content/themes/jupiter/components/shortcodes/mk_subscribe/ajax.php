@@ -35,14 +35,14 @@ class Mk_Ajax_Subscribe
 			echo json_encode( 
 				array(
 					'action_status' => true,
-					'message' => $result['email'] . ' has been subscribed.'
+					'message' => $result['email'] . __(' has been subscribed.', 'mk_framework')
 				)
 			);
 		} else {
 			echo json_encode( 
 				array(
 					'action_status' => false,
-					'message' => isset($result['error']) ? $result['error'] : 'An error occured'
+					'message' => isset($result['error']) ? $result['error'] : __('An error occured', 'mk_framework')
 				)
 			);
 		}

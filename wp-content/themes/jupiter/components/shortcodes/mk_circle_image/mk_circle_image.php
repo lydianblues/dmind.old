@@ -6,9 +6,8 @@ $html = file_get_contents( $path . '/template.php' );
 $html = phpQuery::newDocument( $html );
 $id = Mk_Static_Files::shortcode_id();
 
-require_once (THEME_INCLUDES . "/bfi_thumb.php");
 
-$image_src = bfi_thumb( $src, array('width' => $image_diameter, 'height' => $image_diameter));
+$image_src = Mk_Image_Resize::resize_by_url($src, $image_diameter, $image_diameter, $crop = true, $dummy = true);
 
 $container = pq('.mk-circle-image');
 $containerHolder = $container->find('.mk-circle-image__holder');
@@ -29,7 +28,7 @@ $containerHolder->append('<img class="mk-circle-image__img">')
 		->find('.mk-circle-image__img')
 		->attr('title', $heading_title)
 		->attr('alt', $heading_title)
-		->attr('src', mk_image_generator($image_src, $image_diameter, $image_diameter));
+		->attr('src', $image_src);
 
 if($link) {
 	$containerHolder->find('.mk-circle-image__img')

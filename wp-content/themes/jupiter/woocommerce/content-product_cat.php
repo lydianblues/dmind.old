@@ -29,14 +29,12 @@ if ( empty( $woocommerce_loop['columns'] ) ){
 	$woocommerce_loop['columns'] = apply_filters( 'loop_shop_columns', 4 );
 }
 
-require_once (THEME_INCLUDES . "/bfi_thumb.php");
-
 $grid_width = $mk_options['grid_width'];
 $content_width = $mk_options['content_width'];
-$height = $mk_options['woo_loop_img_height'];
 
-$width = round($grid_width/4) - 38;
-$column_width = round($grid_width/4);
+$width = absint($grid_width/4) - 10;
+$height = $mk_options['woo_loop_img_height'];
+$column_width = absint($grid_width/4);
 
 ?>
 <article class="product-category product item mk--col mk--col--3-12" style="max-width:<?php echo $column_width; ?>px">
@@ -57,20 +55,9 @@ $column_width = round($grid_width/4);
 	        $small_thumbnail_size   = apply_filters( 'single_product_small_thumbnail_size', 'shop_catalog' );
 	        $thumbnail_id           = get_woocommerce_term_meta( $category->term_id, 'thumbnail_id', true  );
 
+	        $featured_image_src = Mk_Image_Resize::resize_by_id_adaptive( $thumbnail_id, 'crop', $width, $height, $crop = false, $dummy = true);
 
-	        if ( $thumbnail_id ) {
-
-	            $image = wp_get_attachment_image_src( $thumbnail_id, 'full');
-	            $image = bfi_thumb( $image[ 0 ], array('width' => $width*2, 'height' => $height*2));
-
-	        } else {
-
-	            $image = bfi_thumb(THEME_IMAGES . '/background.png', array('width' => $width*2, 'height' => $height*2));
-
-	        }
-
-	        if ( $image )
-	            echo '<img src="' . $image . '" alt="' . $category->name . '" width="'.($width*2).'" height="'.($height*2).'" />';
+	        echo '<img src="'.$featured_image_src['dummy'].'" '.$featured_image_src['data-set'].' alt="' . $category->name . '" width="'.$width.'" height="'.$height.'" />';
 		?>
 
 		<?php

@@ -32,13 +32,14 @@ if (!class_exists('Mk_Options_Framework_Fields_Toggle')) {
             $this->id = $value['id'];
             $this->default = parent::saved_default_value($this->id, $value['default']);
             $this->description = $value['desc'];
+            $this->dependency = isset($value['dependency']) ? $value['dependency'] : '';
         }
         
         public function render() {
             
             $output = '<span class="mk-toggle-button"><span class="toggle-handle"></span><input type="hidden" value="' . $this->default . '" name="' . $this->id . '" id="' . $this->id . '"/></span>';
             
-            return parent::field_wrapper($this->id, $this->name, $this->description, $output);
+            return parent::field_wrapper($this->id, $this->name, $this->description, $output, parent::dependency_builder($this->dependency));
         }
         
         /**

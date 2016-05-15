@@ -25,6 +25,11 @@ global $mk_options;
     $is_shortcode = $header_class['is_shortcode'];
     $is_transparent = (isset($view_params['is_transparent'])) ? ($view_params['is_transparent'] == 'false' ? false : is_header_transparent()) : is_header_transparent();
 
+    $show_logo = isset($view_params['logo']) ? $view_params['logo'] : false;
+    $seconday_show_logo = isset($view_params['burger_icon']) ? $view_params['burger_icon'] : false;
+    $show_cart = isset($view_params['woo_cart']) ? $view_params['woo_cart'] : false;
+    $search_icon = isset($view_params['search_icon']) ? $view_params['search_icon'] : false;
+
 ?> 
 <?php if(is_header_and_title_show($is_shortcode)) : ?>
     <header <?php echo get_header_json_data($is_shortcode, $header_class['sh_header_style']); ?> <?php echo mk_get_header_class($header_class); ?> <?php echo get_schema_markup('header'); ?>>
@@ -45,10 +50,19 @@ global $mk_options;
 
                             <div class="add-header-height">
                                 <?php
-                                    mk_get_header_view('global', 'secondary-menu-burger-icon', ['is_shortcode' => $is_shortcode]);
-                                    mk_get_header_view('master', 'checkout', ['header_style' => 3]);
-                                    mk_get_header_view('global', 'main-menu-burger-icon', ['header_style' => 3]);                            
-                                    mk_get_header_view('master', 'logo');
+                                    if($seconday_show_logo != 'false') {
+                                        mk_get_header_view('global', 'secondary-menu-burger-icon', ['is_shortcode' => $is_shortcode, 'header_style' => 3]);
+                                    }
+                                    
+                                    if($show_cart != 'false') { 
+                                        mk_get_header_view('master', 'checkout', ['header_style' => 3]);
+                                    }
+
+                                    mk_get_header_view('global', 'main-menu-burger-icon', ['header_style' => 3]);
+                                    
+                                    if($show_logo != 'false') {                             
+                                        mk_get_header_view('master', 'logo');
+                                    }
                                 ?>
                             </div>
 

@@ -15,12 +15,12 @@ switch($view_params['column']) {
 	}
 ?>
 
-<div class="mk-testimonial <?php echo $view_params['style']; ?>-style testimonial-column <?php echo $view_params['skin'].'-version '.$view_params['el_class']; ?> <?php echo $view_params['animation_css']; ?> clear" id="testimonial_<?php echo $view_params['id']; ?>">
+<div class="mk-testimonial <?php echo $view_params['style']; ?>-style testimonial-column <?php echo $view_params['skin'].'-version '.$view_params['el_class']; ?> <?php echo $view_params['animation_css']; ?> clearfix" id="testimonial_<?php echo $view_params['id']; ?>">
 	<?php if ( $view_params['style'] == 'simple' ) { ?>
 		<i class="mk-moon-quotes-left"></i>
 		<i class="mk-moon-quotes-right"></i>
 	<?php } ?>
-	<ul class="testimonial-ul clear">
+	<ul class="testimonial-ul clearfix">
 		<?php
 		$i = 0;
 		while ( $view_params['loop']->have_posts() ):
@@ -40,4 +40,5 @@ switch($view_params['column']) {
 
 		?>
 	</ul>
+	<div class="clearboth"></div>
 </div>

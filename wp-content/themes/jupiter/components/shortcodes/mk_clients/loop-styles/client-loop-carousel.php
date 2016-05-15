@@ -5,11 +5,11 @@ $slideshow_params[] = 'data-animation="slide"';
 $slideshow_params[] = 'data-easing="swing"';
 $slideshow_params[] = 'data-direction="horizontal"';
 $slideshow_params[] = 'data-smoothHeight="false"';
-$slideshow_params[] = 'data-slideshowSpeed="' . ($view_params['autoplay'] == 'false') ? 100000 : 4000 . '"';
+$slideshow_params[] = 'data-slideshowSpeed="' . (($view_params['autoplay'] == 'false') ? 100000 : 4000) . '"';
 $slideshow_params[] = 'data-animationSpeed="500"';
 $slideshow_params[] = 'data-pauseOnHover="true"';
 $slideshow_params[] = 'data-controlNav="false"';
-$slideshow_params[] = 'data-directionNav="' . ($view_params['autoplay'] == 'false') ? 'true' : 'false' . '"';
+$slideshow_params[] = 'data-directionNav="' . (($view_params['autoplay'] == 'false') ? 'true' : 'false') . '"';
 $slideshow_params[] = 'data-isCarousel="true"';
 $slideshow_params[] = 'data-itemWidth="180"';
 $slideshow_params[] = 'data-itemMargin="0"';
@@ -34,13 +34,14 @@ $class[] = $view_params['el_class'];
 		while ($view_params['query']->have_posts()):
 		    $view_params['query']->the_post();
 		    $url = get_post_meta(get_the_ID() , '_url', true);
-		    $image_src_array = wp_get_attachment_image_src(get_post_thumbnail_id() , 'full', true);
+
+		    $image_src = Mk_Image_Resize::resize_by_id( get_post_thumbnail_id(), 'full', false, false, $crop = false, $dummy = true);
 		    ?>
 		    <li>
 			    <?php 
 			    echo !empty($url) ? '<a target="' . $view_params['target'] . '" href="' . $url . '">' : '';
 			    ?>
-			    <div title="<?php the_title(); ?>" class="client-logo" style="background-image:url(<?php echo mk_image_generator($image_src_array[0], false, false); ?>); <?php echo $view_params['height']; ?>"></div>
+			    <div title="<?php the_title_attribute(); ?>" class="client-logo" style="background-image:url(<?php echo $image_src; ?>); <?php echo $view_params['height']; ?>"></div>
 			    <?php 
 			    echo !empty($url) ? '</a>' : '';
 			    ?>

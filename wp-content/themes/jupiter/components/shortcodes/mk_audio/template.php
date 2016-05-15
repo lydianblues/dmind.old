@@ -1,4 +1,4 @@
-<div  class="mk-audio-section" <?php get_schema_markup('audio'); ?>
+<div  class="mk-audio-section" <?php echo get_schema_markup('audio'); ?>
     <img class="audio-thumb" alt="" title="" src="">
     <div class="jp-jplayer mk-blog-audio" data-mp3="" data-ogg=""></div>
     <div class="jp-audio">

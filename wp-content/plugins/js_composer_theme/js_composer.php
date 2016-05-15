@@ -3,7 +3,7 @@
 Plugin Name: WPBakery Visual Composer (Artbees Modified Version)
 Plugin URI: http://vc.wpbakery.com
 Description: Drag and drop page builder for WordPress. Take full control over your WordPress site, build any layout you can imagine – no programming knowledge required.
-Version: 4.9.2
+Version: 4.11.3
 Author: Michael M - WPBakery.com
 Author URI: http://wpbakery.com
 */
@@ -19,10 +19,11 @@ if ( ! defined( 'WPB_VC_VERSION' ) ) {
 	/**
 	 *
 	 */
-	define( 'WPB_VC_VERSION', '4.9.2' );
+	define( 'WPB_VC_VERSION', '4.11.3' );
 }
 
 define( 'MODIFIED_VC_ACTIVATED', true );
+
 
 /**
  * Vc starts here. Manager sets mode, adds required wp hooks and loads required object of structure
@@ -57,16 +58,14 @@ class Vc_Manager {
 	 * @var bool
 	 */
 	private $is_as_theme = false;
+
+	private $custom_user_parent_templates_dir = false;
+
 	/**
 	 * Vc is network plugin or not.
 	 * @since 4.2
 	 * @var bool
 	 */
-
-
-
-	private $custom_user_parent_templates_dir = false;
-
 	private $is_network_plugin = null;
 	/**
 	 * List of paths.
@@ -272,6 +271,14 @@ class Vc_Manager {
 		do_action( 'vc_after_mapping' ); // VC ACTION
 		// Load && Map shortcodes from Automapper.
 		vc_automapper()->map();
+		if ( vc_user_access()
+			->wpAny( 'manage_options' )
+			->part( 'settings' )
+			->can( 'vc-updater-tab' )
+			->get()
+		) {
+			vc_license()->setupReminder();
+		}
 		do_action( 'vc_after_init' );
 	}
 
@@ -636,12 +643,7 @@ class Vc_Manager {
 	 * @param bool $value
 	 */
 	public function disableUpdater( $value = true ) {
-		if ( 'administrator' !== vc_user_access()
-				->part( 'settings' )
-				->getRoleName()
-		) {
-			$this->disable_updater = $value;
-		}
+		$this->disable_updater = $value;
 	}
 
 	/**
@@ -899,7 +901,6 @@ class Vc_Manager {
 	public function assetUrl( $file ) {
 		return preg_replace( '/\s/', '%20', plugins_url( $this->path( 'ASSETS_DIR_NAME', $file ), __FILE__ ) );
 	}
-
 	public function setCustomUserShortcodesParentTemplateDir( $dir ) {
             preg_replace( '/\/$/', '', $dir );
             $this->custom_user_parent_templates_dir = $dir;
@@ -909,6 +910,7 @@ class Vc_Manager {
 
 	          return $this->custom_user_parent_templates_dir !== false ? $this->custom_user_parent_templates_dir . '/' . $template : locate_template( 'vc_templates' . '/' . $template );
 	}
+
 }
 
 /**

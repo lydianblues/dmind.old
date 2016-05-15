@@ -1911,7 +1911,7 @@
 		"mk-icon-ils" => "f20b",
 		"mk-icon-meanpath" => "f20c",
 	);
-	echo '<style>'.mk_enqueue_font_icons().'</style>';
+    echo '<style>'.mk_enqueue_font_icons().'</style>';
 	echo '<div class="wrap icon-library-page">';
 	echo '<h2>' . __('Theme Icon Library', 'mk_framework') . '</h2>';
 	echo '<p>' . __('Search and find your desired icon and paste its <strong>class name</strong> to the <strong>text field</strong> provided in shortcode options. You will need character code for custom list shortcode!', 'mk_framework') . '</p>';
@@ -1928,6 +1928,7 @@
 		echo '<li class="class-name" title="Class name"><span title="Copy and paste this into icon font shortcode">Class Name:</span>' . $key . '</li>';
 		echo '<li class="character-code" title="Character code"><span>Character Code:</span>' . $value . '</li>';
 		echo '</ul>';
+
 		echo '</li>';
 	}
 	echo '</ul>';

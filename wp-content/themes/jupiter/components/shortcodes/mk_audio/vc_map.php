@@ -25,7 +25,7 @@
                 "heading" => __("Upload A Thumbnail for this audio", "mk_framework") ,
                 "param_name" => "thumb",
                 "value" => "",
-                "description" => __("It will automatically cropped to 50x50 pixels.", "mk_framework")
+                "description" => __("It will automatically cropped to the correct size needed for the container.", "mk_framework")
             ) ,
             array(
                 "type" => "textfield",

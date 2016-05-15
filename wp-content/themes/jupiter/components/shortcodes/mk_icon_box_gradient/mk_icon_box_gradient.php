@@ -27,7 +27,7 @@ $box_container->find( '.icon' )
 if ( $animation != '' ) {
 	$box_container->addClass(get_viewport_animation_class($animation));
 }
-// svg 
+// svg
 $box_container->find( '.icon' )
 				->find( 'svg' );
 
@@ -119,7 +119,7 @@ if( $color_style == 'gradient_color' ){
 		}
 
 		Mk_Static_Files::addCSS('
-			#iconBox-gr-'.$id.' .icon svg path {
+			#iconBox-gr-'.$id.' .icon svg:not(.mk-svg-icon) path {
 		    	fill:url(#lineargradient-'.$id.');
 		   }
 		', $id); 
@@ -136,17 +136,17 @@ if( $color_style == 'gradient_color' ){
 				->attr( 'stop-color', $grandient_color_to );
 
 		Mk_Static_Files::addCSS('
-			#iconBox-gr-'.$id.' .icon svg path {
+			#iconBox-gr-'.$id.' .icon svg:not(.mk-svg-icon) path {
 		    	fill:url(#radialgradient-'.$id.');
 		   }
 		', $id);
 	}
 }else if($color_style == 'single_color') {
 	Mk_Static_Files::addCSS('
-		#iconBox-gr-'.$id.' .icon svg path {
+		#iconBox-gr-'.$id.' .icon svg:not(.mk-svg-icon) path {
 	    	fill: '.$container_color.';
 	   }
-	   #iconBox-gr-'.$id.' .icon svg:hover path {
+	   #iconBox-gr-'.$id.' .icon svg:not(.mk-svg-icon):hover path {
 			fill: '.$container_hover_color.'
 		}
 	', $id);

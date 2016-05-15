@@ -1,35 +1,48 @@
 <?php
 	vc_map(array(
-		"name" => __("Blog & Portfolio Showcase", "mk_framework"),
+		"name" => __("Blog Showcase", "mk_framework"),
 		"base" => "mk_blog_showcase",
 		'icon' => 'icon-mk-blog-portfolio-showcase vc_mk_element-icon',
 		"category" => __('Loops', 'mk_framework'),
-		'description' => __( 'Showcase your portfolio and blog posts.', 'mk_framework' ),
+		'description' => __( 'Showcase your blog posts.', 'mk_framework' ),
 		"params" => array(
 		    array(
-		        "type" => "multiselect",
-		        "heading" => __("Select Specific Categories", "mk_framework"),
-		        "param_name" => "cat",
-		        "options" => mk_get_category_enteries('category', 50),
-		        "value" => '',
-		        "description" => __("", "mk_framework")
-		    ),
-		    array(
-		        "type" => "multiselect",
-		        "heading" => __("Select Specific Posts", "mk_framework"),
-		        "param_name" => "posts",
-		        "options" => mk_get_post_enteries('post', 40),
-		        "value" => '',
-		        "description" => __("", "mk_framework")
-		    ),
-		    array(
-		        "type" => "multiselect",
-		        "heading" => __("Select Specific Authors", "mk_framework"),
-		        "param_name" => "author",
-		        "options" => mk_get_authors(50),
-		        "value" => '',
-		        "description" => __("", "mk_framework")
-		    ),
+	            'type'        => 'autocomplete',
+	            'heading'     => __( 'Select specific Categories', 'mk_framework' ),
+	            'param_name'  => 'cat',
+	            'settings' => array(
+	                                'multiple' => true,
+	                                'sortable' => true,
+	                                'unique_values' => true,
+	                                // In UI show results except selected. NB! You should manually check values in backend
+	                            ),
+	            'description' => __( 'Search for category name to get autocomplete suggestions', 'mk_framework' ),
+	        ),
+	        array(
+	            'type'        => 'autocomplete',
+	            'heading'     => __( 'Select specific Posts', 'mk_framework' ),
+	            'param_name'  => 'posts',
+	            'settings' => array(
+	                                'multiple' => true,
+	                                'sortable' => true,
+	                                'unique_values' => true,
+	                                // In UI show results except selected. NB! You should manually check values in backend
+	                            ),
+	            'description' => __( 'Search for post ID or post title to get autocomplete suggestions', 'mk_framework' ),
+	        ),
+
+	        array(
+	            'type'        => 'autocomplete',
+	            'heading'     => __( 'Select specific Authors', 'mk_framework' ),
+	            'param_name'  => 'author',
+	            'settings' => array(
+	                                'multiple' => true,
+	                                'sortable' => true,
+	                                'unique_values' => true,
+	                                // In UI show results except selected. NB! You should manually check values in backend
+	                            ),
+	            'description' => __( 'Search for user ID, Username, Email Address to get autocomplete suggestions', 'mk_framework' ),
+	        ),
 		    array(
 		        "type" => "range",
 		        "heading" => __("Offset", "mk_framework"),

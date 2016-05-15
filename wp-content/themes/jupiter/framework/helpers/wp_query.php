@@ -22,7 +22,6 @@ if (!function_exists('mk_wp_query')) {
             'post_type' => $post_type,
             'posts_per_page' => (int)$count,
             'suppress_filters' => 0,
-            'post_status' => 'publish'
         );
         
         if ($post_type == 'attachment') {
@@ -44,6 +43,18 @@ if (!function_exists('mk_wp_query')) {
                     'field' => 'slug',
                     'terms' => explode(',', $categories)
                 )
+            );
+        }
+
+
+        // Adds exclude option for blog loops post format
+        if(!empty($exclude_post_format)) {
+            $query['meta_query'] = array(
+                array(
+                    'key' => '_single_post_type',
+                    'value' => explode(',',$exclude_post_format),
+                    'compare' => 'NOT IN'
+                ) ,
             );
         }
         
@@ -93,6 +104,10 @@ if (!function_exists('mk_wp_query')) {
 
         if (isset($day) && !empty($day)) {
             $query['day'] = $day;
+        }
+
+        if (isset($tag) && !empty($tag)) {
+            $query['tag'] = $tag;
         }
 
         if(isset($paged) && !empty($paged)) {

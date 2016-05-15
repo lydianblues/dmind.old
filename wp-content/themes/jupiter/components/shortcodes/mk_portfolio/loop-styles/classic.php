@@ -61,17 +61,14 @@
 <article id="<?php the_ID(); ?>" class="mk-portfolio-item mk-portfolio-classic-item <?php echo implode(' ', $item_classes); ?>">
     <div class="item-holder">
         <?php
-            if ($view_params['image_size'] == 'crop') {
-                $image_src_array = wp_get_attachment_image_src(get_post_thumbnail_id() , 'full', true);
-                $image_output_src = mk_image_generator($image_src_array[0], $width, $view_params['height']);
-            } 
-            else {
-                $image_src_array = wp_get_attachment_image_src(get_post_thumbnail_id() , $view_params['image_size'], true);
-                $image_output_src = $image_src_array[0];
-            }
+
+            $featured_image_src = Mk_Image_Resize::resize_by_id_adaptive( get_post_thumbnail_id(), $view_params['image_size'], $width, $view_params['height'], $crop = false, $dummy = true);
+
+            $image_size_atts = Mk_Image_Resize::get_image_dimension_attr(get_post_thumbnail_id(), $view_params['image_size'], $width, $view_params['height']);
+
         ?>
-        <div class="featured-image">
-            <img alt="<?php the_title(); ?>" title="<?php the_title(); ?>" src="<?php echo $image_output_src; ?>"  />
+        <div class="featured-image js-taphover">
+            <img alt="<?php the_title(); ?>" title="<?php the_title(); ?>" src="<?php echo $featured_image_src['dummy']; ?>" <?php echo $featured_image_src['data-set']; ?> width="<?php echo esc_attr($image_size_atts['width']); ?>" height="<?php echo esc_attr($image_size_atts['height']); ?>"  />
             <div class="image-hover-overlay"></div>
             <?php
                 echo mk_get_shortcode_view('mk_portfolio', 'components/permalink-icon', true, ['permalink_icon' => $view_params['permalink_icon'],'target' => $view_params['target']]);

@@ -11,6 +11,7 @@ $video_overlay =  get_post_meta( $post->ID, '_video_color_overlay', true );
 $overlay_opacity =  get_post_meta( $post->ID, '_overlay_opacity', true ) ? get_post_meta( $post->ID, '_overlay_opacity', true ) : 0.3;
 
 $slide_image =  get_post_meta( $post->ID, '_slide_image', true );
+$slide_image_portrait =  get_post_meta( $post->ID, '_slide_image_portrait', true );
 $slide_bg_color =  get_post_meta( $post->ID, '_bg_color', true );
 $cover_bg =  get_post_meta( $post->ID, '_cover', true );
 
@@ -26,8 +27,10 @@ $caption_custom_color = get_post_meta($post->ID, '_custom_caption_color', true) 
 
 $btn_1_txt =  get_post_meta( $post->ID, '_btn_1_txt', true );
 $btn_1_url =  get_post_meta( $post->ID, '_btn_1_url', true );
+$btn_1_target =  get_post_meta( $post->ID, '_btn_1_target', true );
 $btn_2_txt =  get_post_meta( $post->ID, '_btn_2_txt', true );
 $btn_2_url =  get_post_meta( $post->ID, '_btn_2_url', true );
+$btn_2_target =  get_post_meta( $post->ID, '_btn_2_target', true );
 
 $caption_skin =  get_post_meta( $post->ID, '_caption_skin', true );
 
@@ -108,7 +111,7 @@ $btn1_atts[] = 'dimension="'.$btn_1_style.'"';
 $btn1_atts[] = 'corner_style="'.$btn_1_corner_style.'"';
 $btn1_atts[] = 'size="large"';
 $btn1_atts[] = 'url="'.$btn_1_url.'"';
-$btn1_atts[] = 'target="_self"';
+$btn1_atts[] = 'target="'.$btn_1_target.'"';
 $btn1_atts[] = 'align="none"';
 $btn1_atts[] = 'margin_top="0"';
 $btn1_atts[] = 'margin_bottom="0"';
@@ -137,8 +140,8 @@ if($btn_1_style == 'flat'){
 $btn2_atts[] = 'dimension="'.$btn_2_style.'"';
 $btn2_atts[] = 'corner_style="'.$btn_2_corner_style.'"';
 $btn2_atts[] = 'size="large"';
-$btn2_atts[] = 'url="'.$btn_2_url.'"'; 
-$btn2_atts[] = 'target="_self"';
+$btn2_atts[] = 'url="'.$btn_2_url.'"';
+$btn2_atts[] = 'target="'.$btn_2_target.'"';
 $btn2_atts[] = 'align="none"';
 $btn2_atts[] = 'margin_top="0"';
 $btn2_atts[] = 'margin_bottom="0"';
@@ -163,3 +166,10 @@ if($btn_2_style == 'flat'){
        $btn1_atts[] = 'outline_hover_color="'.$outline2_hover_color.'"';
    }
 }
+
+
+$gradient_layer_atts = array(
+	'gradient_layer' => get_post_meta( $post->ID, '_gradient_layer', true ) ? get_post_meta( $post->ID, '_gradient_layer', true ) : 'false',
+	'gr_start'       => get_post_meta( $post->ID, '_gr_start', true ) ? get_post_meta( $post->ID, '_gr_start', true ) : '',
+    'gr_end'         => get_post_meta( $post->ID, '_gr_end', true ) ? get_post_meta( $post->ID, '_gr_end', true ) : '',
+);

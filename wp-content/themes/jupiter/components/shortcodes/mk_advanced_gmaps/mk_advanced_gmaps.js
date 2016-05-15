@@ -36,28 +36,33 @@
             map.setTilt(45);
 
             for (i = 0; i < data.places.length; i++) {
-                position = new google.maps.LatLng(data.places[i].latitude, data.places[i].longitude);
+                if(data.places[i].latitude && data.places[i].longitude) {
+                    position = new google.maps.LatLng(data.places[i].latitude, data.places[i].longitude);
 
-                bounds.extend(position);
+                    bounds.extend(position);
 
-                marker = new google.maps.Marker({
-                    position: position,
-                    map: map,
-                    title: data.places[i].address,
-                    icon: data.icon
-                });
+                    marker = new google.maps.Marker({
+                        position: position,
+                        map: map,
+                        title: data.places[i].address,
+                        icon: (data.places[i].marker) ? data.places[i].marker : data.icon
+                    });
 
 
-                google.maps.event.addListener(marker, 'click', (function(marker, i) {
-                    return function() { 
-                        if(data.places[i].address.length > 1) {
-                            infoWindow.setContent('<div class="info_content"><p>'+ data.places[i].address +'</p></div>');
-                        }
-                        infoWindow.open(map, marker);
-                    };
-                })(marker, i));
+                    google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                        return function() { 
+                            if(data.places[i].address && data.places[i].address.length > 1) {
+                                infoWindow.setContent('<div class="info_content"><p>'+ data.places[i].address +'</p></div>');
+                                infoWindow.open(map, marker);
+                            } else {
+                                infoWindow.setContent('');
+                                infoWindow.close();
+                            }
+                        };
+                    })(marker, i));
 
-                map.fitBounds(bounds);
+                    map.fitBounds(bounds);
+                }
             }
 
             var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
@@ -99,4 +104,5 @@
         };
 
     };
+
 })(jQuery);

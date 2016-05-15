@@ -2,7 +2,7 @@
 global $mk_options;
 extract( shortcode_atts( array(
 	'title' 		=> '',
-	'step' 			=> 2,
+	'step' 			=> 4,
 	'hover_color' 	=> $mk_options['skin_color'],
 	'icon_1' 		=> '',
 	'title_1' 		=> '',

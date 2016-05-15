@@ -121,14 +121,17 @@
   display: none;
 }
 .mk-blog-modern-item.blockquote-post-type .blog-blockquote-content:before {
+  content: "\f10d";
+}
+.mk-blog-modern-item.blockquote-post-type .blog-blockquote-content .mk-svg-icon {
   position: absolute;
   top: 60px;
   left: 100px;
   display: block;
-  color: #dddddd;
-  color: rgba(0, 0, 0, 0.1);
-  content: "\f10d";
-  font-size: 48px;
+  fill: #dddddd;
+  fill: rgba(0, 0, 0, 0.1);
+  height: 48px!important;
+  width: 48px!important;
 }
 .mk-blog-modern-item.blockquote-post-type .blog-blockquote-content footer {
   text-align: right;
@@ -217,6 +220,7 @@
   line-height: 40px;
   padding-left: 100px;
   padding-top: 50px;
+  word-wrap: break-word;
 }
 .mk-blog-modern-item.twitter-post-type .blog-twitter-content a {
   color: #55acee;

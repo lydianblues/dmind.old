@@ -4,7 +4,7 @@ if (!defined('THEME_FRAMEWORK')) exit('No direct script access allowed');
 /**
  * This file is responsible from all dynamic css and js proccess and minification
  *
- * @author      Bob Ulusoy
+ * @author      Bob Ulusoy & Uğur Mirza ZEYREK 
  * @copyright   Artbees LTD (c)
  * @link        http://artbees.net
  * @since       Version 1.0
@@ -50,6 +50,11 @@ class Mk_Static_Files
             add_action('wp_enqueue_scripts', array(&$this,
                 'process_global_styles'
             ));
+            
+            add_action('wp_enqueue_scripts', array(&$this,
+                'enqueue_default_stylesheet'
+            ), 30);
+            
             $global_assets = self::GLOBAL_ASSETS;
             add_action('wp_footer', array(&$this,
                 $global_assets
@@ -101,12 +106,11 @@ class Mk_Static_Files
             return true;
         }
     }
-    
+
+
     /**
-     * Append shortcode css files into app_dynamic_styles global variable.
-     * @param string $app_styles
-     * @param int $id
-     *
+     * Append shortcode css files into app_dynamic_styles global variable
+     * @return mixed
      */
     static function shortcode_id() {
         global $mk_shortcode_order;
@@ -230,27 +234,20 @@ class Mk_Static_Files
             update_option($filename . "_sha1", $sha1_concat_string);
         }
     }
-    
+
+
     /**
      * Store Assets which is already defined in merged_assets array
      *
-     * Usage Example:
-     *
-     * $minify = true;
-     * $store_options["js"] = "combined.min.js";
-     * $store_options["css"] = "combined.min.css";
-     * $merged_assets = array("shortcode1","shortcode2");
-     *
-     * @param bool|true $minify
-     * @param array $store_options
      * @param array $merged_assets
-     *
+     * @param bool  $minify
      * @author      Uğur Mirza ZEYREK
      * @copyright   Artbees LTD (c)
      * @link        http://artbees.net
      * @since       Version 5.0
+     * @last_update Version 5.1
      */
-    static function DynamicGlobalAssets($minify = true, $merged_assets = array()) {
+    static function DynamicGlobalAssets($merged_assets = array(),$minify = true) {
         global $wp_filesystem;
         global $dynamic_global_components_css;
         global $dynamic_global_components_js;
@@ -260,8 +257,8 @@ class Mk_Static_Files
             WP_Filesystem();
         }
         
-        $dynamic_global_components_css = self::ConcatenateAssetsByExtension($minify, "css", $merged_assets);
-        $dynamic_global_components_js = self::ConcatenateAssetsByExtension($minify, "js", $merged_assets);
+        $dynamic_global_components_css = self::ConcatenateAssetsByExtension($merged_assets, "css", $minify);
+        $dynamic_global_components_js = self::ConcatenateAssetsByExtension($merged_assets, "js", $minify);
     }
     
     /**
@@ -274,16 +271,16 @@ class Mk_Static_Files
      * $store_options["css"] = "combined.min.css";
      * $merged_assets = array("shortcode1","shortcode2");
      *
-     * @param bool|true $minify
-     * @param array $store_options
      * @param array $merged_assets
+     * @param array $store_options
+     * @param bool|true $minify
      *
      * @author      Uğur Mirza ZEYREK
      * @copyright   Artbees LTD (c)
      * @link        http://artbees.net
      * @since       Version 5.0
      */
-    static function StoreGlobalAssets($minify = true, $store_options = array() , $merged_assets = array()) {
+    static function StoreGlobalAssets($merged_assets = array(), $store_options = array() , $minify = true) {
         global $wp_filesystem;
         if (empty($wp_filesystem)) {
             require_once (ABSPATH . '/wp-admin/includes/file.php');
@@ -294,7 +291,7 @@ class Mk_Static_Files
         update_option('global_assets_filename', $components_filename, true);
         $merged_assets = array_unique($merged_assets);
         foreach ($store_options as $extension => $filename) {
-            $concat_string = self::ConcatenateAssetsByExtension($minify, $extension, $merged_assets);
+            $concat_string = self::ConcatenateAssetsByExtension($merged_assets, $extension, $minify);
             $upload_dir = self::get_global_asset_upload_folder("directory");
             self::createPath($upload_dir);
             $sha1_concat_string = sha1($concat_string);
@@ -345,11 +342,12 @@ class Mk_Static_Files
         self::StoreAsset($folder, $filename, $string);
         update_option("theme_options", $filename, true);
     }
-    
+
+
     /**
-     * Stores the app_global_dynamic_styles into the mk_assets/theme_options-time.css file
+     * Deletes the the mk_assets/theme_options-***.css file
      *
-     * @param bool|true $minify
+     * @return bool
      */
     public function DeleteThemeOptionStyles() {
         $filename = get_option('theme_options');
@@ -373,18 +371,18 @@ class Mk_Static_Files
      * $extension = "js";
      * $merged_assets = array("shortcode1","shortcode2");
      *
-     * @param bool|true $minify
-     * @param $extension
      * @param $merged_assets
+     * @param $extension
+     * @param bool|true $minify
      * @return string
      *
      * @author      Ugur Mirza ZEYREK
      * @copyright   Artbees LTD (c)
      * @link        http://artbees.net
      * @since       Version 5.0.5
+     * @last_update Version 5.1
      */
-    static function ConcatenateAssetsByExtension($minify = true, $extension, $merged_assets) {
-
+    static function ConcatenateAssetsByExtension($merged_assets, $extension, $minify = true) {
         global $wp_filesystem;
         if (empty($wp_filesystem)) {
             require_once (ABSPATH . '/wp-admin/includes/file.php');
@@ -395,61 +393,74 @@ class Mk_Static_Files
         global $dynamic_global_components_css;
         global $dynamic_global_components_js;
         $file_contents = "";
+
         if ($extension != "css" and $extension != "js") {
             return $file_contents;
         }
+
         $wp_remote_get_file_body = "";
 
         if (is_array($merged_assets) && !empty($merged_assets)) {
            $merged_assets = array_unique($merged_assets);
            foreach ($merged_assets as $asset) {
+               $transient_name = "mk_assets_".$asset."_".$extension;
                $filename = "/components/shortcodes/" . $asset . "/" . $asset . "." . $extension;
-               if (file_exists(get_template_directory() . $filename)) {
+               $wp_file_body = get_transient($transient_name);
 
-                   $wp_get_file_body = $wp_filesystem->get_contents(get_template_directory().$filename);
-                   if($wp_get_file_body == false ) {
-                        $base_dir = mk_base_url();
-                        $get_template_directory_uri = get_template_directory_uri();
+               if(!$wp_file_body or $mk_dev) {
 
-                        if(is_numeric(strpos($get_template_directory_uri, $base_dir))) {
-                            $get_template_directory_uri = $get_template_directory_uri;
-                        } else {
-                            $get_template_directory_uri = $base_dir . $get_template_directory_uri;
-                        }
+                   if (file_exists(get_template_directory() . $filename)) {
 
-                       $file_url = $get_template_directory_uri . $filename;
-                       $wp_remote_get_file = wp_remote_get($file_url);
+                       $wp_get_file_body = $wp_filesystem->get_contents(get_template_directory().$filename);
 
-                       if(is_array($wp_remote_get_file) and array_key_exists('body', $wp_remote_get_file)) {
+                           if($wp_get_file_body == false ) {
+                                $base_dir = mk_base_url();
+                                $get_template_directory_uri = get_template_directory_uri();
 
-                           $wp_remote_get_file_body = $wp_remote_get_file['body'];
+                                if(is_numeric(strpos($get_template_directory_uri, $base_dir))) {
+                                    $get_template_directory_uri = $get_template_directory_uri;
+                                } else {
+                                    $get_template_directory_uri = $base_dir . $get_template_directory_uri;
+                                }
 
-                        } else if (is_numeric(strpos($file_url, "https://"))) {
+                               $file_url = $get_template_directory_uri . $filename;
+                               $wp_remote_get_file = wp_remote_get($file_url);
 
-                           $file_url = str_replace("https://","http://",$file_url);
-                           $wp_remote_get_file = wp_remote_get($file_url);
+                               if(is_array($wp_remote_get_file) and array_key_exists('body', $wp_remote_get_file)) {
 
-                           if(!is_array($wp_remote_get_file) or !array_key_exists('body', $wp_remote_get_file)) {
-                               echo "SSL connection error. Code: ds-ConcatenateAssetsByExtension";
-                               die;
+                                   $wp_remote_get_file_body = $wp_remote_get_file['body'];
+
+                                } else if (is_numeric(strpos($file_url, "https://"))) {
+
+                                   $file_url = str_replace("https://","http://",$file_url);
+                                   $wp_remote_get_file = wp_remote_get($file_url);
+
+                                   if(!is_array($wp_remote_get_file) or !array_key_exists('body', $wp_remote_get_file)) {
+                                       echo "SSL connection error. Code: ds-ConcatenateAssetsByExtension";
+                                       die;
+                                   }
+
+                                   $wp_remote_get_file_body = $wp_remote_get_file['body'];
+
+                               }
+                               $wp_file_body = $wp_remote_get_file_body;
+                               unset($wp_remote_get_file);
+                               unset($wp_remote_get_file_body);
+                           } else {
+                               $wp_file_body = $wp_get_file_body;
+                               unset($wp_get_file_body);
                            }
-
-                           $wp_remote_get_file_body = $wp_remote_get_file['body'];
-
-                       }
-                       $wp_file_body = $wp_remote_get_file_body;
-                       unset($wp_remote_get_file);
-                       unset($wp_remote_get_file_body);
-                   } else {
-                       $wp_file_body = $wp_get_file_body;
-                       unset($wp_get_file_body);
                    }
-                       $file_contents.= $wp_file_body . " \n ";
-                       unset($wp_file_body);
+
+                   $wp_file_body = ($wp_file_body) ? $wp_file_body : " /* ".$asset." */ ";
+                   set_transient($transient_name, $wp_file_body, 30*60*60);
                }
+
+               $file_contents.= $wp_file_body . " \n ";
+               unset($wp_file_body);
            }
-       }
-       
+        }
+
         if (($minify && $mk_dev != true && $mk_options['minify-' . $extension] != 'false') or (isset($mk_options['pagespeed-optimization']) and $mk_options['pagespeed-optimization'] != 'false')) {
             $file_contents = self::minify_string($file_contents, $extension);
         }
@@ -459,6 +470,7 @@ class Mk_Static_Files
     
     /**
      * Enqueues Global Asset Javascript File
+     *
      * @author      Uğur Mirza ZEYREK
      * @copyright   Artbees LTD (c)
      * @link        http://artbees.net
@@ -482,6 +494,7 @@ class Mk_Static_Files
     
     /**
      * Enqueues Global Asset CSS File
+     *
      * @author      Uğur Mirza ZEYREK
      * @copyright   Artbees LTD (c)
      * @link        http://artbees.net
@@ -507,6 +520,7 @@ class Mk_Static_Files
     
     /**
      * Enqueues Theme Options CSS File
+     *
      * @author      Uğur Mirza ZEYREK
      * @copyright   Artbees LTD (c)
      * @link        http://artbees.net
@@ -529,11 +543,14 @@ class Mk_Static_Files
             }
         }
     }
+
+    function enqueue_default_stylesheet()
+    {
+        wp_enqueue_style('mk-style', get_stylesheet_uri() , false, false, 'all');
+    }
     
     function process_global_styles() {
         
-        // theme style file should be loaded first
-        wp_enqueue_style('mk-style', get_stylesheet_uri() , false, false, 'all');
         
         // declaring the globals
         global $mk_options, $app_local_dynamic_styles;
@@ -543,7 +560,7 @@ class Mk_Static_Files
         
         $output = $app_local_dynamic_styles;
         
-        $output.= mk_enqueue_font_icons();
+        $output.= mk_enqueue_woocommerce_font_icons();
         
         $output.= $this->insert_shortcode_styles(global_get_post_id());
         
@@ -565,11 +582,11 @@ class Mk_Static_Files
      * Takes shortcode assets from global. Creates static .js and .css files. Combines and minifies assets into those files.
      * merge array with saved assets then update option
      *
-     * @author      Uğur Mirza ZEYREK
+     * @author      Uğur Mirza ZEYREK & Bob Ulusoy
      * @copyright   Artbees LTD (c)
      * @link        http://artbees.net
      * @since       Version 5.0
-     * @last_update     Version 5.0.8
+     * @last_update     Version 5.1
      */
     
     static function global_assets() {
@@ -583,7 +600,7 @@ class Mk_Static_Files
         $saved_assets = array();
         $merged_assets = array();
         $global_assets_diff = array();
-        $path = get_stylesheet_directory() . "/components/shortcodes/";
+        $path = get_template_directory() . "/components/shortcodes/";
         $defined_constants = get_defined_constants(true);
 
         if ($mk_dev) {
@@ -620,7 +637,7 @@ class Mk_Static_Files
         
         if (sizeof($global_assets_diff) or $mk_dev) {
             $global_assets_diff = array_unique($global_assets_diff);
-            self::DynamicGlobalAssets(true, $global_assets_diff);
+            self::DynamicGlobalAssets($global_assets_diff);
             $insert_arrays = array();
             $current_time = current_time('mysql');
             foreach ($global_assets_diff as $asset) {
@@ -641,7 +658,7 @@ class Mk_Static_Files
             $store_options["css"] = $components_filename . ".min.css";
             update_option('global_assets_filename', "");
             self::delete_global_assets(false);
-            self::StoreGlobalAssets(true, $store_options, $merged_assets);
+            self::StoreGlobalAssets($merged_assets, $store_options, true);
             update_option('global_assets_timestamp', time());
         }
     }
@@ -899,7 +916,6 @@ class Mk_Static_Files
     /**
      * Deletes the mk_critical_styles transient cache.
      *
-     * @param bool|true $clear_db
      * @return bool
      *
      * @author      Uğur Mirza ZEYREK
@@ -920,6 +936,54 @@ class Mk_Static_Files
            ";
         $wpdb->query($sql);
 
+    }
+
+    /**
+     * Deletes the mk_assets transient cache
+     *
+     * @return bool
+     *
+     * @author      Uğur Mirza ZEYREK
+     * @copyright   Artbees LTD (c)
+     * @link        http://artbees.net
+     * @since       Version 5.1
+     * @last_update Version 5.1
+     */
+    static function delete_transient_mk_assets()
+    {
+
+        global $wpdb;
+        $sql = "
+               DELETE
+               FROM {$wpdb->options}
+               WHERE option_name like '\_transient\_timeout\_mk\_assets\_%'
+               OR option_name like '\_transient\_mk\_assets\_%'
+           ";
+        $wpdb->query($sql);
+
+    }
+
+    /**
+     * Compares mk_assets transient versions with current theme version.
+     * If versions are equal returns true if not returns false
+     *
+     * @return bool
+     *
+     * @author      Uğur Mirza ZEYREK
+     * @copyright   Artbees LTD (c)
+     * @link        http://artbees.net
+     * @since       Version 5.1
+     * @last_update Version 5.1
+     */
+    static function check_transient_mk_assets_versions()
+    {
+        if(get_option('mk_jupiter_theme_current_version') != get_option('mk_assets_version')) {
+            self::delete_transient_mk_assets();
+            update_option("mk_assets_version", get_option('mk_jupiter_theme_current_version'));
+            return false;
+        } else {
+            return true;
+        }
     }
 
     /**
@@ -967,7 +1031,7 @@ class Mk_Static_Files
                 } else {
                     
                     // TODO: remove those after testing on live
-                    echo "<!-- not deleted $assets[$i] " . strpos($assets[$i], "components") . " --> ";
+                    //echo "<!-- not deleted $assets[$i] " . strpos($assets[$i], "components") . " --> ";
                 }
 
             } else {
@@ -1058,8 +1122,14 @@ class Mk_Static_Files
     
     /**
      * A method to insert data into this table with the $args that will be passed to the method
+     *
      * @param array $row_array
      * @return false|int
+     *
+     * @author      Uğur Mirza ZEYREK
+     * @copyright   Artbees LTD (c)
+     * @link        http://artbees.net
+     * @since       Version 5.0
      */
     static function jupiter_insert_row($row_array = array() , $jupiter_table_name = null) {
         global $wpdb;
@@ -1087,6 +1157,7 @@ class Mk_Static_Files
      *  wp_insert_rows($insert_arrays);
      *
      * @param array $row_arrays
+     * @param string $jupiter_table_name
      * @return false|int
      *
      * @author      Uğur Mirza ZEYREK
@@ -1188,6 +1259,7 @@ class Mk_Static_Files
      * A method to retrieve table row based on a column data (in params this column should be passed, eg. $column_name, $match_value )
      * @param $column_name
      * @param $match_value
+     * @param $selected_columns
      * @return bool
      *
      * @author      Uğur Mirza ZEYREK
@@ -1226,6 +1298,7 @@ class Mk_Static_Files
      * A method to retrieve table row, based on a column data (in params this column should be passed, eg. $column_name, $match_value )
      * @param $column_name
      * @param $match_value
+     * @param $selected_columns
      * @return bool
      *
      * @author      Uğur Mirza ZEYREK
@@ -1283,7 +1356,7 @@ class Mk_Static_Files
     /**
      * If the file is not exists or deleted successfully returns true.
      * When something goes wrong returns false.
-     * @param $path
+     * @param $filename
      * @return bool
      *
      * @author      Uğur Mirza ZEYREK
@@ -1379,7 +1452,7 @@ class Mk_Static_Files
             // 2) Find <script>s in html
             preg_match_all('#'.$catch_assets_regex.'#ims', $content, $matches);
             if(!$matches) {
-                return "regex error. code: ds1138. please cancel google pagespeed optimization.";
+                return "regex error. code: ds1138. please disable google pagespeed optimization.";
             }
             $moved_scripts_count = count($matches[0]);
             foreach ($matches[0] as $key=>$value) {
@@ -1408,7 +1481,6 @@ class Mk_Static_Files
             $time_duration = time() - $time_start;
 
             return $output. " <!-- moved $moved_scripts_count assets & minified html in ".$time_duration." seconds -->";
-            //     return $output;
         } else {
             return $output;
         }
@@ -1534,4 +1606,3 @@ class Mk_Static_Files
     }
 }
 new Mk_Static_Files();
-

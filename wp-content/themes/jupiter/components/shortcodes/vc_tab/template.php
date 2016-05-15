@@ -6,8 +6,9 @@
 		<?php } ?>
 		<?php echo $title ?>
 	</div>
-
-	<?php echo wpb_js_remove_wpautop( $content ) ?>
+	<div class="mk-tabs-pane-content">
+		<?php echo wpb_js_remove_wpautop( $content ) ?>
+	</div>	
 
 	<div class="clearboth"></div>
 </div>

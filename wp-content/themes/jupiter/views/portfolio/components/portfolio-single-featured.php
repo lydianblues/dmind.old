@@ -11,16 +11,27 @@
 
 	switch ($post_type) {
 		case 'image': 
-			require_once (THEME_INCLUDES . "/bfi_thumb.php");
-			$image_src_array = wp_get_attachment_image_src( get_post_thumbnail_id(), 'full', true );
-			$image_src = bfi_thumb( $image_src_array[ 0 ], array('width' => $image_width, 'height' => $image_height));
-			?>
-			<div class="featured-image">
-				<a class="mk-lightbox" data-fancybox-group="portfolio-single-featured" title="<?php the_title(); ?>" href="<?php echo $image_src_array[0]; ?>">
-					<img src="<?php echo mk_image_generator($image_src, $image_width, $image_height); ?>" alt="<?php the_title(); ?>" title="<?php the_title(); ?>"  height="<?php echo $image_height; ?>" width="<?php echo $image_width; ?>" itemprop="image" />
-				</a>
-			</div>
-			<?php 	
+			$image_src_array = wp_get_attachment_image_src( get_post_thumbnail_id(), 'full');
+
+			if(!Mk_Image_Resize::is_default_thumb($image_src_array[ 0 ])) {
+
+				$featured_image_src = Mk_Image_Resize::resize_by_id_adaptive(get_post_thumbnail_id(), 'crop', $image_width, $image_height, $crop = false, $dummy = false);
+
+				?>
+				<div class="featured-image">
+					<a class="mk-lightbox" data-fancybox-group="portfolio-single-featured" title="<?php the_title_attribute(); ?>" href="<?php echo $image_src_array[0]; ?>">
+					   <img src="<?php echo $featured_image_src['dummy']; ?>" 
+							<?php echo $featured_image_src['data-set']; ?>
+							alt="<?php the_title_attribute(); ?>" 
+							title="<?php the_title_attribute(); ?>"  
+							height="<?php echo $image_height; ?>" 
+							width="<?php echo $image_width; ?>" 
+							itemprop="image" />
+					</a>
+				</div>
+				<?php 
+
+			}
 			break;
 
 

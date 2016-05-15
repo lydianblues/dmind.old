@@ -34,6 +34,12 @@
   padding: 10px 14px;
   border:1px solid #444;
   border-radius: 5px;
+  position: relative;
+}
+.version-holder img {
+  position: absolute;
+  top:-8px;
+  right:-6px;
 }
 
 .cp-header {
@@ -66,7 +72,7 @@
   display: inline-block;
 }
 .cp-tabs-holder a svg {
-  margin-bottom: -3px;
+  margin:0 5px -3px 0;
 }
 
 .cp-tabs-holder li.current a{
@@ -94,7 +100,8 @@
   margin-bottom: 30px;
 }
 
-.cp-pane a {
+.cp-pane a,
+.cp-update-notice a{
   text-decoration: none;
   color:#489dd8;
 }
@@ -650,13 +657,13 @@
     padding: 10px;
 }
 .option-holder label {
-    width:120px;
+    width:180px;
     display: inline-block;
+    font-size: 14px;
 }
 
 .option-holder input[type="text"],
 .option-holder input[type="number"] {
-    padding: 7px 8px;
     border-radius: 4px;
 }
 .option-holder input[type="checkbox"] {
@@ -845,4 +852,93 @@ table.status_table tr:nth-child(2n) td {
   line-height: 26px;
   font-size: 16px;
 }
+
+
+.cp-update-notice {
+    background: #f7dfd9 url(../images/x-mark.svg) 15px 15px no-repeat;
+    border-radius: 4px;
+    border: 1px solid #f55d3a;
+    padding: 15px 15px 15px 46px;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+.cp-update-notice .close-button {
+  margin-left:25px;
+}
+
+
+
+
+/* Announcements *
+=========================*/
+
+.cp-announcement-box li{
+  padding:1.4em;
+  margin-bottom: 25px;
+  background: #f7f7f7;
+  box-shadow:1px 1px 2px rgba(0,0,0,0.2);
+}
+
+.cp-announcement-title {
+  font-size: 18px;
+  margin: 0 0 15px;
+  color: #222222;
+}
+
+.cp-announcement-date {
+  font-size: 12px;
+  color: #666666;
+  margin-bottom: 30px;
+}
+
+.cp-all-announcements-link {
+  float: right;
+  font-weight: bold;
+}
+
+
+/* Updates *
+=========================*/
+.cp-update-box {
+  border:1px solid #d9d9d9;
+  border-radius: 3px;
+}
+
+.cp-update-box-inner {
+  padding: 30px;
+}
+
+.cp-update-box-title {
+  display: block;
+  background:#f5f5f5;
+  border-bottom: 1px solid #d9d9d9;
+  font-size: 16px;
+  padding: 15px 20px;
+  font-weight: bold;
+  color: #222222;
+}
+
+.cp-update-box-version {
+  font-weight: bold;
+  color: #222222;
+  font-size: 14px;
+}
+
+.cp-update-box-release-date {
+  font-size: 12px;
+  color: #666666;
+  margin-left: 20px;
+}
+
+.cp-update-box-content {
+  margin: 25px 0;
+  font-size: 13px;
+}
+
+
+
+
+
+
+
 
