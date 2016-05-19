@@ -28,7 +28,6 @@ class Mk_Options_Framework
     function render() {
         
         $saved_options = get_option(THEME_OPTIONS);
-        $theme_data =  wp_get_theme();
         ?>
         <div class="mk-options-container">
         <form action="" type="post" name="masterkey_settings" id="masterkey_settings">
@@ -79,7 +78,7 @@ class Mk_Options_Framework
                     </g>
                     </svg>
         
-        <span title="Theme Version" class="mk-theme-version"><strong>MasterKey</strong> version <?php echo $theme_data['Version']; ?></span></span>
+        <span title="Theme Version" class="mk-theme-version"><strong>MasterKey</strong> version <?php echo get_option('mk_jupiter_theme_current_version'); ?></span></span>
         
         <ul class="mk-main-navigator">
         

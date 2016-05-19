@@ -4,8 +4,6 @@ $update_class = new Mk_Wp_Theme_Update();
 
 $check_for_new_version = $update_class->check_latest_version();
 
-$header_data = wp_get_theme();
-
 $pages = array(
 	'theme-announcements' => __('Announcements', 'mk_framework'),
 	THEME_NAME => __('Register Product', 'mk_framework'),
@@ -24,7 +22,7 @@ $pages = array(
 		<span><?php echo THEME_NAME; ?> <?php _e('Control Panel', 'mk_framework'); ?></span>
 	</span>
 	<span class="version-holder" data-new-version="<?php echo $check_for_new_version; ?>">
-		<?php _e('Version:', 'mk_framework'); ?> <?php echo $header_data['Version']; ?>
+		<?php _e('Version:', 'mk_framework'); ?> <?php echo get_option('mk_jupiter_theme_current_version'); ?>
 		<?php if(!empty($check_for_new_version)) { ?>
 			<img src="<?php echo THEME_CONTROL_PANEL_ASSETS; ?>/images/x-mark.svg" />
 		<?php } ?>

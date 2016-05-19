@@ -21,6 +21,10 @@ class Mk_Image_Resize
     {
 
         require_once(THEME_INCLUDES . "/bfi_thumb.php");
+
+        add_action('after_setup_theme', array(&$this,
+            'add_custom_image_sizes'
+        ));
         
     }
     
@@ -460,6 +464,101 @@ class Mk_Image_Resize
         if(!count($ref)) return false;
         else return $html_output;
     }
+
+
+
+
+    /**
+     * Adding custom image sizes for theme builtin sizes.
+     *
+     */
+    public function add_custom_image_sizes() {
+
+        add_image_size('image-size-150x150', 150, 150, true);
+        add_image_size('image-size-550x550', 550, 550, true);
+        add_image_size('image-size-550x550-@2x', 1100, 1100, true);
+
+        add_image_size('photo-album-thumbnail-small', 150, 100, true);
+        add_image_size('photo-album-thumbnail-square', 500, 500, true);
+        
+        add_image_size('employees-large', 500, 500, true);
+        add_image_size('employees-small', 225, 225, true);
+        
+        add_image_size('blog-magazine-thumbnail', 200, 200, true);
+        add_image_size('blog-magazine-thumbnail-@2x', 400, 400, true);
+        
+        add_image_size('woocommerce-recent-carousel', 330, 260, false);
+        
+        add_image_size('blog-carousel', 245, 180, true);
+        add_image_size('blog-carousel-@2x', 490, 360, true);
+        add_image_size('blog-showcase', 260, 180, true);
+        add_image_size('blog-showcase-@2x', 520, 360, true);
+        
+        add_image_size('portfolio-x_x', 300, 300, true);
+        add_image_size('portfolio-two_x_x', 600, 300, true);
+        add_image_size('portfolio-four_x_x', 1200, 300, true);
+        add_image_size('portfolio-x_two_x', 300, 600, true);
+        add_image_size('portfolio-two_x_two_x', 600, 600, true);
+        add_image_size('portfolio-three_x_two_x', 900, 600, true);
+        add_image_size('portfolio-three_x_x', 900, 300, true);
+        add_image_size('portfolio-four_x_two_x', 1200, 600, true);
+
+
+        add_image_size('portfolio-x_x-@2x', 600, 600, true);
+        add_image_size('portfolio-two_x_x-@2x', 1200, 600, true);
+        add_image_size('portfolio-four_x_x-@2x', 2400, 600, true);
+        add_image_size('portfolio-x_two_x-@2x', 600, 1200, true);
+        add_image_size('portfolio-two_x_two_x-@2x', 1200, 1200, true);
+        add_image_size('portfolio-three_x_x-@2x', 1800, 600, true);
+        add_image_size('portfolio-three_x_two_x-@2x', 1800, 1200, true);
+        add_image_size('portfolio-four_x_two_x-@2x', 2400, 1200, true); 
+
+        add_image_size('portfolio-four_x_x-@mobile', 736, 184, true);
+        add_image_size('portfolio-three_x_x-@mobile', 736, 245, true);
+        add_image_size('portfolio-three_x_two_x-@mobile', 736, 490, true);
+        add_image_size('portfolio-four_x_two_x-@mobile', 736, 368, true);
+
+        
+        add_image_size('landscape-desktop', 1920, 1280, false);
+        add_image_size('landscape-tablet',  1024, 768,  false); // iPad
+        add_image_size('landscape-mobile',  736,  414,  false); // iPhone 6 Plus
+
+        add_image_size('portrait-desktop', 1280, 1920, false);
+        add_image_size('portrait-tablet',  768, 1024,  false); // iPad
+        add_image_size('portrait-mobile',  414,  736,  false); // iPhone 6 Plus
+
+
+        $image_sizes = get_option(IMAGE_SIZE_OPTION);
+
+        if (!empty($image_sizes)) {
+            foreach ($image_sizes as $size) {
+
+                $is_valid_width = (!empty(absint($size['size_w'])) && absint($size['size_w']) > 0) ? true : false;
+                $is_valid_height = (!empty(absint($size['size_h'])) && absint($size['size_w']) > 0) ? true : false;
+
+                if(!$is_valid_width || !$is_valid_height) {
+                    continue;
+                }
+
+                $crop = (isset($size['size_c']) && $size['size_c'] == 'on') ? true : false;
+                $retina = (isset($size['size_r']) && $size['size_r'] == 'on') ? true : false;
+                add_image_size($size['size_n'], absint($size['size_w']), absint($size['size_h']), $crop);
+
+                // Retina compatible image size
+                add_image_size(($size['size_n'] . '-@2x'), absint($size['size_w'] * 2), absint($size['size_h'] * 2), $crop);                    
+
+                // Generate mobile size image
+                $ratio_factor = $size['size_w'] / $size['size_h'];
+                $mobile_width = ($size['size_w'] > 736) ? 736 : false;
+                $mobile_height = ($mobile_width) ? $mobile_width / $ratio_factor  : false;
+
+                if($mobile_width) {
+                    add_image_size(($size['size_n'] . '-@mobile'), absint($mobile_width), absint($mobile_height), $crop);
+                }
+            }
+        }
+    }
+
     
 }
 

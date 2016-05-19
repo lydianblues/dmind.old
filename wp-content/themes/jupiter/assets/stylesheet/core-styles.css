@@ -11209,111 +11209,6 @@ Pagination Styles
 .mk-portfolio-item.light-zoomin-hover .featured-image:hover .icons-holder {
   opacity: 1;
 }
-/* Progress button
-/**************************************************/
-.mk-progress-button {
-  position: relative;
-  display: inline-block;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-}
-.mk-progress-button[disabled],
-.mk-progress-button[disabled].state-loading {
-  cursor: default;
-}
-.mk-progress-button .mk-progress-button-content {
-  position: relative;
-  display: block;
-}
-.mk-progress-button .state-success,
-.mk-progress-button .state-error {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  margin-top: -8px;
-  display: block;
-  width: 20px;
-  height: 20px;
-  opacity: 0;
-}
-.mk-progress-button.medium .state-success,
-.mk-progress-button.medium .state-error {
-  right: 20px;
-  font-size: 14px;
-}
-.notransition {
-  transition: none !important;
-}
-.mk-progress-button .mk-progress-inner {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 5px;
-  width: 0;
-  transform-origin: bottom left;
-  -o-transform-origin: bottom left;
-  -ms-transform-origin: bottom left;
-  -moz-transform-origin: bottom left;
-  -webkit-transform-origin: bottom left;
-}
-.outline-btn-dark .mk-progress-inner,
-.flat-dimension .mk-progress-inner,
-.outline-btn-light:hover .mk-progress-inner,
-.mk-contact-button .mk-progress-inner {
-  background: rgba(0, 0, 0, 0.5);
-}
-.outline-btn-light .mk-progress-inner,
-.outline-btn-dark:hover .mk-progress-inner,
-.mk-contact-button:hover .mk-progress-inner {
-  background: rgba(255, 255, 255, 0.5);
-}
-.mk-progress-button[data-horizontal] .mk-progress-inner {
-  bottom: 0;
-  width: 0;
-  height: 5px;
-  transition: width 0.3s, opacity 0.3s;
-  transform-origin: bottom left;
-  -webkit-transform-origin: bottom left;
-  -moz-transform-origin: bottom left;
-  -ms-transform-origin: bottom left;
-  -o-transform-origin: bottom left;
-}
-.mk-progress-button[data-vertical] .mk-progress-inner {
-  bottom: 0;
-  width: 100%;
-  height: 0;
-  transition: height 0.3s, opacity 0.3s;
-}
-/* move-up */
-/* ====================== */
-.mk-progress-button[data-style="move-up"] {
-  overflow: visible;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-}
-.mk-progress-button[data-style="move-up"] .mk-progress-button-content {
-  transition: -webkit-transform 0.2s;
-  transition: transform 0.2s;
-  transition: transform 0.2s, -webkit-transform 0.2s;
-}
-.mk-progress-button[data-style="move-up"] .mk-progress {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-.mk-progress-button[data-style="move-up"].state-loading .mk-progress-button-content {
-  -webkit-transform: translateY(-10px);
-  -ms-transform: translateY(-10px);
-      transform: translateY(-10px);
-}
-
-/*Button Border*/
-.s_contact.corporate-style .mk-progress-button,
-.s_contact.classic-style .mk-progress-button {
-  border: 0 ;
-}
 .mk-section-preloader {
   position: absolute;
   width: 100%;
@@ -11430,6 +11325,111 @@ Pagination Styles
 
 @keyframes mk-loading-indicator--spin {
   100% { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
+}
+/* Progress button
+/**************************************************/
+.mk-progress-button {
+  position: relative;
+  display: inline-block;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+.mk-progress-button[disabled],
+.mk-progress-button[disabled].state-loading {
+  cursor: default;
+}
+.mk-progress-button .mk-progress-button-content {
+  position: relative;
+  display: block;
+}
+.mk-progress-button .state-success,
+.mk-progress-button .state-error {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  margin-top: -8px;
+  display: block;
+  width: 20px;
+  height: 20px;
+  opacity: 0;
+}
+.mk-progress-button.medium .state-success,
+.mk-progress-button.medium .state-error {
+  right: 20px;
+  font-size: 14px;
+}
+.notransition {
+  transition: none !important;
+}
+.mk-progress-button .mk-progress-inner {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 5px;
+  width: 0;
+  transform-origin: bottom left;
+  -o-transform-origin: bottom left;
+  -ms-transform-origin: bottom left;
+  -moz-transform-origin: bottom left;
+  -webkit-transform-origin: bottom left;
+}
+.outline-btn-dark .mk-progress-inner,
+.flat-dimension .mk-progress-inner,
+.outline-btn-light:hover .mk-progress-inner,
+.mk-contact-button .mk-progress-inner {
+  background: rgba(0, 0, 0, 0.5);
+}
+.outline-btn-light .mk-progress-inner,
+.outline-btn-dark:hover .mk-progress-inner,
+.mk-contact-button:hover .mk-progress-inner {
+  background: rgba(255, 255, 255, 0.5);
+}
+.mk-progress-button[data-horizontal] .mk-progress-inner {
+  bottom: 0;
+  width: 0;
+  height: 5px;
+  transition: width 0.3s, opacity 0.3s;
+  transform-origin: bottom left;
+  -webkit-transform-origin: bottom left;
+  -moz-transform-origin: bottom left;
+  -ms-transform-origin: bottom left;
+  -o-transform-origin: bottom left;
+}
+.mk-progress-button[data-vertical] .mk-progress-inner {
+  bottom: 0;
+  width: 100%;
+  height: 0;
+  transition: height 0.3s, opacity 0.3s;
+}
+/* move-up */
+/* ====================== */
+.mk-progress-button[data-style="move-up"] {
+  overflow: visible;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+.mk-progress-button[data-style="move-up"] .mk-progress-button-content {
+  transition: -webkit-transform 0.2s;
+  transition: transform 0.2s;
+  transition: transform 0.2s, -webkit-transform 0.2s;
+}
+.mk-progress-button[data-style="move-up"] .mk-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.mk-progress-button[data-style="move-up"].state-loading .mk-progress-button-content {
+  -webkit-transform: translateY(-10px);
+  -ms-transform: translateY(-10px);
+      transform: translateY(-10px);
+}
+
+/*Button Border*/
+.s_contact.corporate-style .mk-progress-button,
+.s_contact.classic-style .mk-progress-button {
+  border: 0 ;
 }
 .mk-section-anchor {
   position: absolute;
