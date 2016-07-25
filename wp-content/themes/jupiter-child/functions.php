@@ -1,4 +1,11 @@
 <?php
+
+require_once get_stylesheet_directory() . '/login_controls.php';
+require_once get_stylesheet_directory() . '/registration_shortcodes.php';
+require_once get_stylesheet_directory() . '/payment_shortcodes.php';
+require_once get_stylesheet_directory() . '/group_shortcodes.php';
+require_once get_stylesheet_directory() . '/single_shortcodes.php';
+
 /**
 * Register our sidebars and widgetized areas.
 *

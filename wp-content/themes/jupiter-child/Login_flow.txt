@@ -1,0 +1,23 @@
+
+Page Title: "Create Your Account"
+Shortcodes: [clean-login-register]
+Permalink: /register-create
+Redirect: /register-login
+
+Page Title: "Edit Account"
+Shortcodes: [register-edit-controls], [clean-login-edit]
+Permalink: /register-edit
+Redirect: /register-login/?updated=success
+Added Buttons: "Continue Registration"
+
+Page Title: "Login or Register"
+Shortcodes: [register-login-controls], [clean-login]
+Permalink: /register-login
+Added Buttons: "Continue Registration"
+
+Page Title: "Recover Your Password"
+Shortcodes: [clean-login-restore]
+Permalink: /register-recover
+Redirect: /register-edit
+
+	

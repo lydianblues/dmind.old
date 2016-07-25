@@ -1,0 +1,8 @@
+The new theme should really be called DMind instead of Jupiter child.  If we
+switched the theme to DMind, which you could easly do in wp-admin, a lot of
+theme settings would be lost. When ready do,
+
+        remove the symbolic link dmind
+	mv jupiter-child dmind
+	edit dmind/style.css to name the theme dmind
+	edit all the necessary settings in wp-admin

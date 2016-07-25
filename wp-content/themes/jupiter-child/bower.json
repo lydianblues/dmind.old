@@ -1,0 +1,24 @@
+{
+  "name": "niroga",
+  "homepage": "https://github.com/lydianblues/dmind",
+  "authors": [
+    "lydianblues <lydianblues@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "bootstrap-select": "^1.10.0",
+    "braintree-web": "^2.24.0",
+    "bootstrap-validator": "^0.10.2"
+  }
+}

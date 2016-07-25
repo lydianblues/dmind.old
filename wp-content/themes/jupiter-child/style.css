@@ -1,12 +1,21 @@
 /*
 Theme Name:     Jupiter Child Theme
-Theme URI: 		http://themeforest.net/user/artbees
+Theme URI: 	http://themeforest.net/user/artbees
 Description:    Child theme for the Jupiter theme
 Author:         Your name here
-Theme URI: 		http://themeforest.net/user/artbees
+Theme URI: 	http://themeforest.net/user/artbees
 Template:       jupiter
 Version:        5.0.10
 */
+
+/*=====================================================================*
+ *                    Stuff from old Jupiter Child                     *
+ *                                                                     *
+ * Adapted From:                                                       *
+ * http://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal2 *
+ *  This block of CSS applies to ALL modals.  Do not change it.        *
+ *                                                                     *
+ *=====================================================================*/
 
 .page-title { font-size:38px; color:#cc0000; }
 
@@ -76,4 +85,163 @@ Version:        5.0.10
 	table.niroga-event-summary td:nth-child(6) {
 		display:none;
 	}
+}
+
+/* Used on the main registration page.
+ * Bootstrap uses @screen-sm-min (768px),
+ * so we also use that value.
+ */
+@media (max-width: 768px) {
+    #course-training-selector > div:nth-child(1) {
+        padding-bottom: 1em;
+    }
+}
+
+#finalize-row {
+    margin-bottom: 1.5em;
+}
+
+#attending-warning {
+    padding-bottom: 1em;
+    font-weight: bold;
+}
+
+/* Registration Summary Panel */
+#registration-summary {
+    padding:1em;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0.25em;
+    position:relative;
+}
+#registration-summary div.row {
+    margin-bottom: 0.5em;
+    width: 100%;
+    margin-left: -0.25em;
+}
+#registration-summary div.row:nth-child(odd) {
+    background-color: #eff;
+}
+#registration-summary div.row:nth-child(even) {
+    background-color: #ffe;
+}
+
+/* Notice about the student discount on group and single pages */
+#discount-notice {
+    color: cadetblue;
+}
+#discount-notice:hover {
+    color:orange;
+}
+#discount-notice-col {
+    padding-top: 0.25em;
+}
+
+/*=====================================================================*
+ *                             Modal Dialogue                          *
+ *                                                                     *
+ * Adapted From:                                                       *
+ * http://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal2 *
+ *  This block of CSS applies to ALL modals.  Do not change it.        *
+ *                                                                     *
+ *=====================================================================*/
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.close {
+    color: black;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-header {
+    padding: 2px 16px;
+    /* background-color: #5cb85c; */
+    background-color: #cfc;
+    color: white;
+}
+
+.modal-body {padding: 2px 16px;}
+
+.modal-footer {
+    padding: 2px 16px;
+    /* background-color: #5cb85c; */
+    background-color: #cfc;
+    color: white;
+}
+
+/*====================================================================*
+ *                             Payment Modals                         *
+ *====================================================================*/
+
+#retry-payment-modal .modal-content {
+    max-width: 30em;
+}
+#retry-payment-modal {
+     margin-top: 20em;
+}
+
+#success-payment-modal .modal-content {
+    max-width: 30em;
+}
+#success-payment-modal {
+    margin-top: 20em;
+}
+
+/*====================================================================*
+ *                            Student Modal                           *
+ *====================================================================*/
+
+#student-notice-modal .modal-content {
+    margin-top: 15em;
+    height: 30em;
+    overflow: auto;
 }
