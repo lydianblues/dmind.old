@@ -1,14 +1,14 @@
 <?php
 /**
  * @package Clean_Login
- * @version 1.7.3
+ * @version 1.7.5
  */
 /*
 Plugin Name: Clean Login
 Plugin URI: http://cleanlogin.codection.com
 Description: Responsive Frontend Login and Registration plugin. A plugin for displaying login, register, editor and restore password forms through shortcodes. [clean-login] [clean-login-edit] [clean-login-register] [clean-login-restore]
 Author: codection
-Version: 1.7.3
+Version: 1.7.5
 Author URI: https://codection.com
 */
 
@@ -1148,8 +1148,8 @@ class clean_login_widget extends WP_Widget {
 		$restore_url = get_option( 'cl_restore_url', '');
 		// Output stars
 		if ( is_user_logged_in() ) {
-			global $current_user;
-			get_currentuserinfo();
+			$current_user = wp_get_current_user();
+			
 			echo get_avatar( $current_user->ID, 96 );
 			if ( $current_user->user_firstname == '')
 				echo "<h1 class='widget-title'>$current_user->user_login</h1>";

@@ -1,6 +1,5 @@
 <?php
-	global $current_user;
-	get_currentuserinfo();
+	$current_user = wp_get_current_user();
 	$edit_url = get_option( 'cl_edit_url', '');
 	$show_user_information = get_option( 'cl_hideuser' ) == 'on' ? false : true;
 ?>
